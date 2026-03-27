@@ -33,6 +33,7 @@ const volunteer = defineCollection({
   type: 'data',
   schema: z.object({
     title: z.string(),
+    titleEn: z.string(),
     organization: z.string(),
     period: z.string(),
     description: z.string(),
@@ -46,6 +47,7 @@ const hobbies = defineCollection({
   type: 'data',
   schema: z.object({
     name: z.string(),
+    nameEn: z.string(),
     description: z.string(),
     descriptionEn: z.string(),
     icon: z.string(),

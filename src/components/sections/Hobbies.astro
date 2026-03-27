@@ -30,7 +30,7 @@ const hobbiesItems = allHobbies
             {hobby.icon}
           </div>
           <div class="hobby-card__content">
-            <h3 class="hobby-card__name">{hobby.name}</h3>
+            <h3 class="hobby-card__name">{lang === 'en' ? hobby.nameEn : hobby.name}</h3>
             <p class="hobby-card__desc">
               {lang === 'en' ? hobby.descriptionEn : hobby.description}
             </p>
