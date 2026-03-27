@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="800" height="450">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#050a14"/>
+      <stop offset="100%" stop-color="#0d1525"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#3b82f6"/>
+      <stop offset="100%" stop-color="#0ea5e9"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Fond -->
+  <rect width="800" height="450" fill="url(#bg)"/>
+
+  <!-- Orbe décoratif -->
+  <circle cx="650" cy="80" r="180" fill="rgba(59,130,246,0.08)"/>
+  <circle cx="100" cy="380" r="120" fill="rgba(14,165,233,0.06)"/>
+
+  <!-- Fenêtre navigateur simulée -->
+  <rect x="60" y="60" width="480" height="300" rx="12" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+  <!-- Barre navigateur -->
+  <rect x="60" y="60" width="480" height="36" rx="12" fill="rgba(255,255,255,0.06)"/>
+  <circle cx="88" cy="78" r="5" fill="rgba(239,68,68,0.6)"/>
+  <circle cx="106" cy="78" r="5" fill="rgba(234,179,8,0.6)"/>
+  <circle cx="124" cy="78" r="5" fill="rgba(34,197,94,0.6)"/>
+  <!-- URL bar -->
+  <rect x="148" y="68" width="280" height="20" rx="10" fill="rgba(255,255,255,0.05)"/>
+  <text x="158" y="82" font-family="monospace" font-size="10" fill="rgba(255,255,255,0.3)">kucra-agency.fr</text>
+
+  <!-- Contenu hero simulé -->
+  <rect x="80" y="116" width="200" height="14" rx="7" fill="url(#accent)" opacity="0.8"/>
+  <rect x="80" y="140" width="280" height="10" rx="5" fill="rgba(255,255,255,0.15)"/>
+  <rect x="80" y="158" width="240" height="10" rx="5" fill="rgba(255,255,255,0.1)"/>
+  <rect x="80" y="176" width="260" height="10" rx="5" fill="rgba(255,255,255,0.08)"/>
+
+  <!-- Boutons CTA -->
+  <rect x="80" y="200" width="100" height="32" rx="8" fill="url(#accent)"/>
+  <text x="130" y="221" font-family="sans-serif" font-size="12" fill="white" text-anchor="middle">Découvrir</text>
+  <rect x="192" y="200" width="100" height="32" rx="8" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+  <text x="242" y="221" font-family="sans-serif" font-size="12" fill="rgba(255,255,255,0.7)" text-anchor="middle">Contact</text>
+
+  <!-- Cards flottantes -->
+  <rect x="320" y="116" width="200" height="120" rx="10" fill="rgba(255,255,255,0.05)" stroke="rgba(59,130,246,0.2)" stroke-width="1"/>
+  <rect x="336" y="132" width="80" height="8" rx="4" fill="rgba(59,130,246,0.5)"/>
+  <rect x="336" y="148" width="160" height="6" rx="3" fill="rgba(255,255,255,0.1)"/>
+  <rect x="336" y="162" width="140" height="6" rx="3" fill="rgba(255,255,255,0.08)"/>
+  <rect x="336" y="176" width="150" height="6" rx="3" fill="rgba(255,255,255,0.06)"/>
+  <rect x="336" y="200" width="60" height="24" rx="6" fill="rgba(59,130,246,0.3)"/>
+
+  <!-- Navigation latérale avec icônes -->
+  <rect x="560" y="60" width="200" height="300" rx="12" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+  <text x="580" y="88" font-family="sans-serif" font-size="11" font-weight="700" fill="rgba(255,255,255,0.5)" text-transform="uppercase">Menu</text>
+  <rect x="576" y="98" width="120" height="1" fill="rgba(255,255,255,0.06)"/>
+  <rect x="576" y="110" width="80" height="8" rx="4" fill="rgba(255,255,255,0.12)"/>
+  <rect x="576" y="128" width="100" height="8" rx="4" fill="rgba(59,130,246,0.4)"/>
+  <rect x="576" y="146" width="70" height="8" rx="4" fill="rgba(255,255,255,0.1)"/>
+  <rect x="576" y="164" width="90" height="8" rx="4" fill="rgba(255,255,255,0.08)"/>
+  <rect x="576" y="182" width="110" height="8" rx="4" fill="rgba(255,255,255,0.07)"/>
+
+  <!-- Label projet -->
+  <rect x="580" y="310" width="160" height="36" rx="8" fill="rgba(59,130,246,0.15)" stroke="rgba(59,130,246,0.3)" stroke-width="1"/>
+  <text x="660" y="333" font-family="sans-serif" font-size="12" font-weight="600" fill="#60a5fa" text-anchor="middle">WordPress · Figma</text>
+
+  <!-- Titre et tags -->
+  <text x="60" y="400" font-family="sans-serif" font-size="22" font-weight="800" fill="white">Kucra Agency</text>
+  <rect x="60" y="415" width="120" height="22" rx="11" fill="rgba(59,130,246,0.2)" stroke="rgba(59,130,246,0.4)" stroke-width="1"/>
+  <text x="120" y="430" font-family="sans-serif" font-size="11" fill="#60a5fa" text-anchor="middle">WordPress</text>
+  <rect x="190" y="415" width="80" height="22" rx="11" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+  <text x="230" y="430" font-family="sans-serif" font-size="11" fill="rgba(255,255,255,0.5)" text-anchor="middle">UI Design</text>
+</svg>

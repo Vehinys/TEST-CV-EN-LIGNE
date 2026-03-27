@@ -1,0 +1,10 @@
+{
+  "title": "Halloween Spooky",
+  "description": "Site événementiel pour une soirée Halloween à Mulhouse. Identité visuelle complète, landing page interactive avec compte à rebours et billetterie en ligne.",
+  "descriptionEn": "Event website for a Halloween party in Mulhouse. Complete visual identity, interactive landing page with countdown and online ticketing.",
+  "tags": ["Event Design", "Landing Page", "Animation", "JavaScript"],
+  "image": "/images/projects/halloween-spooky.jpg",
+  "featured": true,
+  "order": 2,
+  "category": "design"
+}

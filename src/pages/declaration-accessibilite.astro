@@ -1,0 +1,178 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Déclaration d'accessibilité"
+  description="Déclaration de conformité RGAA 4.1 du portfolio d'Albert Lecomte."
+  lang="fr"
+>
+  <div class="legal-page">
+    <div class="legal-container">
+      <h1>Déclaration d'accessibilité</h1>
+
+      <p class="intro">Albert Lecomte s'engage à rendre son portfolio accessible conformément à la loi n°2005-102 du 11 février 2005 et au RGAA 4.1.</p>
+
+      <section aria-labelledby="etat-title">
+        <h2 id="etat-title">État de conformité</h2>
+        <p>Ce site est <strong>partiellement conforme</strong> au RGAA 4.1. Les non-conformités et dérogations éventuelles sont listées ci-dessous.</p>
+        <dl class="conformance-dl">
+          <div>
+            <dt>Norme de référence</dt>
+            <dd>RGAA 4.1 (Référentiel Général d'Amélioration de l'Accessibilité)</dd>
+          </div>
+          <div>
+            <dt>Niveau visé</dt>
+            <dd>AA (avec critères AAA pour le contraste des couleurs)</dd>
+          </div>
+          <div>
+            <dt>Date de déclaration</dt>
+            <dd><time datetime="2026-03-26">26 mars 2026</time></dd>
+          </div>
+        </dl>
+      </section>
+
+      <section aria-labelledby="mesures-title">
+        <h2 id="mesures-title">Mesures prises pour l'accessibilité</h2>
+        <ul>
+          <li>Lien d'évitement vers le contenu principal (<code>#main-content</code>)</li>
+          <li>Panel d'accessibilité utilisateur (taille de police, contraste, espacement, animations)</li>
+          <li>Navigation complète au clavier avec indicateurs de focus visibles</li>
+          <li>Respect de <code>prefers-reduced-motion</code> sur toutes les animations</li>
+          <li>Ratio de contraste minimum 7:1 (niveau AAA) pour les textes</li>
+          <li>Structure sémantique HTML5 avec landmarks ARIA</li>
+          <li>Support bilingue français/anglais</li>
+          <li>Aucun contenu transmis uniquement par la couleur</li>
+        </ul>
+      </section>
+
+      <section aria-labelledby="nonconf-title">
+        <h2 id="nonconf-title">Non-conformités connues</h2>
+        <ul>
+          <li>Certaines images de projets peuvent ne pas avoir d'alternative textuelle complète (en cours de correction)</li>
+          <li>Les animations CSS complexes peuvent ne pas être désactivées via le panel accessibilité sur certains navigateurs anciens</li>
+        </ul>
+      </section>
+
+      <section aria-labelledby="contact-a11y-title">
+        <h2 id="contact-a11y-title">Signaler une non-conformité</h2>
+        <p>Si vous rencontrez un obstacle à l'accessibilité, vous pouvez me contacter :</p>
+        <ul>
+          <li>Par email : <a href="mailto:contact@albert-lecomte.fr">contact@albert-lecomte.fr</a></li>
+          <li>Via le <a href="/#contact">formulaire de contact</a></li>
+        </ul>
+        <p>Je m'engage à vous répondre dans un délai de 2 jours ouvrés.</p>
+      </section>
+
+      <section aria-labelledby="recours-title">
+        <h2 id="recours-title">Voies de recours</h2>
+        <p>Si vous n'obtenez pas de réponse satisfaisante, vous pouvez contacter le <a href="https://www.defenseurdesdroits.fr" target="_blank" rel="noopener noreferrer">Défenseur des droits</a>.</p>
+      </section>
+
+      <p class="legal-date"><em>Déclaration établie le 26 mars 2026. Dernière révision : mars 2026.</em></p>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+.legal-page {
+  padding-top: 7rem;
+  padding-bottom: 5rem;
+}
+
+.legal-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.intro {
+  font-size: 1.05rem;
+  color: var(--color-text-subtle);
+  line-height: 1.7;
+  padding: 1.25rem;
+  background: rgba(59,130,246,0.07);
+  border-left: 3px solid #3b82f6;
+  border-radius: 0 0.5rem 0.5rem 0;
+}
+
+h1 {
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 800;
+  color: var(--color-text);
+  letter-spacing: -0.03em;
+}
+
+h2 {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 0.75rem;
+}
+
+section { display: flex; flex-direction: column; gap: 0.75rem; }
+
+p, li, dd, dt {
+  font-size: 0.95rem;
+  color: var(--color-text-subtle);
+  line-height: 1.8;
+}
+
+ul {
+  padding-left: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+code {
+  font-family: monospace;
+  background: var(--glass-bg);
+  padding: 0.1em 0.4em;
+  border-radius: 3px;
+  font-size: 0.85em;
+}
+
+.conformance-dl {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1.25rem;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 0.75rem;
+}
+
+.conformance-dl > div {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 0.5rem;
+}
+
+dt { font-weight: 600; color: var(--color-text); }
+
+a {
+  color: #60a5fa;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+a:hover { color: #93c5fd; }
+
+a:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+.legal-date {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  border-top: 1px solid var(--glass-border);
+  padding-top: 1.5rem;
+  margin-top: 1rem;
+}
+</style>

@@ -1,0 +1,305 @@
+---
+import type { Lang } from '../../i18n/utils';
+import { useTranslations } from '../../i18n/utils';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<div id="a11y-panel" class="a11y-panel glass" role="dialog" aria-labelledby="a11y-title" aria-hidden="true">
+  <h2 id="a11y-title" class="a11y-panel__title">{t('a11y.panel.title')}</h2>
+
+  <div class="a11y-panel__group">
+    <span class="a11y-panel__label">Police</span>
+    <div class="a11y-panel__controls" role="group" aria-label="Taille du texte">
+      <button id="a11y-font-sm" class="a11y-btn" aria-label={t('a11y.font.decrease')} title={t('a11y.font.decrease')}>A-</button>
+      <button id="a11y-font-md" class="a11y-btn a11y-btn--active" aria-label={t('a11y.font.reset')} title={t('a11y.font.reset')} aria-pressed="true">A</button>
+      <button id="a11y-font-lg" class="a11y-btn" aria-label={t('a11y.font.increase')} title={t('a11y.font.increase')}>A+</button>
+    </div>
+  </div>
+
+  <div class="a11y-panel__group">
+    <label class="a11y-toggle" for="a11y-contrast">
+      <span>{t('a11y.contrast')}</span>
+      <input type="checkbox" id="a11y-contrast" role="switch" aria-checked="false" />
+      <span class="a11y-toggle__track" aria-hidden="true"></span>
+    </label>
+  </div>
+
+  <div class="a11y-panel__group">
+    <label class="a11y-toggle" for="a11y-line-height">
+      <span>{t('a11y.line.height')}</span>
+      <input type="checkbox" id="a11y-line-height" role="switch" aria-checked="false" />
+      <span class="a11y-toggle__track" aria-hidden="true"></span>
+    </label>
+  </div>
+
+  <div class="a11y-panel__group">
+    <label class="a11y-toggle" for="a11y-motion">
+      <span>{t('a11y.motion')}</span>
+      <input type="checkbox" id="a11y-motion" role="switch" aria-checked="false" />
+      <span class="a11y-toggle__track" aria-hidden="true"></span>
+    </label>
+  </div>
+</div>
+
+<button
+  id="a11y-trigger"
+  class="a11y-trigger"
+  aria-label={t('a11y.panel.open')}
+  aria-expanded="false"
+  aria-controls="a11y-panel"
+>
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+    <circle cx="12" cy="4" r="2"/>
+    <path d="M12 6v4m0 0-3 3m3-3 3 3M9 12l-2 5m5-5 2 5"/>
+    <path d="M8.5 17h7"/>
+  </svg>
+</button>
+
+<style>
+.a11y-trigger {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 1000;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  background: var(--color-primary, #3b82f6);
+  color: white;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 16px rgba(59,130,246,0.4);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.a11y-trigger:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px 24px rgba(59,130,246,0.6);
+}
+
+.a11y-trigger:focus-visible {
+  outline: 3px solid #60a5fa;
+  outline-offset: 3px;
+}
+
+.a11y-panel {
+  position: fixed;
+  bottom: 5rem;
+  right: 1.5rem;
+  z-index: 999;
+  width: 16rem;
+  padding: 1.25rem;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  opacity: 0;
+  transform: translateY(8px) scale(0.97);
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.a11y-panel[aria-hidden="false"] {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+.a11y-panel__title {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-text);
+  margin: 0;
+}
+
+.a11y-panel__group {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.a11y-panel__label {
+  font-size: 0.8rem;
+  color: var(--color-text-subtle);
+}
+
+.a11y-panel__controls {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.a11y-btn {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.375rem;
+  border: 1px solid var(--glass-border);
+  background: var(--glass-bg);
+  color: var(--color-text);
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.a11y-btn--active,
+.a11y-btn:hover {
+  background: rgba(59,130,246,0.2);
+  border-color: rgba(59,130,246,0.5);
+}
+
+.a11y-btn:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.a11y-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  cursor: pointer;
+  font-size: 0.8rem;
+  color: var(--color-text-subtle);
+  gap: 0.5rem;
+}
+
+.a11y-toggle input { display: none; }
+
+.a11y-toggle__track {
+  position: relative;
+  width: 2.5rem;
+  height: 1.25rem;
+  border-radius: 999px;
+  background: var(--glass-border);
+  flex-shrink: 0;
+  transition: background 0.2s ease;
+}
+
+.a11y-toggle__track::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: calc(1.25rem - 4px);
+  height: calc(1.25rem - 4px);
+  border-radius: 50%;
+  background: white;
+  transition: transform 0.2s ease;
+}
+
+.a11y-toggle input:checked + .a11y-toggle__track {
+  background: #3b82f6;
+}
+
+.a11y-toggle input:checked + .a11y-toggle__track::after {
+  transform: translateX(1.25rem);
+}
+
+.a11y-toggle:focus-within .a11y-toggle__track {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+</style>
+
+<script>
+(function () {
+  const STORAGE_KEY = 'a11y-prefs';
+  const html = document.documentElement;
+
+  interface A11yPrefs {
+    fontSize: 'normal' | 'large' | 'xlarge';
+    contrast: boolean;
+    lineHeight: boolean;
+    motion: boolean;
+  }
+
+  function loadPrefs(): A11yPrefs {
+    try {
+      const stored = localStorage.getItem(STORAGE_KEY);
+      return stored ? JSON.parse(stored) : { fontSize: 'normal', contrast: false, lineHeight: false, motion: false };
+    } catch {
+      return { fontSize: 'normal', contrast: false, lineHeight: false, motion: false };
+    }
+  }
+
+  function savePrefs(prefs: A11yPrefs): void {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(prefs));
+  }
+
+  function applyPrefs(prefs: A11yPrefs): void {
+    html.dataset['fontSize'] = prefs.fontSize;
+    html.dataset['contrast'] = prefs.contrast ? 'high' : '';
+    html.dataset['lineHeight'] = prefs.lineHeight ? 'loose' : '';
+    if (prefs.motion) {
+      html.style.setProperty('--transition-base', '0ms');
+    } else {
+      html.style.removeProperty('--transition-base');
+    }
+  }
+
+  const prefs = loadPrefs();
+  applyPrefs(prefs);
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const trigger = document.getElementById('a11y-trigger') as HTMLButtonElement | null;
+    const panel = document.getElementById('a11y-panel') as HTMLElement | null;
+    if (!trigger || !panel) return;
+
+    trigger.addEventListener('click', () => {
+      const isOpen = panel.getAttribute('aria-hidden') === 'false';
+      panel.setAttribute('aria-hidden', isOpen ? 'true' : 'false');
+      trigger.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && panel.getAttribute('aria-hidden') === 'false') {
+        panel.setAttribute('aria-hidden', 'true');
+        trigger.setAttribute('aria-expanded', 'false');
+        trigger.focus();
+      }
+    });
+
+    const fontSizeMap: Array<[string, 'normal' | 'large']> = [
+      ['a11y-font-sm', 'normal'],
+      ['a11y-font-lg', 'large'],
+    ];
+
+    fontSizeMap.forEach(([id, size]) => {
+      const btn = document.getElementById(id) as HTMLButtonElement | null;
+      if (btn) {
+        btn.addEventListener('click', () => {
+          prefs.fontSize = size;
+          applyPrefs(prefs);
+          savePrefs(prefs);
+          document.querySelectorAll('.a11y-btn').forEach(b => b.classList.remove('a11y-btn--active'));
+          btn.classList.add('a11y-btn--active');
+        });
+      }
+    });
+
+    ['contrast', 'line-height', 'motion'].forEach((id) => {
+      const checkbox = document.getElementById(`a11y-${id}`) as HTMLInputElement | null;
+      if (!checkbox) return;
+      // 'line-height' → 'lineHeight', others unchanged
+      const prefKey = id === 'line-height' ? 'lineHeight' : id as 'contrast' | 'motion';
+      checkbox.checked = prefs[prefKey] as boolean;
+      checkbox.setAttribute('aria-checked', String(checkbox.checked));
+      checkbox.addEventListener('change', () => {
+        (prefs as unknown as Record<string, boolean | string>)[prefKey] = checkbox.checked;
+        checkbox.setAttribute('aria-checked', String(checkbox.checked));
+        applyPrefs(prefs);
+        savePrefs(prefs);
+      });
+    });
+  });
+})();
+</script>

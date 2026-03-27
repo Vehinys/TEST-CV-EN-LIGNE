@@ -1,0 +1,319 @@
+---
+import { getCollection } from 'astro:content';
+import type { Lang } from '../../i18n/utils';
+import { useTranslations } from '../../i18n/utils';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const allProjects = await getCollection('projects');
+const projects = allProjects
+  .map(p => ({ ...p.data, id: p.id }))
+  .sort((a, b) => a.order - b.order);
+
+const categories = ['design', 'development', 'wordpress', 'branding'] as const;
+---
+
+<section id="projects" class="projects section-padding" aria-labelledby="projects-title">
+  <div class="projects__container">
+    <div class="projects__header">
+      <p class="section-label">{t('projects.title')}</p>
+      <h2 id="projects-title" class="section-title">{t('projects.subtitle')}</h2>
+    </div>
+
+    <!-- Filtres -->
+    <div class="projects__filters" role="group" aria-label={lang === 'fr' ? 'Filtrer par catégorie' : 'Filter by category'}>
+      <button class="filter-btn filter-btn--active" data-filter="all" aria-pressed="true">
+        {t('projects.filter.all')}
+      </button>
+      {categories.map(cat => (
+        <button class="filter-btn" data-filter={cat} aria-pressed="false">
+          {t(`projects.filter.${cat}`)}
+        </button>
+      ))}
+    </div>
+
+    <!-- Grille -->
+    <ul class="projects__grid" role="list" id="projects-grid">
+      {projects.map(project => (
+        <li class="project-card glass-card" data-category={project.category}>
+          <div class="project-card__image">
+            <img
+              src={project.image.replace(/\.(jpg|png)$/, '.svg')}
+              alt={project.title}
+              width="800"
+              height="450"
+              loading="lazy"
+              decoding="async"
+              class="project-card__img"
+            />
+            {project.featured && (
+              <span class="project-card__badge" aria-label={t('projects.featured')}>
+                {t('projects.featured')}
+              </span>
+            )}
+          </div>
+
+          <div class="project-card__body">
+            <h3 class="project-card__title">{project.title}</h3>
+            <p class="project-card__desc">
+              {lang === 'en' ? project.descriptionEn : project.description}
+            </p>
+
+            <ul class="project-card__tags" role="list" aria-label={lang === 'fr' ? 'Technologies utilisées' : 'Technologies used'}>
+              {project.tags.map(tag => (
+                <li class="tag">{tag}</li>
+              ))}
+            </ul>
+
+            <div class="project-card__actions">
+              {project.url && (
+                <a href={project.url} class="project-link" target="_blank" rel="noopener noreferrer" aria-label={`${t('projects.view.live')} — ${project.title}`}>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
+                  </svg>
+                  {t('projects.view.live')}
+                </a>
+              )}
+              {project.github && (
+                <a href={project.github} class="project-link" target="_blank" rel="noopener noreferrer" aria-label={`${t('projects.view.github')} — ${project.title}`}>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+                  </svg>
+                  {t('projects.view.github')}
+                </a>
+              )}
+            </div>
+          </div>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+.projects__container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.projects__header {
+  text-align: center;
+}
+
+.section-label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #3b82f6;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.75rem;
+}
+
+.section-title {
+  font-size: clamp(1.75rem, 4vw, 2.75rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--color-text);
+}
+
+.projects__filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.filter-btn {
+  padding: 0.5rem 1.25rem;
+  border-radius: 999px;
+  border: 1px solid var(--glass-border);
+  background: var(--glass-bg);
+  color: var(--color-text-subtle);
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.filter-btn:hover,
+.filter-btn--active {
+  background: rgba(59,130,246,0.15);
+  border-color: rgba(59,130,246,0.4);
+  color: #60a5fa;
+}
+
+.filter-btn:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.projects__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+@media (min-width: 640px) {
+  .projects__grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (min-width: 1024px) {
+  .projects__grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+.project-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.project-card[data-hidden] {
+  display: none;
+}
+
+.project-card__image {
+  position: relative;
+  height: 180px;
+  background: var(--glass-bg);
+  border-bottom: 1px solid var(--glass-border);
+  overflow: hidden;
+}
+
+.project-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.project-card:hover .project-card__img {
+  transform: scale(1.04);
+}
+
+.project-card__badge {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  padding: 0.25rem 0.625rem;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  background: rgba(59,130,246,0.2);
+  border: 1px solid rgba(59,130,246,0.4);
+  color: #60a5fa;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.project-card__body {
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  flex: 1;
+}
+
+.project-card__title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin: 0;
+}
+
+.project-card__desc {
+  font-size: 0.875rem;
+  color: var(--color-text-subtle);
+  line-height: 1.6;
+  margin: 0;
+  flex: 1;
+}
+
+.project-card__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.tag {
+  padding: 0.2rem 0.625rem;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  color: var(--color-text-subtle);
+}
+
+.project-card__actions {
+  display: flex;
+  gap: 0.75rem;
+  padding-top: 0.25rem;
+}
+
+.project-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #60a5fa;
+  text-decoration: none;
+  transition: color 0.2s ease, gap 0.2s ease;
+}
+
+.project-link:hover {
+  color: #93c5fd;
+  gap: 0.5rem;
+}
+
+.project-link:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+</style>
+
+<script>
+(function () {
+  const filterBtns = document.querySelectorAll<HTMLButtonElement>('.filter-btn');
+  const cards = document.querySelectorAll<HTMLElement>('.project-card');
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const filter = btn.dataset['filter'] ?? 'all';
+
+      filterBtns.forEach(b => {
+        b.classList.remove('filter-btn--active');
+        b.setAttribute('aria-pressed', 'false');
+      });
+      btn.classList.add('filter-btn--active');
+      btn.setAttribute('aria-pressed', 'true');
+
+      cards.forEach(card => {
+        const cat = card.dataset['category'];
+        if (filter === 'all' || cat === filter) {
+          card.removeAttribute('data-hidden');
+        } else {
+          card.setAttribute('data-hidden', 'true');
+        }
+      });
+    });
+  });
+})();
+</script>

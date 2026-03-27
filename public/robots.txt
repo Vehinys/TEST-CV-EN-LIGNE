@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://lecomte-albert-cv.vercel.app/sitemap-index.xml

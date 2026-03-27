@@ -1,0 +1,121 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Mentions légales"
+  description="Mentions légales du portfolio d'Albert Lecomte, Concepteur Designer UI à Mulhouse."
+  lang="fr"
+>
+  <div class="legal-page">
+    <div class="legal-container">
+      <h1>Mentions légales</h1>
+
+      <section aria-labelledby="editeur-title">
+        <h2 id="editeur-title">1. Éditeur du site</h2>
+        <p>Ce site est édité par :</p>
+        <address>
+          <strong>Albert Lecomte</strong><br />
+          Personne physique — Concepteur Designer UI<br />
+          Mulhouse, Alsace, France<br />
+          Email : <a href="mailto:contact@albert-lecomte.fr">contact@albert-lecomte.fr</a>
+        </address>
+        <p>Ce site est un portfolio personnel. Albert Lecomte n'est pas assujetti à la TVA (micro-entrepreneur).</p>
+      </section>
+
+      <section aria-labelledby="hebergeur-title">
+        <h2 id="hebergeur-title">2. Hébergeur</h2>
+        <address>
+          <strong>Vercel Inc.</strong><br />
+          340 Pine Street, Suite 603<br />
+          San Francisco, CA 94104<br />
+          États-Unis<br />
+          <a href="https://vercel.com" target="_blank" rel="noopener noreferrer">https://vercel.com</a>
+        </address>
+      </section>
+
+      <section aria-labelledby="propriete-title">
+        <h2 id="propriete-title">3. Propriété intellectuelle</h2>
+        <p>L'ensemble du contenu de ce site (textes, images, design) est la propriété exclusive d'Albert Lecomte, sauf mention contraire. Toute reproduction partielle ou totale est interdite sans autorisation écrite préalable.</p>
+        <p>Les projets présentés dans le portfolio peuvent être soumis aux droits de propriété intellectuelle des clients concernés.</p>
+      </section>
+
+      <section aria-labelledby="responsabilite-title">
+        <h2 id="responsabilite-title">4. Limitation de responsabilité</h2>
+        <p>Albert Lecomte s'efforce d'assurer l'exactitude et la mise à jour des informations diffusées sur ce site, mais ne peut garantir l'exactitude, la précision ou l'exhaustivité des informations.</p>
+      </section>
+
+      <section aria-labelledby="liens-title">
+        <h2 id="liens-title">5. Liens hypertextes</h2>
+        <p>Ce site peut contenir des liens vers des sites tiers. Albert Lecomte n'est pas responsable du contenu de ces sites.</p>
+      </section>
+
+      <p class="legal-date"><em>Dernière mise à jour : mars 2026</em></p>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+.legal-page {
+  padding-top: 7rem;
+  padding-bottom: 5rem;
+}
+
+.legal-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+h1 {
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 800;
+  color: var(--color-text);
+  letter-spacing: -0.03em;
+}
+
+h2 {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 0.75rem;
+}
+
+section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+p, address {
+  font-size: 0.95rem;
+  color: var(--color-text-subtle);
+  line-height: 1.8;
+  font-style: normal;
+}
+
+a {
+  color: #60a5fa;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+a:hover { color: #93c5fd; }
+
+a:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+.legal-date {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  border-top: 1px solid var(--glass-border);
+  padding-top: 1.5rem;
+  margin-top: 1rem;
+}
+</style>

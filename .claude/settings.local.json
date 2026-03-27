@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:lecomte-albert-cv.vercel.app)",
+      "WebFetch(domain:docs.astro.build)",
+      "WebFetch(domain:www.emailjs.com)",
+      "Bash(cat \"Z:/PROJET PERSONNEL/TEST/src/styles/\"*.css)",
+      "Bash(npm install:*)",
+      "Bash(npm run:*)",
+      "Bash(npx astro:*)",
+      "Bash(xargs grep:*)",
+      "Bash(node -e \"const fr=require\\(''''./src/i18n/fr.json''''\\);const en=require\\(''''./src/i18n/en.json''''\\);const frKeys=Object.keys\\(fr\\);const enKeys=Object.keys\\(en\\);const missing=frKeys.filter\\(k=>!enKeys.includes\\(k\\)\\);console.log\\(''''FR keys:'''',frKeys.length,''''EN keys:'''',enKeys.length,''''Missing in EN:'''',missing.join\\('''', ''''\\)||''''none''''\\)\")",
+      "Bash(node -e \"const fr=require\\(''./src/i18n/fr.json''\\);const en=require\\(''./src/i18n/en.json''\\);const frKeys=Object.keys\\(fr\\);const enKeys=Object.keys\\(en\\);const missing=frKeys.filter\\(function\\(k\\){return !enKeys.includes\\(k\\);}\\);console.log\\(''FR keys:'',frKeys.length,''EN keys:'',enKeys.length,''Missing in EN:'',missing.join\\('', ''\\)||''none''\\)\")",
+      "Bash(grep -l \"RGPD\\\\|CNIL\\\\|mention\\\\|confident\" src/pages/*.astro)",
+      "Bash(ls public/og*)"
+    ]
+  }
+}

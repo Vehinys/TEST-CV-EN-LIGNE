@@ -1,0 +1,24 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/sections/Hero.astro';
+import About from '../components/sections/About.astro';
+import Skills from '../components/sections/Skills.astro';
+import Projects from '../components/sections/Projects.astro';
+import Experience from '../components/sections/Experience.astro';
+import Contact from '../components/sections/Contact.astro';
+
+const lang = 'fr' as const;
+---
+
+<BaseLayout
+  title="Portfolio"
+  description="Concepteur Designer UI basé à Mulhouse. Je crée des sites web modernes, accessibles et performants pour les artisans, commerçants et entreprises d'Alsace."
+  lang={lang}
+>
+  <Hero lang={lang} />
+  <About lang={lang} />
+  <Skills lang={lang} />
+  <Projects lang={lang} />
+  <Experience lang={lang} />
+  <Contact lang={lang} />
+</BaseLayout>

@@ -1,0 +1,152 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Politique de confidentialité"
+  description="Politique de confidentialité et traitement des données personnelles du portfolio d'Albert Lecomte."
+  lang="fr"
+>
+  <div class="legal-page">
+    <div class="legal-container">
+      <h1>Politique de confidentialité</h1>
+
+      <section aria-labelledby="responsable-title">
+        <h2 id="responsable-title">1. Responsable du traitement</h2>
+        <address>
+          <strong>Albert Lecomte</strong><br />
+          Mulhouse, Alsace, France<br />
+          Email : <a href="mailto:contact@albert-lecomte.fr">contact@albert-lecomte.fr</a>
+        </address>
+      </section>
+
+      <section aria-labelledby="donnees-title">
+        <h2 id="donnees-title">2. Données collectées</h2>
+        <p>Ce site collecte les données personnelles suivantes uniquement via le formulaire de contact :</p>
+        <ul>
+          <li>Nom et prénom</li>
+          <li>Adresse email</li>
+          <li>Contenu du message</li>
+          <li>Sujet (optionnel)</li>
+        </ul>
+        <p>Aucune donnée n'est collectée automatiquement (pas de cookies de tracking, pas de profilage).</p>
+      </section>
+
+      <section aria-labelledby="finalites-title">
+        <h2 id="finalites-title">3. Finalités du traitement</h2>
+        <p>Les données collectées sont utilisées exclusivement pour :</p>
+        <ul>
+          <li>Répondre aux demandes de contact et devis</li>
+          <li>Maintenir une relation commerciale</li>
+        </ul>
+        <p><strong>Base légale :</strong> intérêt légitime (réponse à une demande initiée par la personne concernée).</p>
+      </section>
+
+      <section aria-labelledby="traitement-title">
+        <h2 id="traitement-title">4. Traitement des données</h2>
+        <p>Les messages sont transmis via <strong>EmailJS</strong> directement à la boîte email personnelle d'Albert Lecomte. EmailJS agit en tant que sous-traitant et traite les données conformément à sa propre politique de confidentialité.</p>
+        <p>Aucune donnée n'est revendue ou partagée avec des tiers à des fins commerciales.</p>
+      </section>
+
+      <section aria-labelledby="conservation-title">
+        <h2 id="conservation-title">5. Durée de conservation</h2>
+        <p>Les données sont conservées pour la durée de la relation commerciale, dans la limite de <strong>3 ans</strong> à compter du dernier contact, conformément aux recommandations de la CNIL.</p>
+      </section>
+
+      <section aria-labelledby="analytics-title">
+        <h2 id="analytics-title">6. Analytics — Plausible</h2>
+        <p>Ce site utilise <strong>Plausible Analytics</strong>, une solution de mesure d'audience respectueuse de la vie privée :</p>
+        <ul>
+          <li>Aucun cookie déposé</li>
+          <li>Aucune donnée personnelle collectée</li>
+          <li>Données entièrement anonymisées et agrégées</li>
+          <li>Conforme CNIL sans bannière de consentement</li>
+        </ul>
+      </section>
+
+      <section aria-labelledby="droits-title">
+        <h2 id="droits-title">7. Vos droits (RGPD)</h2>
+        <p>Conformément au RGPD, vous disposez des droits suivants :</p>
+        <ul>
+          <li>Droit d'accès à vos données</li>
+          <li>Droit de rectification</li>
+          <li>Droit à l'effacement (droit à l'oubli)</li>
+          <li>Droit à la limitation du traitement</li>
+          <li>Droit à la portabilité</li>
+        </ul>
+        <p>Pour exercer ces droits, contactez-moi directement à : <a href="mailto:contact@albert-lecomte.fr">contact@albert-lecomte.fr</a></p>
+        <p>En cas de réclamation non résolue, vous pouvez saisir la <a href="https://www.cnil.fr" target="_blank" rel="noopener noreferrer">CNIL</a>.</p>
+      </section>
+
+      <p class="legal-date"><em>Dernière mise à jour : mars 2026</em></p>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+.legal-page {
+  padding-top: 7rem;
+  padding-bottom: 5rem;
+}
+
+.legal-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+h1 {
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 800;
+  color: var(--color-text);
+  letter-spacing: -0.03em;
+}
+
+h2 {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 0.75rem;
+}
+
+section { display: flex; flex-direction: column; gap: 0.75rem; }
+
+p, address, li {
+  font-size: 0.95rem;
+  color: var(--color-text-subtle);
+  line-height: 1.8;
+  font-style: normal;
+}
+
+ul {
+  padding-left: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+a {
+  color: #60a5fa;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+a:hover { color: #93c5fd; }
+
+a:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+.legal-date {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  border-top: 1px solid var(--glass-border);
+  padding-top: 1.5rem;
+  margin-top: 1rem;
+}
+</style>

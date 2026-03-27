@@ -1,0 +1,62 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  image?: string;
+  type?: 'website' | 'profile';
+  lang?: string;
+  canonicalUrl?: string;
+}
+
+const {
+  title,
+  description,
+  image = '/og-default.png',
+  type = 'website',
+  lang = 'fr',
+  canonicalUrl,
+} = Astro.props;
+
+const siteUrl = 'https://lecomte-albert-cv.vercel.app';
+const fullTitle = `${title} — Albert Lecomte`;
+const ogImage = image.startsWith('http') ? image : `${siteUrl}${image}`;
+const canonical = canonicalUrl ?? Astro.url.href;
+---
+
+<title>{fullTitle}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+
+<!-- Open Graph -->
+<meta property="og:title" content={fullTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={ogImage} />
+<meta property="og:type" content={type} />
+<meta property="og:url" content={canonical} />
+<meta property="og:locale" content={lang === 'fr' ? 'fr_FR' : 'en_US'} />
+<meta property="og:site_name" content="Albert Lecomte" />
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={fullTitle} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImage} />
+
+<!-- Schema.org Person -->
+<script is:inline type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Albert Lecomte",
+    "jobTitle": "Concepteur Designer UI",
+    "url": "https://lecomte-albert-cv.vercel.app",
+    "email": "contact@albert-lecomte.fr",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Mulhouse",
+      "addressRegion": "Alsace",
+      "addressCountry": "FR"
+    },
+    "knowsAbout": ["UI Design", "Web Design", "WordPress", "Figma", "Tailwind CSS"]
+  }
+</script>

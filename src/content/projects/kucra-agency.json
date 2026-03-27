@@ -1,0 +1,11 @@
+{
+  "title": "Kucra Agency",
+  "description": "Refonte complète du site vitrine d'une agence créative mulhousienne. Design glassmorphism avec animations fluides, intégration WordPress sur mesure et optimisation SEO locale.",
+  "descriptionEn": "Full redesign of a Mulhouse creative agency showcase site. Glassmorphism design with fluid animations, custom WordPress integration and local SEO optimization.",
+  "tags": ["WordPress", "UI Design", "SEO", "Figma"],
+  "image": "/images/projects/kucra-agency.jpg",
+  "url": "https://kucra-agency.fr",
+  "featured": true,
+  "order": 1,
+  "category": "wordpress"
+}

@@ -1,0 +1,70 @@
+---
+import SEO from '../components/seo/SEO.astro';
+import Header from '../components/layout/Header.astro';
+import Footer from '../components/layout/Footer.astro';
+import AccessibilityPanel from '../components/layout/AccessibilityPanel.astro';
+import type { Lang } from '../i18n/utils';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  lang: Lang;
+  image?: string;
+}
+
+const { title, description, lang, image } = Astro.props;
+---
+
+<!doctype html>
+<html lang={lang} data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Preconnect fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <SEO title={title} description={description} {... (image ? { image } : {})} lang={lang} />
+
+    <!-- Plausible Analytics (sans cookie) -->
+    <script
+      is:inline
+      defer
+      data-domain="lecomte-albert-cv.vercel.app"
+      src="https://plausible.io/js/script.js"
+    ></script>
+
+    <!-- Theme init (évite le flash) -->
+    <script is:inline>
+      (function () {
+        const saved = localStorage.getItem('theme');
+        const pref = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', saved || pref);
+      })();
+    </script>
+  </head>
+
+  <body>
+    <!-- Skip link RGAA -->
+    <a href="#main-content" class="skip-link">
+      {lang === 'fr' ? 'Aller au contenu principal' : 'Skip to main content'}
+    </a>
+
+    <Header lang={lang} />
+
+    <main id="main-content" tabindex="-1">
+      <slot />
+    </main>
+
+    <Footer lang={lang} />
+
+    <AccessibilityPanel lang={lang} />
+  </body>
+</html>
