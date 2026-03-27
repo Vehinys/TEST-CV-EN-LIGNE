@@ -29,4 +29,28 @@ const skills = defineCollection({
   schema: z.array(skillItem),
 });
 
-export const collections = { projects, skills };
+const volunteer = defineCollection({
+  type: 'data',
+  schema: z.object({
+    title: z.string(),
+    organization: z.string(),
+    period: z.string(),
+    description: z.string(),
+    descriptionEn: z.string(),
+    icon: z.string(),
+    order: z.number(),
+  }),
+});
+
+const hobbies = defineCollection({
+  type: 'data',
+  schema: z.object({
+    name: z.string(),
+    description: z.string(),
+    descriptionEn: z.string(),
+    icon: z.string(),
+    order: z.number(),
+  }),
+});
+
+export const collections = { projects, skills, volunteer, hobbies };

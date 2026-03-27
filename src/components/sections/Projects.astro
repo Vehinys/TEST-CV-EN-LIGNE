@@ -43,7 +43,7 @@ const categories = ['design', 'development', 'wordpress', 'branding'] as const;
         <li class="project-card glass-card" data-category={project.category}>
           <div class="project-card__image">
             <img
-              src={project.image.replace(/\.(jpg|png)$/, '.svg')}
+              src={project.image}
               alt={project.title}
               width="800"
               height="450"

@@ -1,11 +1,11 @@
 {
   "title": "Kucra Agency",
-  "description": "Refonte complète du site vitrine d'une agence créative mulhousienne. Design glassmorphism avec animations fluides, intégration WordPress sur mesure et optimisation SEO locale.",
-  "descriptionEn": "Full redesign of a Mulhouse creative agency showcase site. Glassmorphism design with fluid animations, custom WordPress integration and local SEO optimization.",
-  "tags": ["WordPress", "UI Design", "SEO", "Figma"],
-  "image": "/images/projects/kucra-agency.jpg",
-  "url": "https://kucra-agency.fr",
+  "description": "Site \"One Page\" complet avec menu burger JS manuel, tableaux de prix Flexbox et effet parallaxe en pur CSS.",
+  "descriptionEn": "Complete \"One Page\" site with manual JS burger menu, Flexbox pricing tables, and pure CSS parallax effect. Integration of high-quality assets.",
+  "tags": ["HTML", "CSS", "JavaScript", "Flexbox"],
+  "image": "/images/projects/kucra-agency.png",
+  "github": "https://github.com/Vehinys/HTML-CSS-JS-LANDINGPAGE",
   "featured": true,
-  "order": 1,
-  "category": "wordpress"
+  "order": 4,
+  "category": "development"
 }

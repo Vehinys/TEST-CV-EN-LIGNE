@@ -6,7 +6,9 @@
   "nav.about": "À propos",
   "nav.skills": "Compétences",
   "nav.projects": "Projets",
-  "nav.experience": "Expérience",
+  "nav.experience": "Parcours",
+  "nav.volunteer": "Bénévolat",
+  "nav.hobbies": "Passions",
   "nav.contact": "Contact",
   "nav.menu.open": "Ouvrir le menu",
   "nav.menu.close": "Fermer le menu",
@@ -60,6 +62,12 @@
 
   "experience.title": "Expérience",
   "experience.subtitle": "Mon parcours professionnel",
+
+  "volunteer.title": "Bénévolat & Passions",
+  "volunteer.subtitle": "Engagement et vie associative",
+
+  "hobbies.title": "Passions & Hobbies",
+  "hobbies.subtitle": "Ce qui m'anime au quotidien",
 
   "education.title": "Formation",
   "education.subtitle": "Mon parcours académique",

@@ -1,0 +1,10 @@
+{
+  "title": "Maquettes Photoshop",
+  "description": "Design UI pour une application web et retouches avancées. Focus sur la hiérarchie visuelle et l'identité de marque.",
+  "descriptionEn": "UI design for a web application and advanced retouching. Focus on visual hierarchy and brand identity.",
+  "tags": ["Photoshop", "UI Design", "Visual Identity"],
+  "image": "/images/projects/maquettes-photoshop.png",
+  "featured": true,
+  "order": 3,
+  "category": "design"
+}

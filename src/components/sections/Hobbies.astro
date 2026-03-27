@@ -1,0 +1,124 @@
+---
+import { getCollection } from 'astro:content';
+import type { Lang } from '../../i18n/utils';
+import { useTranslations } from '../../i18n/utils';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const allHobbies = await getCollection('hobbies');
+const hobbiesItems = allHobbies
+  .map(h => ({ ...h.data, id: h.id }))
+  .sort((a, b) => a.order - b.order);
+---
+
+<section id="hobbies" class="hobbies section-padding" aria-labelledby="hobbies-title">
+  <div class="hobbies__container">
+    <div class="hobbies__header">
+      <p class="section-label">{t('hobbies.title')}</p>
+      <h2 id="hobbies-title" class="section-title">{t('hobbies.subtitle')}</h2>
+    </div>
+
+    <div class="hobbies__grid" role="list">
+      {hobbiesItems.map((hobby) => (
+        <article class="hobby-card glass-card" role="listitem">
+          <div class="hobby-card__icon" aria-hidden="true">
+            {hobby.icon}
+          </div>
+          <div class="hobby-card__content">
+            <h3 class="hobby-card__name">{hobby.name}</h3>
+            <p class="hobby-card__desc">
+              {lang === 'en' ? hobby.descriptionEn : hobby.description}
+            </p>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+.hobbies__container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.hobbies__header {
+  text-align: center;
+}
+
+.section-label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #3b82f6;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.75rem;
+}
+
+.section-title {
+  font-size: clamp(1.75rem, 4vw, 2.75rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--color-text);
+}
+
+.hobbies__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.hobby-card {
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.hobby-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(59, 130, 246, 0.4);
+}
+
+.hobby-card__icon {
+  font-size: 2.25rem;
+  width: 4rem;
+  height: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(59, 130, 246, 0.1);
+  border-radius: 16px;
+  border: 1px solid rgba(59, 130, 246, 0.2);
+}
+
+.hobby-card__content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.hobby-card__name {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin: 0;
+}
+
+.hobby-card__desc {
+  font-size: 0.95rem;
+  color: var(--color-text-subtle);
+  line-height: 1.6;
+  margin: 0;
+}
+</style>

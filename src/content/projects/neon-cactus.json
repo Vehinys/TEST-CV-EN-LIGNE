@@ -1,0 +1,11 @@
+{
+  "title": "Neon Cactus",
+  "description": "Exploration d'intégration utilisant box-shadow, text-shadow et keyframes personnalisées pour un effet d'éclairage néon.",
+  "descriptionEn": "Integration exploration using box-shadow, text-shadow, and custom keyframes for a neon lighting effect.",
+  "tags": ["HTML", "CSS", "JavaScript"],
+  "image": "/images/projects/neon-cactus.png",
+  "github": "https://github.com/Vehinys/JS-HTML-CSS-CACTUS",
+  "featured": true,
+  "order": 2,
+  "category": "development"
+}
