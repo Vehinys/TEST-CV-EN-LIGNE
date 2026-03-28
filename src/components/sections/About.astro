@@ -79,20 +79,14 @@ const ramLabel   = lang === 'fr' ? 'Formations diplômantes'               : 'De
 <section id="about" class="about section-padding" aria-labelledby="about-title">
   <div class="about__container">
 
-    <!-- Header -->
+    <!-- Section header -->
     <div class="about__header">
       <p class="about__label"><span aria-hidden="true">// </span>{t('about.title')}</p>
       <h2 id="about-title" class="about__title">{panelTitle}</h2>
     </div>
 
     <!-- Main panel -->
-    <div class="about-panel" role="region" aria-label={panelTitle}>
-
-      <!-- Fake title bar -->
-      <div class="about-titlebar" aria-hidden="true">
-        <span class="about-titlebar__icon">🖥️</span>
-        <span class="about-titlebar__text">{panelTitle}</span>
-      </div>
+    <div class="about-panel" role="region" aria-labelledby="about-title">
 
       <!-- Body -->
       <div class="about-body">
@@ -251,6 +245,11 @@ const ramLabel   = lang === 'fr' ? 'Formations diplômantes'               : 'De
 </section>
 
 <style>
+/* ── Section (espace pour nav fixe) ───────────────────────────── */
+.about {
+  padding-top: calc(var(--section-padding) + 5rem);
+}
+
 /* ── Container ─────────────────────────────────────────────────── */
 .about__container {
   max-width: 1200px;
@@ -289,29 +288,6 @@ const ramLabel   = lang === 'fr' ? 'Formations diplômantes'               : 'De
   border: 1px solid rgba(139, 92, 246, 0.3);
   border-radius: 0.75rem;
   overflow: hidden;
-}
-
-/* ── Fake title bar ────────────────────────────────────────────── */
-.about-titlebar {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 1rem;
-  background: linear-gradient(90deg, rgba(139, 92, 246, 0.25) 0%, rgba(139, 92, 246, 0.06) 100%);
-  border-bottom: 1px solid rgba(139, 92, 246, 0.35);
-  user-select: none;
-}
-
-.about-titlebar__icon {
-  font-size: 0.875rem;
-}
-
-.about-titlebar__text {
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: #C4B5FD;
-  letter-spacing: 0.02em;
-  font-family: var(--font-family-mono);
 }
 
 /* ── Body layout ───────────────────────────────────────────────── */
