@@ -166,14 +166,14 @@ const ramLabel   = lang === 'fr' ? 'Formations diplômantes'               : 'De
                 <span class="about-spec__label">
                   {lang === 'fr' ? 'CPU : WordPress, UI & SEO' : 'CPU: WordPress, UI & SEO'}
                 </span>
-                <span class="about-spec__val">OVERCLOCKED 🔥</span>
+                <span class="about-spec__val">OVERCLOCKED</span>
               </div>
               <div class="about-spec">
                 <span class="about-spec__label">
                   {lang === 'fr' ? 'GPU : Stage Businet' : 'GPU: Businet Internship'}
                 </span>
                 <span class="about-spec__val">
-                  {lang === 'fr' ? 'Refonte + SEO 🔧' : 'Redesign + SEO 🔧'}
+                  {lang === 'fr' ? 'Refonte + SEO' : 'Redesign + SEO'}
                 </span>
               </div>
               <div class="about-spec">
@@ -186,7 +186,7 @@ const ramLabel   = lang === 'fr' ? 'Formations diplômantes'               : 'De
                   aria-expanded="false"
                   aria-haspopup="listbox"
                 >
-                  {lang === 'fr' ? '4 modules ✨' : '4 modules ✨'}
+                  {lang === 'fr' ? '4 modules' : '4 modules'}
                   <span class="about-ram-arrow" aria-hidden="true"> ▾</span>
                 </button>
               </div>
@@ -263,6 +263,12 @@ const ramLabel   = lang === 'fr' ? 'Formations diplômantes'               : 'De
 /* ── Section header ────────────────────────────────────────────── */
 .about__header {
   text-align: center;
+}
+
+@media (max-width: 639px) {
+  .about__header {
+    margin-top: 1.5rem;
+  }
 }
 
 .about__label {

@@ -9,30 +9,37 @@ interface Props {
 const { lang } = Astro.props;
 const t = useTranslations(lang);
 
-interface TimelineItem {
+interface LogEntry {
+  hash: string;
+  prefix: string;
   period: string;
   title: Record<'fr' | 'en', string>;
   company: string;
   location: string;
   description: Record<'fr' | 'en', string>;
   tags: string[];
-  current?: boolean;
+  head?: boolean;
+  wip?: boolean;
 }
 
-const experiences: TimelineItem[] = [
+const experiences: LogEntry[] = [
   {
+    hash: 'a3f8b2c',
+    prefix: 'feat(design)',
     period: '2026 (2 mois)',
     title: { fr: 'Refonte site WordPress — Stage CDUI', en: 'WordPress Redesign — UI Designer Intern' },
     company: 'NAPOCOM',
     location: 'Remote/France',
     description: {
-      fr: 'Refonte complète du site web de l\'agence. Optimisation UX/UI, intégration de maquettes, et configuration avancée de WordPress.',
+      fr: "Refonte complète du site web de l'agence. Optimisation UX/UI, intégration de maquettes, et configuration avancée de WordPress.",
       en: 'Complete agency website redesign. UI/UX optimization, mockup integration, and advanced WordPress configuration.',
     },
     tags: ['WordPress', 'Elementor', 'CSS', 'UX/UI'],
-    current: true,
+    head: true,
   },
   {
+    hash: 'e91d54a',
+    prefix: 'feat(sales)',
     period: '2023 — 2024',
     title: { fr: 'Vendeur Polyvalent (CDI)', en: 'Multiskilled Salesperson (CDI)' },
     company: 'BLACKSTORE France',
@@ -44,6 +51,8 @@ const experiences: TimelineItem[] = [
     tags: ['Vente', 'Conseil', 'Merchandising', 'Gestion'],
   },
   {
+    hash: '7c2b381',
+    prefix: 'feat(design)',
     period: '2022 (Stage)',
     title: { fr: 'Création de maquette — Stage', en: 'Mockup Creation — Intern' },
     company: 'E-NAUMAD',
@@ -55,152 +64,251 @@ const experiences: TimelineItem[] = [
     tags: ['WordPress', 'PHP', 'CSS', 'Photoshop', 'Figma'],
   },
   {
+    hash: '4d09f6e',
+    prefix: 'feat(sales)',
     period: '2015 — 2021',
     title: { fr: 'Vendeur Polyvalent (CDI)', en: 'Multiskilled Salesperson (CDI)' },
     company: 'IKEA',
     location: 'Mulhouse',
     description: {
-      fr: '6 ans d\'expérience en relation client, gestion de stock, merchandising et logistique (CACES). Travail d\'équipe, rigueur, gestion du stress.',
+      fr: "6 ans d'expérience en relation client, gestion de stock, merchandising et logistique (CACES). Travail d'équipe, rigueur, gestion du stress.",
       en: '6 years of experience in customer relations, stock management, merchandising and logistics (CACES). Teamwork, rigour, stress management.',
     },
     tags: ['Relation Client', 'Logistique', 'Soft-skills'],
   },
   {
+    hash: '2a85c31',
+    prefix: 'fix(interim)',
     period: '2024',
-    title: { fr: 'Missions Intérim (Caissier)', en: 'Temporary Missions (Cashier)' },
+    title: { fr: 'Missions Intérim — Caissier', en: 'Temporary Missions — Cashier' },
     company: 'Brico Dépôt / Castorama',
     location: 'Mulhouse',
     description: {
-      fr: 'Missions ponctuelles de caissier : gestion des encaissements, accueil client, rigueur et efficacité.',
+      fr: "Missions ponctuelles de caissier : gestion des encaissements, accueil client, rigueur et efficacité.",
       en: 'Occasional cashier missions: payment management, customer reception, rigour and efficiency.',
     },
     tags: ['Accueil', 'Caisse', 'Rigueur'],
   },
 ];
 
-const education: TimelineItem[] = [
+const education: LogEntry[] = [
   {
+    hash: 'f15d8b0',
+    prefix: 'feat(edu)',
     period: '2025 — 2026',
-    title: { fr: 'Concepteur Designer UI (Niveau 6)', en: 'UI Designer Conceptor (Level 6)' },
+    title: { fr: 'Concepteur Designer UI — Niveau 6', en: 'UI Designer Conceptor — Level 6' },
     company: 'GRETA Alsace Sud',
     location: 'Mulhouse',
     description: {
-      fr: 'Niveau : En cours. Conception pour WordPress & UI/UX Design. Suite Adobe (Photoshop, Illustrator, XD). Intégration HTML5/CSS3 et Framework Symfony.',
-      en: 'Level: In progress. Design for WordPress & UI/UX. Adobe Suite (Photoshop, Illustrator, XD). HTML5/CSS3 and Symfony Framework.',
+      fr: 'En cours. Conception pour WordPress & UI/UX Design. Suite Adobe (Photoshop, Illustrator, XD). Intégration HTML5/CSS3 et Framework Symfony.',
+      en: 'In progress. Design for WordPress & UI/UX. Adobe Suite (Photoshop, Illustrator, XD). HTML5/CSS3 and Symfony Framework.',
     },
     tags: ['Adobe Suite', 'Symfony', 'WordPress'],
+    wip: true,
   },
   {
+    hash: '9e3a71c',
+    prefix: 'feat(edu)',
     period: '2024',
-    title: { fr: 'Développeur Web & Mobile (Niveau 5)', en: 'Web & Mobile Developer (Level 5)' },
+    title: { fr: 'Développeur Web & Mobile — Niveau 5', en: 'Web & Mobile Developer — Level 5' },
     company: 'Elan Formation',
     location: 'Mulhouse',
     description: {
-      fr: 'Niveau : Diplôme Acquis. Maquettage Figma, JS, PHP, Symfony, SQL/NoSQL. Gestion de projet Agile, GitHub, Sécurité Web.',
-      en: 'Level: Degree Acquired. Figma wireframing, JS, PHP, Symfony, SQL/NoSQL. Agile project management, GitHub, Web Security.',
+      fr: 'Diplôme acquis. Maquettage Figma, JS, PHP, Symfony, SQL/NoSQL. Gestion de projet Agile, GitHub, Sécurité Web.',
+      en: 'Degree acquired. Figma wireframing, JS, PHP, Symfony, SQL/NoSQL. Agile project management, GitHub, Web Security.',
     },
     tags: ['JS/PHP', 'Symfony', 'SQL', 'Agile'],
   },
   {
+    hash: '6b4c2d9',
+    prefix: 'feat(edu)',
     period: '2022 — 2023',
-    title: { fr: 'Infographiste Metteur en Page (Niveau 4)', en: 'Graphic Designer Page Setter (Level 4)' },
+    title: { fr: 'Infographiste Metteur en Page — Niveau 4', en: 'Graphic Designer Page Setter — Level 4' },
     company: 'GRETA Sud Alsace',
     location: 'Mulhouse',
     description: {
-      fr: 'Niveau : Diplôme Acquis. Analyse des besoins, propositions graphiques, InDesign, Photoshop, Illustrator.',
-      en: 'Level: Degree Acquired. Needs analysis, graphic proposals, InDesign, Photoshop, Illustrator.',
+      fr: 'Diplôme acquis. Analyse des besoins, propositions graphiques, InDesign, Photoshop, Illustrator.',
+      en: 'Degree acquired. Needs analysis, graphic proposals, InDesign, Photoshop, Illustrator.',
     },
     tags: ['InDesign', 'Photoshop', 'Illustrator'],
   },
   {
+    hash: '3f892a1',
+    prefix: 'feat(edu)',
     period: '2021 — 2022',
     title: { fr: 'Découverte Métiers du Numérique', en: 'Introduction to Digital Professions' },
     company: 'Elan Formation',
     location: 'Mulhouse',
     description: {
-      fr: 'Niveau : Non diplômant. Initiation HTML/CSS/JS/PHP. Photoshop, Illustrator et Figma.',
-      en: 'Level: Non-degree. Introduction to HTML/CSS/JS/PHP. Photoshop, Illustrator and Figma.',
+      fr: 'Non diplômant. Initiation HTML/CSS/JS/PHP. Photoshop, Illustrator et Figma.',
+      en: 'Non-degree. Introduction to HTML/CSS/JS/PHP. Photoshop, Illustrator and Figma.',
     },
     tags: ['Initiation', 'Design', 'Web'],
   },
 ];
+
+const panelTitle  = lang === 'fr' ? 'Changelog professionnel' : 'Professional Changelog';
+const gitCmd      = `$ git log --all --graph --author="Albert Lecomte"`;
+const gitEduCmd   = lang === 'fr' ? '$ git checkout edu/parcours' : '$ git checkout edu/history';
+const headLabel   = lang === 'fr' ? 'ACTUEL' : 'CURRENT';
+const wipLabel    = lang === 'fr' ? 'EN COURS' : 'IN PROGRESS';
+const companyKey  = lang === 'fr' ? 'Entreprise' : 'Company';
+const schoolKey   = lang === 'fr' ? 'École' : 'School';
 ---
 
 <section id="experience" class="experience section-padding" aria-labelledby="experience-title">
-  <div class="experience__container">
-    <div class="experience__header">
-      <p class="section-label">{t('experience.title')}</p>
-      <h2 id="experience-title" class="section-title">{t('experience.subtitle')}</h2>
+  <div class="exp__container">
+
+    <!-- Section header -->
+    <div class="exp__header">
+      <p class="exp__label"><span aria-hidden="true">// </span>{t('experience.title')}</p>
+      <h2 id="experience-title" class="exp__title">{panelTitle}</h2>
     </div>
 
-    <div class="timeline" role="list" aria-label={lang === 'fr' ? 'Expériences professionnelles' : 'Work experience'}>
-      {experiences.map((item, i) => (
-        <article class="timeline__item" role="listitem">
-          <div class="timeline__marker" aria-hidden="true">
-            <div class={`timeline__dot ${item.current ? 'timeline__dot--current' : ''}`}></div>
-            {i < experiences.length - 1 && <div class="timeline__line"></div>}
-          </div>
+    <!-- Git log terminal panel -->
+    <div class="exp-panel" role="region" aria-label={lang === 'fr' ? 'Historique professionnel' : 'Professional history'}>
 
-          <div class="timeline__content glass-card">
-            <div class="timeline__meta">
-              <time class="timeline__period">{item.period}</time>
-              {item.current && (
-                <span class="timeline__current-badge" aria-label={lang === 'fr' ? 'Poste actuel' : 'Current position'}>
-                  {lang === 'fr' ? 'Actuel' : 'Current'}
-                </span>
-              )}
-            </div>
+      <!-- Window bar -->
+      <div class="exp-panel__bar" aria-hidden="true">
+        <div class="exp-panel__dots">
+          <span class="exp-panel__dot" style="background:#FF5F57"></span>
+          <span class="exp-panel__dot" style="background:#FEBC2E"></span>
+          <span class="exp-panel__dot" style="background:#28C840"></span>
+        </div>
+        <span class="exp-panel__barlabel">bash — git log</span>
+      </div>
 
-            <h3 class="timeline__title">{item.title[lang]}</h3>
-            <p class="timeline__company">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-              {item.company} — {item.location}
-            </p>
+      <!-- Log body -->
+      <div class="exp-log">
 
-            <p class="timeline__desc">{item.description[lang]}</p>
+        <!-- Shell prompt -->
+        <p class="exp-prompt" aria-hidden="true">
+          <span class="exp-prompt__caret">❯</span>
+          <span class="exp-prompt__cmd">{gitCmd}</span>
+        </p>
 
-            <ul class="timeline__tags" role="list" aria-label={lang === 'fr' ? 'Technologies' : 'Technologies'}>
-              {item.tags.map(tag => <li class="tag">{tag}</li>)}
-            </ul>
-          </div>
-        </article>
-      ))}
-    </div>
+        <!-- ── Career entries ── -->
+        <div role="list" aria-label={lang === 'fr' ? 'Expériences professionnelles' : 'Work experience'}>
+          {experiences.map((item, i) => (
+            <article class="exp-entry" role="listitem">
 
-    <!-- Formation -->
-    <div class="experience__header" style="margin-top:4rem">
-      <p class="section-label">{t('education.title')}</p>
-      <h2 id="education-title" class="section-title">{t('education.subtitle')}</h2>
-    </div>
+              <!-- Left: dot + line -->
+              <div class="exp-entry__marker" aria-hidden="true">
+                <span class="exp-entry__dot"></span>
+                {i < experiences.length - 1 && <span class="exp-entry__line"></span>}
+              </div>
 
-    <div class="timeline" role="list" aria-label={lang === 'fr' ? 'Formation académique' : 'Academic background'} aria-labelledby="education-title">
-      {education.map((item, i) => (
-        <article class="timeline__item" role="listitem">
-          <div class="timeline__marker" aria-hidden="true">
-            <div class="timeline__dot timeline__dot--edu"></div>
-            {i < education.length - 1 && <div class="timeline__line"></div>}
-          </div>
+              <!-- Right: commit info -->
+              <div class="exp-entry__body">
 
-          <div class="timeline__content glass-card">
-            <time class="timeline__period">{item.period}</time>
-            <h3 class="timeline__title">{item.title[lang]}</h3>
-            <p class="timeline__company">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
-              {item.company} — {item.location}
-            </p>
-            <p class="timeline__desc">{item.description[lang]}</p>
-            <ul class="timeline__tags" role="list">
-              {item.tags.map(tag => <li class="tag">{tag}</li>)}
-            </ul>
-          </div>
-        </article>
-      ))}
-    </div>
+                <!-- hash + HEAD badge -->
+                <div class="exp-entry__hashrow">
+                  <span class="exp-hash">{item.hash}</span>
+                  {item.head && (
+                    <span class="exp-head-badge">
+                      {'(HEAD → career/design, '}
+                      <span class="exp-head-badge__current">◆ {headLabel}</span>
+                      {')'}
+                    </span>
+                  )}
+                </div>
+
+                <!-- conventional commit title -->
+                <p class="exp-entry__title">
+                  <span class="exp-prefix">{item.prefix}:</span>
+                  <span class="exp-title-text"> {item.title[lang]}</span>
+                </p>
+
+                <!-- meta: company · location · date -->
+                <p class="exp-entry__meta">
+                  <span class="exp-meta-key">{companyKey}:</span>
+                  <span class="exp-meta-val"> {item.company}</span>
+                  <span class="exp-meta-sep"> · </span>
+                  <span class="exp-meta-loc">{item.location}</span>
+                  <span class="exp-meta-sep"> · </span>
+                  <time class="exp-meta-date">{item.period}</time>
+                </p>
+
+                <!-- description -->
+                <p class="exp-entry__desc">{item.description[lang]}</p>
+
+                <!-- tags -->
+                <ul class="exp-tags" role="list" aria-label="Technologies">
+                  {item.tags.map(tag => <li class="exp-tag">{tag}</li>)}
+                </ul>
+
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <!-- ── Branch separator ── -->
+        <div class="exp-branch-sep" aria-hidden="true">
+          <span class="exp-branch-sep__line"></span>
+          <code class="exp-branch-sep__cmd">{gitEduCmd}</code>
+          <span class="exp-branch-sep__line"></span>
+        </div>
+
+        <!-- ── Education entries ── -->
+        <div role="list" aria-label={lang === 'fr' ? 'Formation académique' : 'Academic background'}>
+          {education.map((item, i) => (
+            <article class="exp-entry exp-entry--edu" role="listitem">
+
+              <div class="exp-entry__marker" aria-hidden="true">
+                <span class="exp-entry__dot exp-entry__dot--edu"></span>
+                {i < education.length - 1 && <span class="exp-entry__line exp-entry__line--edu"></span>}
+              </div>
+
+              <div class="exp-entry__body">
+
+                <div class="exp-entry__hashrow">
+                  <span class="exp-hash exp-hash--edu">{item.hash}</span>
+                  {item.wip && (
+                    <span class="exp-edu-badge">
+                      {'(HEAD → edu/niveau-6, '}
+                      <span class="exp-edu-badge__wip">⏳ {wipLabel}</span>
+                      {')'}
+                    </span>
+                  )}
+                </div>
+
+                <p class="exp-entry__title">
+                  <span class="exp-prefix exp-prefix--edu">{item.prefix}:</span>
+                  <span class="exp-title-text"> {item.title[lang]}</span>
+                </p>
+
+                <p class="exp-entry__meta">
+                  <span class="exp-meta-key">{schoolKey}:</span>
+                  <span class="exp-meta-val"> {item.company}</span>
+                  <span class="exp-meta-sep"> · </span>
+                  <time class="exp-meta-date">{item.period}</time>
+                </p>
+
+                <p class="exp-entry__desc">{item.description[lang]}</p>
+
+                <ul class="exp-tags" role="list" aria-label="Technologies">
+                  {item.tags.map(tag => <li class="exp-tag exp-tag--edu">{tag}</li>)}
+                </ul>
+
+              </div>
+            </article>
+          ))}
+        </div>
+
+      </div><!-- /.exp-log -->
+    </div><!-- /.exp-panel -->
+
   </div>
 </section>
 
 <style>
-.experience__container {
+/* ── Section ────────────────────────────────────────────────────── */
+.experience {
+  padding-top: var(--section-padding);
+}
+
+/* ── Container ─────────────────────────────────────────────────── */
+.exp__container {
   max-width: 900px;
   margin: 0 auto;
   padding: 0 1.5rem;
@@ -209,161 +317,315 @@ const education: TimelineItem[] = [
   gap: 2.5rem;
 }
 
-.experience__header {
+/* ── Section header ────────────────────────────────────────────── */
+.exp__header {
   text-align: center;
 }
 
-.section-label {
-  font-size: 0.875rem;
+.exp__label {
+  font-size: 0.8125rem;
   font-weight: 700;
   color: var(--color-acid-green);
   text-transform: uppercase;
-  letter-spacing: 0.2em;
-  margin-bottom: 1rem;
-  display: inline-block;
+  letter-spacing: 0.12em;
+  font-family: var(--font-family-mono);
+  margin-bottom: 0.625rem;
 }
 
-.section-title {
-  font-size: clamp(2.5rem, 5vw, 4rem);
-  font-weight: 800;
-  letter-spacing: -0.04em;
+.exp__title {
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
   color: var(--color-text);
-  margin-bottom: 2rem;
 }
 
-.timeline {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
+/* ── Terminal panel ────────────────────────────────────────────── */
+.exp-panel {
+  background: #0D0D1A;
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  border-radius: 0.75rem;
+  overflow: hidden;
 }
 
-.timeline__item {
-  display: grid;
-  grid-template-columns: 2rem 1fr;
-  gap: 1.25rem;
-  padding-bottom: 1.5rem;
-}
-
-.timeline__marker {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-top: 1.5rem;
-}
-
-.timeline__dot {
-  width: 1rem;
-  height: 1rem;
-  border-radius: 50%;
-  border: 2px solid var(--color-acid-green);
-  background: var(--color-bg);
-  flex-shrink: 0;
-  z-index: 1;
-  transition: all 0.3s ease;
-}
-
-.timeline__dot--current {
-  background: var(--color-acid-green);
-  box-shadow: 0 0 15px var(--color-acid-green);
-  border-color: var(--color-acid-green);
-}
-
-.timeline__dot--edu {
-  border-color: var(--color-neon-pink);
-}
-
-.timeline__line {
-  width: 2px;
-  flex: 1;
-  background: linear-gradient(to bottom, var(--glass-border), transparent);
-  margin-top: 4px;
-}
-
-.timeline__content {
-  padding: 1.25rem 1.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.625rem;
-}
-
-.timeline__meta {
+/* ── Panel window bar ──────────────────────────────────────────── */
+.exp-panel__bar {
   display: flex;
   align-items: center;
   gap: 0.75rem;
+  padding: 0.625rem 1rem;
+  background: rgba(139, 92, 246, 0.08);
+  border-bottom: 1px solid rgba(139, 92, 246, 0.15);
 }
 
-.timeline__period {
-  font-size: 0.85rem;
-  font-weight: 700;
+.exp-panel__dots {
+  display: flex;
+  gap: 0.375rem;
+}
+
+.exp-panel__dot {
+  width: 0.6875rem;
+  height: 0.6875rem;
+  border-radius: 50%;
+  display: block;
+}
+
+.exp-panel__barlabel {
+  font-size: 0.6875rem;
+  color: #94A3B8;
+  font-family: var(--font-family-mono);
+  flex: 1;
+  text-align: center;
+}
+
+/* ── Log body ──────────────────────────────────────────────────── */
+.exp-log {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Shell prompt ──────────────────────────────────────────────── */
+.exp-prompt {
+  font-family: var(--font-family-mono);
+  font-size: 0.8125rem;
+  margin: 0 0 1.75rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  overflow-wrap: break-word;
+  word-break: break-all;
+}
+
+.exp-prompt__caret {
   color: var(--color-acid-green);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  flex-shrink: 0;
 }
 
-.timeline__current-badge {
-  padding: 0.15rem 0.5rem;
-  border-radius: 999px;
-  font-size: 0.7rem;
-  font-weight: 700;
-  background: rgba(34,197,94,0.15);
-  border: 1px solid rgba(34,197,94,0.3);
-  color: #4ade80;
-  text-transform: uppercase;
+.exp-prompt__cmd {
+  color: #C4B5FD;
 }
 
-.timeline__title {
-  font-size: 1.25rem;
-  font-weight: 800;
-  color: var(--color-text);
-  margin: 0;
-  line-height: 1.2;
+/* ── Entry ─────────────────────────────────────────────────────── */
+.exp-entry {
+  display: grid;
+  grid-template-columns: 1.25rem 1fr;
+  gap: 0.875rem;
 }
 
-.timeline__company {
+.exp-entry + .exp-entry {
+  padding-top: 1.25rem;
+}
+
+/* ── Marker (dot + vertical line) ──────────────────────────────── */
+.exp-entry__marker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 0.125rem;
+}
+
+.exp-entry__dot {
+  width: 0.625rem;
+  height: 0.625rem;
+  border-radius: 50%;
+  background: var(--color-acid-green);
+  box-shadow: 0 0 6px rgba(204, 255, 0, 0.55);
+  flex-shrink: 0;
+}
+
+.exp-entry__dot--edu {
+  background: var(--color-neon-pink);
+  box-shadow: 0 0 6px rgba(255, 0, 153, 0.55);
+}
+
+.exp-entry__line {
+  width: 1px;
+  flex: 1;
+  margin-top: 0.3rem;
+  background: linear-gradient(to bottom, rgba(204, 255, 0, 0.25), rgba(204, 255, 0, 0.04));
+}
+
+.exp-entry__line--edu {
+  background: linear-gradient(to bottom, rgba(255, 0, 153, 0.25), rgba(255, 0, 153, 0.04));
+}
+
+/* ── Entry body ────────────────────────────────────────────────── */
+.exp-entry__body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  padding-bottom: 1.25rem;
+}
+
+.exp-entry:last-child .exp-entry__body {
+  padding-bottom: 0;
+}
+
+/* ── Hash row ──────────────────────────────────────────────────── */
+.exp-entry__hashrow {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  font-size: 0.9rem;
-  font-weight: 500;
+  gap: 0.625rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.2rem;
+}
+
+.exp-hash {
+  font-family: var(--font-family-mono);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  color: var(--color-acid-green);
+  letter-spacing: 0.05em;
+  background: rgba(204, 255, 0, 0.06);
+  padding: 0.1rem 0.35rem;
+  border-radius: 0.2rem;
+  border: 1px solid rgba(204, 255, 0, 0.15);
+}
+
+.exp-hash--edu {
   color: var(--color-neon-pink);
-  margin: 0;
+  background: rgba(255, 0, 153, 0.06);
+  border-color: rgba(255, 0, 153, 0.15);
 }
 
-.timeline__company svg {
-  opacity: 0.8;
+/* HEAD badge — career */
+.exp-head-badge {
+  font-family: var(--font-family-mono);
+  font-size: 0.6875rem;
+  color: #8B5CF6;
 }
 
-.timeline__desc {
+.exp-head-badge__current {
+  color: #F59E0B;
+  font-weight: 700;
+}
+
+/* HEAD badge — education */
+.exp-edu-badge {
+  font-family: var(--font-family-mono);
+  font-size: 0.6875rem;
+  color: #94A3B8;
+}
+
+.exp-edu-badge__wip {
+  color: #F59E0B;
+  font-weight: 700;
+}
+
+/* ── Entry title ───────────────────────────────────────────────── */
+.exp-entry__title {
   font-size: 0.9375rem;
-  color: var(--color-text-subtle);
-  line-height: 1.8;
-  margin: 0.5rem 0;
+  font-weight: 700;
+  font-family: var(--font-family-mono);
+  line-height: 1.4;
+  margin: 0;
+  overflow-wrap: break-word;
 }
 
-.timeline__tags {
+.exp-prefix {
+  color: #8B5CF6;
+}
+
+.exp-prefix--edu {
+  color: var(--color-neon-pink);
+}
+
+.exp-title-text {
+  color: #FAF5FF;
+}
+
+/* ── Meta line ─────────────────────────────────────────────────── */
+.exp-entry__meta {
+  font-size: 0.75rem;
+  font-family: var(--font-family-mono);
+  margin: 0;
+  color: #94A3B8;
+  line-height: 1.6;
+  flex-wrap: wrap;
+}
+
+.exp-meta-key {
+  color: #64748B;
+}
+
+.exp-meta-val {
+  color: #C4B5FD;
+  font-weight: 600;
+}
+
+.exp-meta-sep {
+  color: #2D3748;
+  padding: 0 0.1rem;
+}
+
+.exp-meta-loc {
+  color: #94A3B8;
+}
+
+.exp-meta-date {
+  color: #F59E0B;
+  font-weight: 600;
+}
+
+/* ── Description ───────────────────────────────────────────────── */
+.exp-entry__desc {
+  font-size: 0.875rem;
+  color: rgba(196, 181, 253, 0.75);
+  line-height: 1.7;
+  margin: 0.25rem 0 0;
+}
+
+/* ── Tags ──────────────────────────────────────────────────────── */
+.exp-tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: 0.375rem;
   list-style: none;
   padding: 0;
-  margin: 0;
-  margin-top: 1rem;
+  margin: 0.5rem 0 0;
 }
 
-.tag {
-  padding: 0.25rem 0.75rem;
-  border-radius: 0.5rem;
-  font-size: 0.75rem;
+.exp-tag {
+  font-family: var(--font-family-mono);
+  font-size: 0.625rem;
   font-weight: 700;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid var(--glass-border);
-  color: var(--color-text-subtle);
-  transition: all 0.3s ease;
+  padding: 0.15rem 0.45rem;
+  border-radius: 0.2rem;
+  background: rgba(204, 255, 0, 0.06);
+  border: 1px solid rgba(204, 255, 0, 0.2);
+  color: var(--color-acid-green);
+  letter-spacing: 0.03em;
 }
 
-.tag:hover {
-  background: rgba(204, 255, 0, 0.1);
-  border-color: var(--color-acid-green);
-  color: var(--color-acid-green);
+.exp-tag--edu {
+  background: rgba(255, 0, 153, 0.06);
+  border-color: rgba(255, 0, 153, 0.2);
+  color: var(--color-neon-pink);
+}
+
+/* ── Branch separator ──────────────────────────────────────────── */
+.exp-branch-sep {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  margin: 1.75rem 0;
+}
+
+.exp-branch-sep__line {
+  flex: 1;
+  height: 1px;
+  background: rgba(255, 0, 153, 0.2);
+}
+
+.exp-branch-sep__cmd {
+  font-family: var(--font-family-mono);
+  font-size: 0.6875rem;
+  color: var(--color-neon-pink);
+  white-space: nowrap;
+  background: rgba(255, 0, 153, 0.06);
+  padding: 0.25rem 0.625rem;
+  border-radius: 0.25rem;
+  border: 1px solid rgba(255, 0, 153, 0.2);
 }
 </style>
