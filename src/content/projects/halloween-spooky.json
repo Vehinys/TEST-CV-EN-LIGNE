@@ -1,7 +1,7 @@
 {
   "title": "Halloween Spooky",
   "category": "development",
-  "image": "/images/halloween.png",
+  "image": "/images/halloween.webp",
   "description": "Challenge d'intégration thématique. Utilisation avancée des keyframes CSS et du positionnement absolu pour créer une ambiance immersive sans JavaScript.",
   "descriptionEn": "Theme integration challenge. Advanced use of CSS keyframes and absolute positioning to create an immersive atmosphere without JavaScript.",
   "tags": ["HTML5", "CSS3", "Animations", "Responsive"],

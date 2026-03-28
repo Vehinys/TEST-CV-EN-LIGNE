@@ -1,7 +1,7 @@
 {
   "title": "Kucra Agency",
   "category": "development",
-  "image": "/images/kucra-hero.png",
+  "image": "/images/kucra-hero.webp",
   "description": "Site 'One Page' complet. Intégration avancée sans framework : Menu Burger JS manuel, Tableaux de prix Flexbox et effet Parallax en pur CSS sur les sections de transition.",
   "descriptionEn": "Complete 'One Page' site. Advanced integration without framework: manual JS burger menu, Flexbox pricing tables and pure CSS Parallax effect on transition sections.",
   "tags": ["HTML5", "CSS3", "JavaScript", "Parallax"],

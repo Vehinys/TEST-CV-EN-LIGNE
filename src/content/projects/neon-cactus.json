@@ -1,7 +1,7 @@
 {
   "title": "Neon Cactus",
   "category": "development",
-  "image": "/images/cactus.png",
+  "image": "/images/cactus.webp",
   "description": "Projet créatif d'intégration CSS. Utilisation intensive de box-shadow, text-shadow et de keyframes personnalisées pour simuler un éclairage néon scintillant et immersif.",
   "descriptionEn": "Creative CSS integration project. Intensive use of box-shadow, text-shadow and custom keyframes to simulate a flickering and immersive neon lighting.",
   "tags": ["CSS Art", "Animations", "Neon Style"],
