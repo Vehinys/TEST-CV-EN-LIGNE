@@ -462,9 +462,11 @@ const startLabel = lang === 'fr' ? 'Albert.exe — Menu principal' : 'Albert.exe
 
   // ── Mode toggle ──────────────────────────────────────────────────────────────
   const modeBtn = document.getElementById('mode-toggle-btn');
-  modeBtn?.addEventListener('click', async () => {
-    const { toggleMode } = await import('../../utils/mode-switcher');
-    toggleMode();
+  modeBtn?.addEventListener('click', () => {
+    const html = document.documentElement;
+    const next = html.getAttribute('data-portfolio-mode') === 'os' ? 'classic' : 'os';
+    html.setAttribute('data-portfolio-mode', next);
+    localStorage.setItem('portfolio-mode', next);
   });
 
   // Open window items in start menu
