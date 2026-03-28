@@ -15,7 +15,7 @@ const projects = allProjects
   .map(p => ({ ...p.data, id: p.id }))
   .sort((a, b) => a.order - b.order);
 
-const categories = ['design', 'development', 'wordpress', 'branding'] as const;
+const categories = ['design', 'development', 'wordpress'] as const;
 ---
 
 <section id="projects" class="projects section-padding" aria-labelledby="projects-title">

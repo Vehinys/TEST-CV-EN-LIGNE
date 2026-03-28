@@ -218,7 +218,11 @@ const specs: SpecItem[] = [
           class="sysinfo-btn sysinfo-btn--primary"
           aria-label={`${l.downloadCv} (PDF)`}
         >
-          <span aria-hidden="true">📥</span>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" style="flex-shrink:0">
+            <rect width="24" height="24" rx="3" fill="#E02020"/>
+            <rect x="2" y="10" width="20" height="9" rx="1.5" fill="#B91C1C"/>
+            <text x="12" y="17.5" text-anchor="middle" font-family="Arial,sans-serif" font-size="6.5" font-weight="900" fill="white" letter-spacing="0.3">PDF</text>
+          </svg>
           {l.downloadCv}
         </a>
         <button

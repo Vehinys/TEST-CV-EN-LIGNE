@@ -12,7 +12,7 @@ const projects = defineCollection({
     github: z.string().url().optional(),
     featured: z.boolean().default(false),
     order: z.number(),
-    category: z.enum(['design', 'development', 'wordpress', 'branding']),
+    category: z.enum(['design', 'development', 'wordpress']),
   }),
 });
 

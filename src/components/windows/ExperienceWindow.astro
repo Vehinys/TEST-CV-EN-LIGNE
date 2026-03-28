@@ -12,6 +12,7 @@ interface TimelineItem {
   period: string;
   title: Record<'fr' | 'en', string>;
   company: string;
+  url?: string;
   location: string;
   description: Record<'fr' | 'en', string>;
   tags: string[];
@@ -24,10 +25,11 @@ const experiences: TimelineItem[] = [
     period: '2026',
     title: { fr: 'Refonte site WordPress — Stage CDUI', en: 'WordPress Redesign — UI Designer Intern' },
     company: 'NAPOCOM',
+    url: 'https://www.napocom.fr',
     location: 'Remote/France',
     description: {
-      fr: "Refonte complète du site web de l'agence. Optimisation UX/UI, intégration de maquettes, et configuration avancée de WordPress.",
-      en: 'Complete agency website redesign. UI/UX optimization, mockup integration, and advanced WordPress configuration.',
+      fr: "Refonte complète du site web de l'agence : restructuration de l'architecture de navigation, optimisation de l'expérience utilisateur et de l'interface visuelle, configuration avancée de WordPress avec mise en place de plugins sur mesure et optimisation des performances.",
+      en: 'Complete agency website redesign: navigation architecture restructuring, user experience and visual interface optimization, advanced WordPress configuration with custom plugin setup and performance tuning.',
     },
     tags: ['WordPress', 'Elementor', 'CSS', 'UX/UI'],
     current: true,
@@ -37,10 +39,11 @@ const experiences: TimelineItem[] = [
     period: '2023 — 2024',
     title: { fr: 'Vendeur Polyvalent (CDI)', en: 'Multiskilled Salesperson (CDI)' },
     company: 'BLACKSTORE France',
+    url: 'https://www.blackstore.fr',
     location: 'Mulhouse',
     description: {
-      fr: 'Accueil et conseil client personnalisé. Gestion complète de la caisse, des stocks, inventaires et merchandising.',
-      en: 'Personalized customer advice. Full management of till, stock, inventory and merchandising.',
+      fr: "Conseil et accompagnement client dans un magasin de vêtements haute gamme : identification des besoins, argumentation produit et fidélisation. Gestion autonome de la caisse, tenue des stocks et réalisation des inventaires. Mise en valeur des rayons (merchandising) et responsabilité des ouvertures et fermetures du magasin.",
+      en: 'Customer advice and support in a high-end clothing store: needs identification, product argumentation and loyalty building. Autonomous till management, stock control and inventory. Shelf display (merchandising) and responsibility for store opening and closing.',
     },
     tags: ['Vente', 'Conseil', 'Merchandising', 'Gestion'],
   },
@@ -49,10 +52,11 @@ const experiences: TimelineItem[] = [
     period: '2022',
     title: { fr: 'Création de maquette — Stage', en: 'Mockup Creation — Intern' },
     company: 'E-NAUMAD',
+    url: 'https://www.e-naumad.fr',
     location: 'France',
     description: {
-      fr: 'Stagiaire Frontend, personnalisation avancée de sites WordPress. Création de visuels et maquettes (Photoshop, Figma).',
-      en: 'Frontend intern, advanced WordPress customization. Creation of visuals and mockups (Photoshop, Figma).',
+      fr: "Stage de développement frontend orienté WordPress : personnalisation avancée de thèmes, création de visuels et prototypes sous Photoshop et Figma. Intégration web avec HTML5, CSS3 et PHP dans un contexte professionnel client réel.",
+      en: 'Frontend development internship focused on WordPress: advanced theme customization, creation of visuals and prototypes in Photoshop and Figma. Web integration with HTML5, CSS3 and PHP in a real client-facing professional context.',
     },
     tags: ['WordPress', 'PHP', 'CSS', 'Photoshop', 'Figma'],
   },
@@ -61,10 +65,11 @@ const experiences: TimelineItem[] = [
     period: '2015 — 2021',
     title: { fr: 'Vendeur Polyvalent (CDI)', en: 'Multiskilled Salesperson (CDI)' },
     company: 'IKEA',
+    url: 'https://www.ikea.com/fr/fr/',
     location: 'Mulhouse',
     description: {
-      fr: "6 ans d'expérience en relation client, gestion de stock, merchandising et logistique (CACES).",
-      en: '6 years of experience in customer relations, stock management, merchandising and logistics (CACES).',
+      fr: "6 ans en grande distribution chez IKEA Mulhouse : expertise solide en relation client, conseil personnalisé et techniques de vente. Gestion des stocks, inventaires et logistique (CACES). Merchandising, mise en rayon et responsabilité progressive des ouvertures et fermetures de département.",
+      en: '6 years in large-scale retail at IKEA Mulhouse: solid expertise in customer relations, personalized advice and sales techniques. Stock management, inventory and logistics (CACES). Merchandising, shelf stocking and progressive responsibility for department opening and closing.',
     },
     tags: ['Relation Client', 'Logistique', 'Soft-skills'],
   },
@@ -76,10 +81,11 @@ const education: TimelineItem[] = [
     period: '2025 — 2026',
     title: { fr: 'Concepteur Designer UI (Niveau 6)', en: 'UI Designer Conceptor (Level 6)' },
     company: 'GRETA Alsace Sud',
+    url: 'https://www.greta-cfa-alsace.fr/reseau/greta-alsace-sud/',
     location: 'Mulhouse',
     description: {
-      fr: "Niveau : En cours. Conception pour WordPress & UI/UX Design. Suite Adobe. Intégration HTML5/CSS3 et Framework Symfony.",
-      en: 'Level: In progress. Design for WordPress & UI/UX. Adobe Suite. HTML5/CSS3 and Symfony Framework.',
+      fr: "En cours (Bac+3 — Niveau 6) : conception UI/UX avancée pour le web et WordPress, maîtrise approfondie de la Suite Adobe, développement frontend HTML5/CSS3 et backend Symfony. Projet de fin de formation axé sur la création d'un portfolio professionnel.",
+      en: 'In progress (Bachelor — Level 6): advanced UI/UX design for web and WordPress, in-depth Adobe Suite mastery, HTML5/CSS3 frontend and Symfony backend development. Final project focused on professional portfolio creation.',
     },
     tags: ['Adobe Suite', 'Symfony', 'WordPress'],
     current: true,
@@ -89,10 +95,11 @@ const education: TimelineItem[] = [
     period: '2024',
     title: { fr: 'Développeur Web & Mobile (Niveau 5)', en: 'Web & Mobile Developer (Level 5)' },
     company: 'Elan Formation',
+    url: 'https://elan-formation.fr/accueil',
     location: 'Mulhouse',
     description: {
-      fr: 'Niveau : Diplôme Acquis. Maquettage Figma, JS, PHP, Symfony, SQL/NoSQL. Gestion de projet Agile.',
-      en: 'Level: Degree Acquired. Figma wireframing, JS, PHP, Symfony, SQL/NoSQL. Agile project management.',
+      fr: "Diplôme obtenu (Bac+2 — Niveau 5) : maquettage et prototypage sous Figma, développement JavaScript et PHP, framework Symfony, bases de données SQL et NoSQL. Conduite de projets web complets en méthodologie Agile/Scrum.",
+      en: 'Degree obtained (Level 5): wireframing and prototyping in Figma, JavaScript and PHP development, Symfony framework, SQL and NoSQL databases. Full web project management using Agile/Scrum methodology.',
     },
     tags: ['JS/PHP', 'Symfony', 'SQL', 'Agile'],
   },
@@ -101,10 +108,11 @@ const education: TimelineItem[] = [
     period: '2022 — 2023',
     title: { fr: 'Infographiste Metteur en Page (Niveau 4)', en: 'Graphic Designer Page Setter (Level 4)' },
     company: 'GRETA Sud Alsace',
+    url: 'https://www.greta-cfa-alsace.fr/reseau/greta-alsace-sud/',
     location: 'Mulhouse',
     description: {
-      fr: "Niveau : Diplôme Acquis. Analyse des besoins, propositions graphiques, InDesign, Photoshop, Illustrator.",
-      en: 'Level: Degree Acquired. Needs analysis, graphic proposals, InDesign, Photoshop, Illustrator.',
+      fr: "Diplôme obtenu (Niveau 4) : analyse des besoins client et création de chartes graphiques, conception de supports print et digitaux. Maîtrise de la Suite Adobe — InDesign pour la mise en page, Photoshop pour la retouche et Illustrator pour la création vectorielle.",
+      en: 'Degree obtained (Level 4): client needs analysis and graphic guidelines creation, design of print and digital materials. Mastery of Adobe Suite — InDesign for layout, Photoshop for retouching and Illustrator for vector creation.',
     },
     tags: ['InDesign', 'Photoshop', 'Illustrator'],
   },
@@ -113,10 +121,11 @@ const education: TimelineItem[] = [
     period: '2006',
     title: { fr: 'Titre Pro. Vendeur Conseil (Niveau 4)', en: 'Sales Advisor Certificate (Level 4)' },
     company: 'CEFA Saint-Anne',
+    url: 'https://www.cefa-isagosselies.com/',
     location: 'Belgique',
     description: {
-      fr: 'Niveau : Diplôme Acquis. Techniques de vente, conseil client, merchandising et gestion commerciale.',
-      en: 'Level: Degree Acquired. Sales techniques, customer advice, merchandising and commercial management.',
+      fr: "Diplôme obtenu (Niveau 4) : formation aux techniques de vente et à la négociation commerciale, gestion de la relation client, merchandising et animation de point de vente. Socle des compétences commerciales appliquées tout au long du parcours professionnel.",
+      en: 'Degree obtained (Level 4): training in sales techniques and commercial negotiation, customer relationship management, merchandising and point-of-sale animation. Foundation of commercial skills applied throughout the professional career.',
     },
     tags: ['Vente', 'Conseil', 'Merchandising'],
   },
@@ -210,7 +219,9 @@ const l = labels[lang];
             <h3 class="gitlog-commit__title">{item.title[lang]}</h3>
             <p class="gitlog-commit__author">
               <span aria-hidden="true">⎇</span>
-              {item.company}
+              {item.url ? (
+                <a href={item.url} target="_blank" rel="noopener noreferrer" class="gitlog-company-link">{item.company}</a>
+              ) : item.company}
               <span class="gitlog-sep" aria-hidden="true">—</span>
               <span class="gitlog-location">{item.location}</span>
             </p>
@@ -252,7 +263,9 @@ const l = labels[lang];
             <h3 class="gitlog-commit__title">{item.title[lang]}</h3>
             <p class="gitlog-commit__author gitlog-commit__author--edu">
               <span aria-hidden="true">🎓</span>
-              {item.company}
+              {item.url ? (
+                <a href={item.url} target="_blank" rel="noopener noreferrer" class="gitlog-company-link">{item.company}</a>
+              ) : item.company}
               <span class="gitlog-sep" aria-hidden="true">—</span>
               <span class="gitlog-location">{item.location}</span>
             </p>
@@ -495,6 +508,25 @@ const l = labels[lang];
 
 .gitlog-commit__author--edu {
   color: #A78BFA;
+}
+
+.gitlog-company-link {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  text-decoration-color: rgba(167, 139, 250, 0.4);
+  transition: color 0.15s ease, text-decoration-color 0.15s ease;
+}
+
+.gitlog-company-link:hover {
+  color: #C4B5FD;
+  text-decoration-color: #C4B5FD;
+}
+
+.gitlog-company-link:focus-visible {
+  outline: 2px solid #F59E0B;
+  outline-offset: 2px;
+  border-radius: 2px;
 }
 
 .gitlog-sep {

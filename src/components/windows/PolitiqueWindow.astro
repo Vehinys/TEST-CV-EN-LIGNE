@@ -15,7 +15,7 @@ const { lang } = Astro.props;
       <h2>1. {lang === 'fr' ? 'Responsable du traitement' : 'Data controller'}</h2>
       <address>
         <strong>Albert Lecomte</strong> — Mulhouse, Alsace, France<br />
-        <a href="mailto:contact@albert-lecomte.fr">contact@albert-lecomte.fr</a>
+        <a href="mailto:albert.lecomte1989@gmail.com">albert.lecomte1989@gmail.com</a>
       </address>
     </section>
 
@@ -52,8 +52,8 @@ const { lang } = Astro.props;
     <section>
       <h2>5. {lang === 'fr' ? 'Conservation' : 'Retention'}</h2>
       <p>{lang === 'fr'
-        ? 'Données conservées 3 ans maximum à compter du dernier contact (recommandation CNIL).'
-        : 'Data retained for a maximum of 3 years from the last contact (CNIL recommendation).'}</p>
+        ? 'Données conservées 3 ans maximum à compter du dernier contact.'
+        : 'Data retained for a maximum of 3 years from the last contact.'}</p>
     </section>
 
     <section>
@@ -61,7 +61,7 @@ const { lang } = Astro.props;
       <ul>
         <li>{lang === 'fr' ? 'Aucun cookie déposé' : 'No cookies'}</li>
         <li>{lang === 'fr' ? 'Données anonymisées et agrégées' : 'Anonymized and aggregated data'}</li>
-        <li>{lang === 'fr' ? 'Conforme CNIL sans bannière' : 'CNIL compliant, no consent banner'}</li>
+        <li>{lang === 'fr' ? 'Aucune bannière de consentement nécessaire' : 'No consent banner required'}</li>
       </ul>
     </section>
 
@@ -71,10 +71,7 @@ const { lang } = Astro.props;
         <li>{lang === 'fr' ? 'Accès, rectification, effacement' : 'Access, rectification, erasure'}</li>
         <li>{lang === 'fr' ? 'Limitation, portabilité' : 'Restriction, portability'}</li>
       </ul>
-      <p>{lang === 'fr' ? 'Contact : ' : 'Contact: '}<a href="mailto:contact@albert-lecomte.fr">contact@albert-lecomte.fr</a></p>
-      <p>{lang === 'fr'
-        ? 'Réclamation non résolue : '
-        : 'Unresolved complaint: '}<a href="https://www.cnil.fr" target="_blank" rel="noopener noreferrer">cnil.fr</a></p>
+      <p>{lang === 'fr' ? 'Contact : ' : 'Contact: '}<a href="mailto:albert.lecomte1989@gmail.com">albert.lecomte1989@gmail.com</a></p>
     </section>
 
   </div>

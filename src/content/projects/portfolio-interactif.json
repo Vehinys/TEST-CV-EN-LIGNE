@@ -1,9 +1,10 @@
 {
   "title": "Mon Portfolio Interactif",
-  "category": "branding",
+  "category": "development",
   "image": "/images/Albert.png",
-  "description": "Conception intégrale de ce site en Tailwind CSS. Design System 'Cyber-Holographique' personnalisé, animations fluides et optimisation complète UX/UI.",
-  "descriptionEn": "Integral design of this site in Tailwind CSS. Personalized 'Cyber-Holographic' Design System, smooth animations and complete UX/UI optimization.",
+  "description": "Conception intégrale de ce site en Astro + Tailwind CSS. Design System 'Cyber-Holographique' personnalisé, animations fluides et optimisation complète UX/UI.",
+  "descriptionEn": "Full design of this site in Astro + Tailwind CSS. Personalized 'Cyber-Holographic' Design System, smooth animations and complete UX/UI optimization.",
   "tags": ["Astro", "Tailwind CSS", "i18n", "Figma"],
+  "featured": true,
   "order": 4
 }
