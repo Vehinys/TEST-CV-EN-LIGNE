@@ -19,19 +19,19 @@ const labels = {
     languages: 'Langues',
     hwSpecs: 'Spécifications matérielles',
     cpu: 'CPU : WordPress & UI',
-    ram: 'RAM : Projets livrés',
-    gpu: 'GPU : Clients satisfaits',
-    perf: 'PERF : Satisfaction',
+    ram: 'RAM : Formations diplômantes',
+    gpu: 'GPU : Projets réalisés',
+    perf: 'PERF : Expérience',
     downloadCv: 'Télécharger CV',
     contact: 'Contact',
     location: 'Mulhouse, Alsace',
     available: 'Disponible',
     versionValue: 'En recherche active (CDI)',
-    langValue: 'Français (natif), Anglais (B2)',
-    specCpu: '5+ ans d\'XP',
-    specRam: '40+',
-    specGpu: '30+',
-    specPerf: '100%',
+    langValue: 'Français (natif)',
+    specCpu: 'Niveau avancé',
+    specRam: '4 diplômes',
+    specGpu: '40+',
+    specPerf: '5+ ans',
   },
   en: {
     windowTitle: 'System Properties — Albert Lecomte',
@@ -44,19 +44,19 @@ const labels = {
     languages: 'Languages',
     hwSpecs: 'Hardware Specifications',
     cpu: 'CPU: WordPress & UI',
-    ram: 'RAM: Projects delivered',
-    gpu: 'GPU: Satisfied clients',
-    perf: 'PERF: Satisfaction rate',
+    ram: 'RAM: Degrees obtained',
+    gpu: 'GPU: Projects done',
+    perf: 'PERF: Experience',
     downloadCv: 'Download CV',
     contact: 'Contact',
     location: 'Mulhouse, Alsace',
     available: 'Available',
     versionValue: 'Actively seeking (CDI)',
-    langValue: 'French (native), English (B2)',
-    specCpu: '5+ yrs XP',
-    specRam: '40+',
-    specGpu: '30+',
-    specPerf: '100%',
+    langValue: 'French (native)',
+    specCpu: 'Advanced level',
+    specRam: '4 degrees',
+    specGpu: '40+',
+    specPerf: '5+ yrs',
   },
 } as const;
 
@@ -92,8 +92,8 @@ const specs = [
 
     <!-- Left column: identity -->
     <aside class="sysinfo-identity" aria-label={lang === 'fr' ? 'Identité' : 'Identity'}>
-      <div class="sysinfo-avatar" aria-hidden="true">
-        <span class="sysinfo-avatar__emoji">👨‍💻</span>
+      <div class="sysinfo-avatar">
+        <img src="/images/MOI.jpg" alt="Albert Lecomte" class="sysinfo-avatar__photo" width="80" height="80" />
       </div>
       <p class="sysinfo-identity__name">Albert Lecomte</p>
       <p class="sysinfo-identity__title">
@@ -169,14 +169,15 @@ const specs = [
           <span aria-hidden="true">📥</span>
           {l.downloadCv}
         </a>
-        <a
-          href="#window-contact"
+        <button
+          type="button"
           class="sysinfo-btn"
+          data-open-window="contact"
           aria-label={l.contact}
         >
           <span aria-hidden="true">📧</span>
           {l.contact}
-        </a>
+        </button>
       </div>
 
     </div>

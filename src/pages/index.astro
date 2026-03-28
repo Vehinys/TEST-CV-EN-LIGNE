@@ -90,6 +90,14 @@ document.addEventListener('click', (e) => {
   else if (action === 'maximize') maximize(id);
 });
 
+// Open window from any data-open-window button (e.g. About → Contact)
+document.addEventListener('click', (e) => {
+  const btn = (e.target as HTMLElement).closest<HTMLElement>('[data-open-window]');
+  if (!btn) return;
+  const id = btn.dataset['openWindow'];
+  if (id) open(id);
+});
+
 // Focus window on mousedown
 document.addEventListener('mousedown', (e) => {
   const win = (e.target as HTMLElement).closest<HTMLElement>('.window');
