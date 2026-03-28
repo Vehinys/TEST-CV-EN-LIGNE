@@ -1,0 +1,283 @@
+---
+import type { Lang } from '../../i18n/utils';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const skipLabel = lang === 'fr' ? "Passer l'intro" : 'Skip intro';
+---
+
+<div id="boot-screen" class="boot" role="status" aria-live="polite" aria-label={lang === 'fr' ? 'Démarrage de Albert.exe' : 'Starting Albert.exe'}>
+  <button
+    id="boot-skip"
+    class="boot__skip"
+    aria-label={skipLabel}
+    type="button"
+  >
+    {skipLabel} →
+  </button>
+
+  <div class="boot__center">
+    <div class="boot__logo" aria-hidden="true">
+      <span class="boot__logo-icon">⚡</span>
+      <h1 class="boot__logo-name">Albert.exe</h1>
+    </div>
+
+    <div class="boot__terminal" aria-hidden="true">
+      <p class="boot__line boot__line--1">
+        <span class="boot__prompt">&gt;</span>
+        {lang === 'fr' ? 'Initialisation du pilote d\'affichage...' : 'Initializing display driver...'}
+        <span class="boot__ok"> ✓</span>
+      </p>
+      <p class="boot__line boot__line--2">
+        <span class="boot__prompt">&gt;</span>
+        {lang === 'fr' ? 'Chargement des ressources...' : 'Loading resources...'}
+        <span class="boot__ok"> ✓</span>
+      </p>
+      <p class="boot__line boot__line--3">
+        <span class="boot__prompt">&gt;</span>
+        {lang === 'fr' ? 'Démarrage de Albert.exe OS...' : 'Starting Albert.exe OS...'}
+        <span class="boot__ok"> ✓</span>
+      </p>
+    </div>
+
+    <div class="boot__progress-wrap" aria-hidden="true">
+      <div class="boot__progress-bar">
+        <div class="boot__progress-fill"></div>
+      </div>
+      <p class="boot__progress-label">Albert.exe v1.0.0</p>
+    </div>
+  </div>
+</div>
+
+<style>
+.boot {
+  position: fixed;
+  inset: 0;
+  z-index: 9000;
+  background: #08060F;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 1;
+  transition: opacity 0.5s ease;
+}
+
+.boot.boot--done {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.boot__skip {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  background: transparent;
+  border: 1px solid rgba(139, 92, 246, 0.4);
+  color: #C4B5FD;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.375rem 0.875rem;
+  border-radius: 0.375rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+  letter-spacing: 0.03em;
+}
+
+.boot__skip:hover {
+  background: rgba(139, 92, 246, 0.15);
+  color: #FAF5FF;
+}
+
+.boot__skip:focus-visible {
+  outline: 2px solid #F59E0B;
+  outline-offset: 2px;
+}
+
+.boot__center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.5rem;
+  width: min(480px, 90vw);
+}
+
+.boot__logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  animation: bootFadeIn 0.6s ease both;
+}
+
+.boot__logo-icon {
+  font-size: 3rem;
+  filter: drop-shadow(0 0 20px rgba(139, 92, 246, 0.7));
+  animation: bootPulse 2s ease-in-out infinite;
+}
+
+.boot__logo-name {
+  font-size: clamp(2.5rem, 8vw, 4rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  background: linear-gradient(135deg, #A78BFA, #F59E0B);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin: 0;
+}
+
+.boot__terminal {
+  font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+  font-size: 0.8125rem;
+  color: #4ade80;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 1rem 1.25rem;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(139, 92, 246, 0.15);
+  border-radius: 0.5rem;
+}
+
+.boot__line {
+  margin: 0;
+  opacity: 0;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.boot__line--1 {
+  animation: bootLine 0.1s ease 0.4s both;
+}
+
+.boot__line--2 {
+  animation: bootLine 0.1s ease 1.0s both;
+}
+
+.boot__line--3 {
+  animation: bootLine 0.1s ease 1.7s both;
+}
+
+.boot__prompt {
+  color: #8B5CF6;
+  margin-right: 0.5rem;
+}
+
+.boot__ok {
+  color: #4ade80;
+  font-weight: 700;
+}
+
+.boot__progress-wrap {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.boot__progress-bar {
+  width: 100%;
+  height: 4px;
+  background: rgba(139, 92, 246, 0.15);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.boot__progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #8B5CF6, #F59E0B);
+  border-radius: 999px;
+  width: 0%;
+  animation: bootProgress 2.2s cubic-bezier(0.4, 0, 0.2, 1) 0.3s both;
+}
+
+.boot__progress-label {
+  font-size: 0.6875rem;
+  color: rgba(196, 181, 253, 0.5);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin: 0;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* ── Keyframes ─────────────────────────────────── */
+
+@keyframes bootFadeIn {
+  from { opacity: 0; transform: translateY(-16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes bootPulse {
+  0%, 100% { filter: drop-shadow(0 0 12px rgba(139, 92, 246, 0.6)); }
+  50%       { filter: drop-shadow(0 0 28px rgba(245, 158, 11, 0.7)); }
+}
+
+@keyframes bootLine {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes bootProgress {
+  from { width: 0%; }
+  to   { width: 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .boot__logo,
+  .boot__logo-icon,
+  .boot__line--1,
+  .boot__line--2,
+  .boot__line--3,
+  .boot__progress-fill {
+    animation: none;
+    opacity: 1;
+  }
+  .boot__progress-fill {
+    width: 100%;
+  }
+}
+</style>
+
+<script>
+(function () {
+  const BOOT_DURATION = 3200;
+
+  function dismiss(): void {
+    const boot = document.getElementById('boot-screen');
+    if (!boot) return;
+    boot.classList.add('boot--done');
+    setTimeout(() => {
+      boot.remove();
+    }, 500);
+  }
+
+  // Auto-dismiss after boot duration
+  const timer = setTimeout(dismiss, BOOT_DURATION);
+
+  // Skip button
+  const skipBtn = document.getElementById('boot-skip');
+  if (skipBtn) {
+    skipBtn.addEventListener('click', () => {
+      clearTimeout(timer);
+      dismiss();
+    });
+  }
+
+  // Keyboard skip (Enter/Space)
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      const boot = document.getElementById('boot-screen');
+      if (boot && !boot.classList.contains('boot--done')) {
+        clearTimeout(timer);
+        dismiss();
+      }
+    }
+  }, { once: true });
+})();
+</script>

@@ -1,0 +1,124 @@
+---
+import { getCollection } from 'astro:content';
+import type { Lang } from '../../i18n/utils';
+import { useTranslations } from '../../i18n/utils';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const allHobbies = await getCollection('hobbies');
+const hobbiesItems = allHobbies
+  .map(h => ({ ...h.data, id: h.id }))
+  .sort((a, b) => a.order - b.order);
+---
+
+<div class="hob-win">
+  <div class="hob-win__header">
+    <span class="win-label">{t('hobbies.title')}</span>
+    <h2 class="win-title">{t('hobbies.subtitle')}</h2>
+  </div>
+
+  <ul class="hob-win__grid" role="list">
+    {hobbiesItems.map(hobby => (
+      <li class="hob-card" role="listitem">
+        <div class="hob-card__icon" aria-hidden="true">
+          {hobby.icon}
+        </div>
+        <div class="hob-card__content">
+          <h3 class="hob-card__name">
+            {lang === 'en' ? hobby.nameEn : hobby.name}
+          </h3>
+          <p class="hob-card__desc">
+            {lang === 'en' ? hobby.descriptionEn : hobby.description}
+          </p>
+        </div>
+      </li>
+    ))}
+  </ul>
+</div>
+
+<style>
+.hob-win {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.win-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #F59E0B;
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.win-title {
+  font-size: clamp(1.25rem, 3vw, 1.75rem);
+  font-weight: 700;
+  color: #FAF5FF;
+  margin: 0;
+}
+
+.hob-win__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.hob-card {
+  background: rgba(139, 92, 246, 0.06);
+  border: 1px solid rgba(139, 92, 246, 0.18);
+  border-radius: 0.875rem;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.hob-card:hover {
+  border-color: rgba(139, 92, 246, 0.4);
+  transform: translateY(-3px);
+}
+
+.hob-card__icon {
+  font-size: 2rem;
+  width: 3.25rem;
+  height: 3.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(245, 158, 11, 0.08);
+  border: 1px solid rgba(245, 158, 11, 0.18);
+  border-radius: 0.75rem;
+}
+
+.hob-card__content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.hob-card__name {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #FAF5FF;
+  margin: 0;
+}
+
+.hob-card__desc {
+  font-size: 0.8125rem;
+  color: #C4B5FD;
+  line-height: 1.65;
+  margin: 0;
+}
+</style>

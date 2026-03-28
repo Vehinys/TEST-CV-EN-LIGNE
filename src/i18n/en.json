@@ -112,5 +112,19 @@
 
   "legal.title": "Legal notice",
   "privacy.title": "Privacy policy",
-  "accessibility.declaration.title": "Accessibility statement"
+  "accessibility.declaration.title": "Accessibility statement",
+
+  "os.icon.about": "About",
+  "os.icon.projects": "Projects",
+  "os.icon.skills": "Skills",
+  "os.icon.experience": "Experience",
+  "os.icon.volunteer": "Volunteer",
+  "os.icon.hobbies": "Hobbies",
+  "os.icon.contact": "Contact",
+  "os.icon.cv": "CV.pdf",
+  "os.taskbar.start": "Albert.exe",
+  "os.window.minimize": "Minimize",
+  "os.window.maximize": "Maximize",
+  "os.window.close": "Close",
+  "os.boot.skip": "Skip intro"
 }

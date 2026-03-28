@@ -2,40 +2,31 @@
 
 /* ================================================
    DESIGN SYSTEM — Portfolio Albert Lecomte
-   Cyber-Holographique / Acid Green & Neon Pink
+   Albert.exe — Violet + Gold OS Theme
    ================================================ */
 
 @theme {
-  /* === FONTS === */
   --font-family-sans: "Outfit", "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-family-display: "Outfit", "Space Grotesk", sans-serif;
-
-  /* === COLOR PALETTE === */
-  --color-acid-green: #CCFF00;
-  --color-neon-pink:  #FF00FF;
-  --color-electric-cyan: #00FFFF;
-  --color-deep-purple: #7000FF;
-  --color-dark-black: #050505;
-
-  /* === BACKGROUNDS === */
-  --color-bg-dark:    #050505;
-  --color-surface-dark: rgba(255, 255, 255, 0.03);
-
-  /* === ANIMATIONS === */
-  --animate-fade-up: fade-up 0.6s ease both;
-  --animate-fade-in: fade-in 0.4s ease both;
-  --animate-float: float 6s ease-in-out infinite;
-  --animate-glow: glow-pulse 3s ease-in-out infinite;
-  --animate-marquee: marquee 30s linear infinite;
-  --animate-gradient-x: gradient-x 5s ease infinite;
+  --font-family-mono: "JetBrains Mono", "Fira Code", ui-monospace, monospace;
 }
 
 /* ================================================
    KEYFRAMES
    ================================================ */
-@keyframes marquee {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-12px); }
 }
 
 @keyframes gradient-x {
@@ -49,54 +40,44 @@
   }
 }
 
-@keyframes fade-up {
-  from { opacity: 0; transform: translateY(24px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes fade-in {
-  from { opacity: 0; }
-  to   { opacity: 1; }
-}
-
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50%       { transform: translateY(-16px); }
-}
-
-@keyframes glow-pulse {
-  0%, 100% { box-shadow: 0 0 20px rgba(204, 255, 0, 0.3); }
-  50%       { box-shadow: 0 0 40px rgba(204, 255, 0, 0.6); }
-}
-
-@keyframes shimmer {
-  0%   { background-position: -200% center; }
-  100% { background-position: 200% center; }
+@keyframes spin {
+  to { transform: rotate(360deg); }
 }
 
 /* ================================================
-   CSS CUSTOM PROPERTIES
+   CSS CUSTOM PROPERTIES — VIOLET + GOLD PALETTE
    ================================================ */
 :root {
-  --color-bg:           #050505;
-  --color-surface:      rgba(255, 255, 255, 0.03);
-  --color-surface-2:    rgba(255, 255, 255, 0.05);
-  --color-text:         #ffffff;
-  --color-text-subtle:  #a3a3a3;
-  --color-text-muted:   #525252;
-  --color-border:       rgba(255, 255, 255, 0.05);
-  --color-focus:        #CCFF00;
+  /* === FOND === */
+  --color-bg:           #08060F;
+  --color-surface:      rgba(139, 92, 246, 0.04);
+  --color-surface-2:    rgba(139, 92, 246, 0.08);
 
-  /* Glassmorphism */
-  --glass-bg:           rgba(255, 255, 255, 0.03);
-  --glass-bg-hover:     rgba(255, 255, 255, 0.06);
-  --glass-border:       rgba(255, 255, 255, 0.05);
-  --glass-border-hover: #CCFF00;
-  --glass-blur:         12px;
-  --glass-shadow:       0 8px 32px rgba(0, 0, 0, 0.4);
-  --glass-shadow-hover: 0 0 20px rgba(204, 255, 0, 0.2);
+  /* === TEXTE === */
+  --color-text:         #FAF5FF;
+  --color-text-subtle:  #C4B5FD;
+  --color-text-muted:   #6D28D9;
 
-  /* Spacing */
+  /* === ACCENTS === */
+  --color-violet:       #8B5CF6;
+  --color-violet-light: #A78BFA;
+  --color-violet-dark:  #6D28D9;
+  --color-gold:         #F59E0B;
+  --color-gold-light:   #FCD34D;
+  --color-gold-dark:    #D97706;
+
+  /* === UTILITAIRES === */
+  --color-border:       rgba(139, 92, 246, 0.15);
+  --color-focus:        #F59E0B;
+
+  /* === GLASSMORPHISM === */
+  --glass-bg:           rgba(12, 8, 24, 0.7);
+  --glass-bg-hover:     rgba(20, 14, 40, 0.8);
+  --glass-border:       rgba(139, 92, 246, 0.2);
+  --glass-border-hover: #8B5CF6;
+  --glass-blur:         16px;
+  --glass-shadow:       0 8px 32px rgba(0, 0, 0, 0.5);
+
   --section-padding: clamp(4rem, 8vw, 8rem);
 }
 
@@ -128,7 +109,14 @@ body {
   background-color: var(--color-bg);
   color: var(--color-text);
   line-height: 1.6;
-  overflow-x: hidden;
+  overflow: hidden; /* OS fullscreen */
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-family-display);
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--color-text);
 }
 
 /* ================================================
@@ -146,7 +134,6 @@ body {
   .glass:hover {
     background: var(--glass-bg-hover);
     border-color: var(--glass-border-hover);
-    box-shadow: var(--glass-shadow-hover);
   }
 
   .glass-card {
@@ -155,92 +142,74 @@ body {
     -webkit-backdrop-filter: blur(var(--glass-blur));
     border: 1px solid var(--glass-border);
     box-shadow: var(--glass-shadow);
-    border-radius: 1.5rem;
-    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 1rem;
+    transition: all 0.3s ease;
   }
 
   .glass-card:hover {
     background: var(--glass-bg-hover);
-    border-color: var(--glass-border-hover);
-    box-shadow: var(--glass-shadow-hover);
-    transform: translateY(-4px);
+    border-color: rgba(139, 92, 246, 0.4);
   }
 
   .gradient-text {
-    background: linear-gradient(135deg, #CCFF00, #00FFFF, #FF00FF);
+    background: linear-gradient(135deg, var(--color-violet-light), var(--color-gold));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-  }
-
-  .gradient-text-animated {
-    background: linear-gradient(135deg, #CCFF00, #00FFFF, #FF00FF, #CCFF00);
-    background-size: 200% 200%;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    animation: gradient-x 5s ease infinite;
-  }
-
-  .bg-orb {
-    position: fixed;
-    border-radius: 50%;
-    pointer-events: none;
-    filter: blur(80px);
-    z-index: 0;
-    opacity: 0.15;
-  }
-
-  .shimmer {
-    background: linear-gradient(90deg, transparent 0%, rgba(204, 255, 0, 0.1) 50%, transparent 100%);
-    background-size: 200% 100%;
-    animation: shimmer 2s infinite;
   }
 
   .section-padding {
     padding-top: var(--section-padding);
     padding-bottom: var(--section-padding);
   }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
 }
 
 /* ================================================
-   COMPONENTS RESET
+   COMPONENTS
    ================================================ */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 5px;
+  height: 5px;
 }
+
 ::-webkit-scrollbar-track {
-  background: var(--color-bg);
+  background: transparent;
 }
+
 ::-webkit-scrollbar-thumb {
-  background: #222;
+  background: rgba(139, 92, 246, 0.4);
   border-radius: 3px;
 }
+
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-acid-green);
+  background: var(--color-violet);
 }
 
 ::selection {
-  background: var(--color-neon-pink);
-  color: #ffffff;
-}
-
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-family-display);
-  font-weight: 800;
-  line-height: 1.1;
-  color: var(--color-text);
-  letter-spacing: -0.02em;
+  background: var(--color-violet);
+  color: white;
 }
 
 a {
-  color: var(--color-acid-green);
+  color: var(--color-violet-light);
   text-decoration: none;
-  transition: all 0.2s ease;
+  transition: color 0.2s ease;
 }
 
 a:hover {
-  text-shadow: 0 0 8px rgba(204, 255, 0, 0.4);
+  color: var(--color-text);
 }
 
 img {
@@ -257,8 +226,8 @@ img {
   left: 0;
   z-index: 9999;
   padding: 0.75rem 1.5rem;
-  background: var(--color-acid-green);
-  color: #050505;
+  background: var(--color-gold);
+  color: #08060F;
   font-weight: 700;
   font-size: 0.875rem;
   text-decoration: none;
@@ -268,46 +237,13 @@ img {
 
 .skip-link:focus {
   top: 0;
-  outline: 3px solid #050505;
+  outline: 3px solid #08060F;
   outline-offset: 2px;
 }
 
 /* ================================================
-   LIGHT MODE — [data-theme="light"]
+   FOCUS GLOBAL — RGAA AAA
    ================================================ */
-[data-theme="light"] {
-  --color-bg:           #F0F4FF;
-  --color-surface:      rgba(0, 0, 0, 0.04);
-  --color-surface-2:    rgba(0, 0, 0, 0.06);
-  --color-text:         #0F172A;
-  --color-text-subtle:  #475569;
-  --color-text-muted:   #94A3B8;
-  --color-border:       rgba(0, 0, 0, 0.1);
-  --color-focus:        #5B21B6;
-
-  /* Glassmorphism light */
-  --glass-bg:           rgba(255, 255, 255, 0.6);
-  --glass-bg-hover:     rgba(255, 255, 255, 0.8);
-  --glass-border:       rgba(59, 130, 246, 0.2);
-  --glass-border-hover: #3B82F6;
-  --glass-shadow:       0 8px 32px rgba(0, 0, 0, 0.1);
-  --glass-shadow-hover: 0 0 20px rgba(59, 130, 246, 0.2);
-}
-
-[data-theme="light"] body {
-  background-color: var(--color-bg);
-  color: var(--color-text);
-}
-
-[data-theme="light"] a {
-  color: #1D4ED8;
-}
-
-[data-theme="light"] a:hover {
-  text-shadow: 0 0 8px rgba(29, 78, 216, 0.3);
-}
-
-/* Focus global — RGAA AAA */
 a:focus-visible,
 button:focus-visible,
 input:focus-visible,
@@ -317,4 +253,57 @@ textarea:focus-visible,
   outline: 3px solid var(--color-focus);
   outline-offset: 2px;
   border-radius: 2px;
+}
+
+/* ================================================
+   WINDOW CONTENT BASE STYLES
+   ================================================ */
+.win-title {
+  font-size: clamp(1.25rem, 3vw, 1.75rem);
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 1.5rem;
+}
+
+.win-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-gold);
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.win-section {
+  margin-bottom: 2rem;
+}
+
+/* ================================================
+   ACCESSIBILITY SETTINGS (data attributes)
+   ================================================ */
+[data-font-size="large"] {
+  font-size: 112.5%;
+}
+
+[data-font-size="xlarge"] {
+  font-size: 125%;
+}
+
+[data-contrast="high"] {
+  --color-text:         #FFFFFF;
+  --color-bg:           #000000;
+  --color-text-subtle:  #EEEEEE;
+  --glass-border:       rgba(255, 255, 255, 0.6);
+}
+
+[data-line-height="loose"] {
+  line-height: 1.9;
+}
+
+/* ================================================
+   LEGAL PAGES (use standard scroll)
+   ================================================ */
+body.legal-page {
+  overflow: auto;
 }

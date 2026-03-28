@@ -1,0 +1,362 @@
+---
+import type { Lang } from '../../i18n/utils';
+import { useTranslations } from '../../i18n/utils';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+interface TimelineItem {
+  period: string;
+  title: Record<'fr' | 'en', string>;
+  company: string;
+  location: string;
+  description: Record<'fr' | 'en', string>;
+  tags: string[];
+  current?: boolean;
+}
+
+const experiences: TimelineItem[] = [
+  {
+    period: '2026 (2 mois)',
+    title: { fr: 'Refonte site WordPress — Stage CDUI', en: 'WordPress Redesign — UI Designer Intern' },
+    company: 'NAPOCOM',
+    location: 'Remote/France',
+    description: {
+      fr: "Refonte complète du site web de l'agence. Optimisation UX/UI, intégration de maquettes, et configuration avancée de WordPress.",
+      en: 'Complete agency website redesign. UI/UX optimization, mockup integration, and advanced WordPress configuration.',
+    },
+    tags: ['WordPress', 'Elementor', 'CSS', 'UX/UI'],
+    current: true,
+  },
+  {
+    period: '2023 — 2024',
+    title: { fr: 'Vendeur Polyvalent (CDI)', en: 'Multiskilled Salesperson (CDI)' },
+    company: 'BLACKSTORE France',
+    location: 'Mulhouse',
+    description: {
+      fr: 'Accueil et conseil client personnalisé. Gestion complète de la caisse, des stocks, inventaires et merchandising.',
+      en: 'Personalized customer advice. Full management of till, stock, inventory and merchandising.',
+    },
+    tags: ['Vente', 'Conseil', 'Merchandising', 'Gestion'],
+  },
+  {
+    period: '2022 (Stage)',
+    title: { fr: 'Création de maquette — Stage', en: 'Mockup Creation — Intern' },
+    company: 'E-NAUMAD',
+    location: 'France',
+    description: {
+      fr: 'Stagiaire Frontend, personnalisation avancée de sites WordPress. Création de visuels et maquettes (Photoshop, Figma).',
+      en: 'Frontend intern, advanced WordPress customization. Creation of visuals and mockups (Photoshop, Figma).',
+    },
+    tags: ['WordPress', 'PHP', 'CSS', 'Photoshop', 'Figma'],
+  },
+  {
+    period: '2015 — 2021',
+    title: { fr: 'Vendeur Polyvalent (CDI)', en: 'Multiskilled Salesperson (CDI)' },
+    company: 'IKEA',
+    location: 'Mulhouse',
+    description: {
+      fr: "6 ans d'expérience en relation client, gestion de stock, merchandising et logistique (CACES).",
+      en: '6 years of experience in customer relations, stock management, merchandising and logistics (CACES).',
+    },
+    tags: ['Relation Client', 'Logistique', 'Soft-skills'],
+  },
+];
+
+const education: TimelineItem[] = [
+  {
+    period: '2025 — 2026',
+    title: { fr: 'Concepteur Designer UI (Niveau 6)', en: 'UI Designer Conceptor (Level 6)' },
+    company: 'GRETA Alsace Sud',
+    location: 'Mulhouse',
+    description: {
+      fr: "Niveau : En cours. Conception pour WordPress & UI/UX Design. Suite Adobe. Intégration HTML5/CSS3 et Framework Symfony.",
+      en: 'Level: In progress. Design for WordPress & UI/UX. Adobe Suite. HTML5/CSS3 and Symfony Framework.',
+    },
+    tags: ['Adobe Suite', 'Symfony', 'WordPress'],
+  },
+  {
+    period: '2024',
+    title: { fr: 'Développeur Web & Mobile (Niveau 5)', en: 'Web & Mobile Developer (Level 5)' },
+    company: 'Elan Formation',
+    location: 'Mulhouse',
+    description: {
+      fr: 'Niveau : Diplôme Acquis. Maquettage Figma, JS, PHP, Symfony, SQL/NoSQL. Gestion de projet Agile.',
+      en: 'Level: Degree Acquired. Figma wireframing, JS, PHP, Symfony, SQL/NoSQL. Agile project management.',
+    },
+    tags: ['JS/PHP', 'Symfony', 'SQL', 'Agile'],
+  },
+  {
+    period: '2022 — 2023',
+    title: { fr: 'Infographiste Metteur en Page (Niveau 4)', en: 'Graphic Designer Page Setter (Level 4)' },
+    company: 'GRETA Sud Alsace',
+    location: 'Mulhouse',
+    description: {
+      fr: "Niveau : Diplôme Acquis. Analyse des besoins, propositions graphiques, InDesign, Photoshop, Illustrator.",
+      en: 'Level: Degree Acquired. Needs analysis, graphic proposals, InDesign, Photoshop, Illustrator.',
+    },
+    tags: ['InDesign', 'Photoshop', 'Illustrator'],
+  },
+];
+---
+
+<div class="exp-win">
+  <!-- Experience -->
+  <div class="exp-section">
+    <div class="exp-section__header">
+      <span class="win-label">{t('experience.title')}</span>
+      <h2 class="win-title">{t('experience.subtitle')}</h2>
+    </div>
+
+    <ol class="timeline" aria-label={lang === 'fr' ? 'Expériences professionnelles' : 'Work experience'}>
+      {experiences.map((item, i) => (
+        <li class="timeline__item">
+          <div class="timeline__marker" aria-hidden="true">
+            <div class={`timeline__dot timeline__dot--exp${item.current ? ' timeline__dot--current' : ''}`}></div>
+            {i < experiences.length - 1 && <div class="timeline__line timeline__line--exp"></div>}
+          </div>
+
+          <div class="timeline__content">
+            <div class="timeline__meta">
+              <time class="timeline__period">{item.period}</time>
+              {item.current && (
+                <span class="timeline__badge" aria-label={lang === 'fr' ? 'Poste actuel' : 'Current position'}>
+                  {lang === 'fr' ? 'Actuel' : 'Current'}
+                </span>
+              )}
+            </div>
+
+            <h3 class="timeline__title">{item.title[lang]}</h3>
+            <p class="timeline__company">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+              {item.company} — {item.location}
+            </p>
+            <p class="timeline__desc">{item.description[lang]}</p>
+
+            <ul class="timeline__tags" role="list">
+              {item.tags.map(tag => <li class="exp-tag">{tag}</li>)}
+            </ul>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </div>
+
+  <!-- Education -->
+  <div class="exp-section">
+    <div class="exp-section__header">
+      <span class="win-label">{t('education.title')}</span>
+      <h2 class="win-title">{t('education.subtitle')}</h2>
+    </div>
+
+    <ol class="timeline" aria-label={lang === 'fr' ? 'Formation académique' : 'Academic background'}>
+      {education.map((item, i) => (
+        <li class="timeline__item">
+          <div class="timeline__marker" aria-hidden="true">
+            <div class="timeline__dot timeline__dot--edu"></div>
+            {i < education.length - 1 && <div class="timeline__line timeline__line--edu"></div>}
+          </div>
+
+          <div class="timeline__content">
+            <time class="timeline__period">{item.period}</time>
+            <h3 class="timeline__title">{item.title[lang]}</h3>
+            <p class="timeline__company">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+              {item.company} — {item.location}
+            </p>
+            <p class="timeline__desc">{item.description[lang]}</p>
+            <ul class="timeline__tags" role="list">
+              {item.tags.map(tag => <li class="exp-tag exp-tag--edu">{tag}</li>)}
+            </ul>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </div>
+</div>
+
+<style>
+.exp-win {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.win-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #F59E0B;
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.win-title {
+  font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+  font-weight: 700;
+  color: #FAF5FF;
+  margin: 0;
+}
+
+.exp-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.exp-section__header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+.timeline {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.timeline__item {
+  display: grid;
+  grid-template-columns: 1.5rem 1fr;
+  gap: 1rem;
+  padding-bottom: 1.125rem;
+}
+
+.timeline__marker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 1rem;
+}
+
+.timeline__dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  z-index: 1;
+  border: 2px solid #8B5CF6;
+  background: #08060F;
+}
+
+.timeline__dot--exp {
+  border-color: #8B5CF6;
+}
+
+.timeline__dot--current {
+  background: #8B5CF6;
+  box-shadow: 0 0 10px rgba(139, 92, 246, 0.6);
+}
+
+.timeline__dot--edu {
+  border-color: #F59E0B;
+}
+
+.timeline__line {
+  width: 2px;
+  flex: 1;
+  margin-top: 4px;
+}
+
+.timeline__line--exp {
+  background: linear-gradient(to bottom, rgba(139, 92, 246, 0.4), transparent);
+}
+
+.timeline__line--edu {
+  background: linear-gradient(to bottom, rgba(245, 158, 11, 0.4), transparent);
+}
+
+.timeline__content {
+  background: rgba(139, 92, 246, 0.05);
+  border: 1px solid rgba(139, 92, 246, 0.14);
+  border-radius: 0.625rem;
+  padding: 0.875rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.timeline__meta {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+}
+
+.timeline__period {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #8B5CF6;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.timeline__badge {
+  padding: 0.1rem 0.4rem;
+  border-radius: 999px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  background: rgba(74, 222, 128, 0.12);
+  border: 1px solid rgba(74, 222, 128, 0.3);
+  color: #4ade80;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.timeline__title {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: #FAF5FF;
+  margin: 0;
+  line-height: 1.3;
+}
+
+.timeline__company {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: #F59E0B;
+  margin: 0;
+}
+
+.timeline__desc {
+  font-size: 0.8125rem;
+  color: #C4B5FD;
+  line-height: 1.7;
+  margin: 0;
+}
+
+.timeline__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  list-style: none;
+  padding: 0;
+  margin: 0.25rem 0 0;
+}
+
+.exp-tag {
+  padding: 0.15rem 0.5rem;
+  border-radius: 0.375rem;
+  font-size: 0.65rem;
+  font-weight: 600;
+  background: rgba(139, 92, 246, 0.1);
+  border: 1px solid rgba(139, 92, 246, 0.2);
+  color: #A78BFA;
+}
+
+.exp-tag--edu {
+  background: rgba(245, 158, 11, 0.08);
+  border-color: rgba(245, 158, 11, 0.2);
+  color: #F59E0B;
+}
+</style>

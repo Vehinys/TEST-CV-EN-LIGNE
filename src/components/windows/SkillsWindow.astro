@@ -1,0 +1,187 @@
+---
+import { getCollection } from 'astro:content';
+import type { Lang } from '../../i18n/utils';
+import { useTranslations } from '../../i18n/utils';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const allSkillEntries = await getCollection('skills');
+const skills = (allSkillEntries[0]?.data ?? []).sort((a, b) => a.order - b.order);
+
+const categories = ['design', 'frontend', 'backend', 'tools'] as const;
+---
+
+<div class="skills-win">
+  <div class="skills-win__header">
+    <span class="win-label">{t('skills.title')}</span>
+    <h2 class="win-title">{t('skills.subtitle')}</h2>
+  </div>
+
+  <div class="skills-win__grid">
+    {categories.map(cat => {
+      const catSkills = skills.filter(s => s.category === cat);
+      if (catSkills.length === 0) return null;
+      return (
+        <div class="skill-cat">
+          <h3 class="skill-cat__title">{t(`skills.${cat}`)}</h3>
+          <ul class="skill-cat__list" role="list">
+            {catSkills.map(skill => (
+              <li class="skill-item">
+                <div class="skill-item__header">
+                  <span class="skill-item__name">{skill.name}</span>
+                  <span class="skill-item__level sr-only">{t(`skills.level.${skill.level}`)}</span>
+                  <span class="skill-item__dots" aria-hidden="true">
+                    {Array.from({ length: 5 }, (_, i) => (
+                      <span class={`skill-dot ${i < skill.level ? 'skill-dot--active' : ''}`}></span>
+                    ))}
+                  </span>
+                </div>
+                <div
+                  class="skill-bar"
+                  role="progressbar"
+                  aria-valuenow={skill.level * 20}
+                  aria-valuemin={0}
+                  aria-valuemax={100}
+                  aria-label={`${skill.name}: ${t(`skills.level.${skill.level}`)}`}
+                >
+                  <div class="skill-bar__fill" style={`width: ${skill.level * 20}%`}></div>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      );
+    })}
+  </div>
+</div>
+
+<style>
+.skills-win {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.win-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #F59E0B;
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.win-title {
+  font-size: clamp(1.25rem, 3vw, 1.75rem);
+  font-weight: 700;
+  color: #FAF5FF;
+  margin: 0;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skills-win__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+@media (max-width: 480px) {
+  .skills-win__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.skill-cat {
+  background: rgba(139, 92, 246, 0.06);
+  border: 1px solid rgba(139, 92, 246, 0.18);
+  border-radius: 0.75rem;
+  padding: 1.125rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.skill-cat__title {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #8B5CF6;
+  margin: 0;
+}
+
+.skill-cat__list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.skill-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.skill-item__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.skill-item__name {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: #FAF5FF;
+}
+
+.skill-item__dots {
+  display: flex;
+  gap: 3px;
+}
+
+.skill-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(139, 92, 246, 0.2);
+  transition: background 0.3s ease;
+}
+
+.skill-dot--active {
+  background: #8B5CF6;
+}
+
+.skill-bar {
+  height: 3px;
+  border-radius: 999px;
+  background: rgba(139, 92, 246, 0.15);
+  overflow: hidden;
+}
+
+.skill-bar__fill {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #8B5CF6, #A78BFA);
+  transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+</style>

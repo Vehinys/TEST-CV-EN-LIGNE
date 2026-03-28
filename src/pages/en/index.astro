@@ -1,28 +1,100 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import Hero from '../../components/sections/Hero.astro';
-import About from '../../components/sections/About.astro';
-import Skills from '../../components/sections/Skills.astro';
-import Projects from '../../components/sections/Projects.astro';
-import Experience from '../../components/sections/Experience.astro';
-import Volunteer from '../../components/sections/Volunteer.astro';
-import Hobbies from '../../components/sections/Hobbies.astro';
-import Contact from '../../components/sections/Contact.astro';
+import BootScreen from '../../components/os/BootScreen.astro';
+import Desktop from '../../components/os/Desktop.astro';
+import Taskbar from '../../components/os/Taskbar.astro';
+import Window from '../../components/os/Window.astro';
+import AboutWindow from '../../components/windows/AboutWindow.astro';
+import ProjectsWindow from '../../components/windows/ProjectsWindow.astro';
+import SkillsWindow from '../../components/windows/SkillsWindow.astro';
+import ExperienceWindow from '../../components/windows/ExperienceWindow.astro';
+import VolunteerWindow from '../../components/windows/VolunteerWindow.astro';
+import HobbiesWindow from '../../components/windows/HobbiesWindow.astro';
+import ContactWindow from '../../components/windows/ContactWindow.astro';
+import { getAlternateLangPath } from '../../i18n/utils';
 
 const lang = 'en' as const;
+const alternateLangPath = getAlternateLangPath(Astro.url);
 ---
 
 <BaseLayout
-  title="Portfolio"
+  title="Albert.exe — Portfolio"
   description="UI Designer based in Mulhouse, France. I create modern, accessible and high-performance websites for craftsmen, retailers and businesses in Alsace."
   lang={lang}
 >
-  <Hero lang={lang} />
-  <About lang={lang} />
-  <Skills lang={lang} />
-  <Projects lang={lang} />
-  <Experience lang={lang} />
-  <Volunteer lang={lang} />
-  <Hobbies lang={lang} />
-  <Contact lang={lang} />
+  <!-- Boot animation -->
+  <BootScreen lang={lang} />
+
+  <!-- Desktop background with particles + icons -->
+  <Desktop lang={lang} />
+
+  <!-- Taskbar at bottom -->
+  <Taskbar lang={lang} alternateLangPath={alternateLangPath} />
+
+  <!-- All windows in DOM, hidden by default -->
+  <Window id="about" title="About" icon="👤" defaultX={120} defaultY={80} defaultWidth={680} defaultHeight={520}>
+    <AboutWindow lang={lang} />
+  </Window>
+
+  <Window id="projects" title="Projects" icon="📁" defaultX={160} defaultY={60} defaultWidth={900} defaultHeight={620}>
+    <ProjectsWindow lang={lang} />
+  </Window>
+
+  <Window id="skills" title="Skills" icon="🛠️" defaultX={200} defaultY={90} defaultWidth={720} defaultHeight={560}>
+    <SkillsWindow lang={lang} />
+  </Window>
+
+  <Window id="experience" title="Experience" icon="💼" defaultX={140} defaultY={70} defaultWidth={780} defaultHeight={600}>
+    <ExperienceWindow lang={lang} />
+  </Window>
+
+  <Window id="volunteer" title="Volunteer" icon="🤝" defaultX={180} defaultY={65} defaultWidth={680} defaultHeight={500}>
+    <VolunteerWindow lang={lang} />
+  </Window>
+
+  <Window id="hobbies" title="Hobbies" icon="🎮" defaultX={220} defaultY={75} defaultWidth={640} defaultHeight={480}>
+    <HobbiesWindow lang={lang} />
+  </Window>
+
+  <Window id="contact" title="Contact" icon="📧" defaultX={160} defaultY={85} defaultWidth={660} defaultHeight={540}>
+    <ContactWindow lang={lang} />
+  </Window>
 </BaseLayout>
+
+<script>
+import { register, close, minimize, maximize, focus } from '../../utils/window-manager';
+
+// Register all windows with the manager
+const windows = [
+  { id: 'about',      title: 'About',      icon: '👤' },
+  { id: 'projects',   title: 'Projects',   icon: '📁' },
+  { id: 'skills',     title: 'Skills',     icon: '🛠️' },
+  { id: 'experience', title: 'Experience', icon: '💼' },
+  { id: 'volunteer',  title: 'Volunteer',  icon: '🤝' },
+  { id: 'hobbies',    title: 'Hobbies',    icon: '🎮' },
+  { id: 'contact',    title: 'Contact',    icon: '📧' },
+] as const;
+
+windows.forEach(w => register(w.id, w.title, w.icon));
+
+// Event delegation — window control buttons
+document.addEventListener('click', (e) => {
+  const btn = (e.target as HTMLElement).closest<HTMLElement>('[data-action][data-window]');
+  if (!btn) return;
+  const action = btn.dataset['action'];
+  const id = btn.dataset['window'];
+  if (!id) return;
+
+  if (action === 'close')         close(id);
+  else if (action === 'minimize') minimize(id);
+  else if (action === 'maximize') maximize(id);
+});
+
+// Focus window on mousedown
+document.addEventListener('mousedown', (e) => {
+  const win = (e.target as HTMLElement).closest<HTMLElement>('.window');
+  if (!win) return;
+  const id = win.id.replace('window-', '');
+  if (id) focus(id);
+});
+</script>

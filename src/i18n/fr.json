@@ -112,5 +112,19 @@
 
   "legal.title": "Mentions légales",
   "privacy.title": "Politique de confidentialité",
-  "accessibility.declaration.title": "Déclaration d'accessibilité"
+  "accessibility.declaration.title": "Déclaration d'accessibilité",
+
+  "os.icon.about": "À propos",
+  "os.icon.projects": "Projets",
+  "os.icon.skills": "Compétences",
+  "os.icon.experience": "Expérience",
+  "os.icon.volunteer": "Bénévolat",
+  "os.icon.hobbies": "Passions",
+  "os.icon.contact": "Contact",
+  "os.icon.cv": "CV.pdf",
+  "os.taskbar.start": "Albert.exe",
+  "os.window.minimize": "Réduire",
+  "os.window.maximize": "Agrandir",
+  "os.window.close": "Fermer",
+  "os.boot.skip": "Passer l'intro"
 }
