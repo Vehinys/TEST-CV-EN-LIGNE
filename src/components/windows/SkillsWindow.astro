@@ -2,34 +2,18 @@
 import { getCollection } from 'astro:content';
 import type { Lang } from '../../i18n/utils';
 
-interface Props {
-  lang: Lang;
-}
-
+interface Props { lang: Lang; }
 const { lang } = Astro.props;
 
+// ── Processus : Design uniquement ───────────────────────────────
 const allSkillEntries = await getCollection('skills');
-const skills = (allSkillEntries[0]?.data ?? []).sort((a, b) => a.order - b.order);
-
-const categories = ['design', 'frontend', 'backend', 'tools'] as const;
-
-type Category = typeof categories[number];
-
-const catMeta: Record<Category, { icon: string; labelFr: string; labelEn: string }> = {
-  design:   { icon: '🎨', labelFr: 'Design',    labelEn: 'Design' },
-  frontend: { icon: '🖥️', labelFr: 'Front-end', labelEn: 'Front-end' },
-  backend:  { icon: '⚙️', labelFr: 'Back-end',  labelEn: 'Back-end' },
-  tools:    { icon: '🔧', labelFr: 'Outils',    labelEn: 'Tools' },
-};
+const designSkills = (allSkillEntries[0]?.data ?? [])
+  .filter(s => s.category === 'design')
+  .sort((a, b) => a.order - b.order);
 
 const versionLabels: Record<number, string> = {
-  1: 'v0.1 alpha',
-  2: 'v1.0 beta',
-  3: 'v2.0 stable',
-  4: 'v3.0 LTS',
-  5: 'v5.0 PROD',
+  1: 'v0.1 alpha', 2: 'v1.0 beta', 3: 'v2.0 stable', 4: 'v3.0 LTS', 5: 'v5.0 PROD',
 };
-
 const processStates: Record<number, { text: string; cls: string }> = {
   1: { text: 'SUSPENDED', cls: 'grey'   },
   2: { text: 'IDLE',      cls: 'grey'   },
@@ -37,33 +21,62 @@ const processStates: Record<number, { text: string; cls: string }> = {
   4: { text: 'RUNNING',   cls: 'green'  },
   5: { text: 'RUNNING',   cls: 'green'  },
 };
-
-function getStatus(level: number): { dot: string; label: string } {
+function getStatus(level: number) {
   if (level >= 4) return { dot: 'green',  label: lang === 'fr' ? 'Actif' : 'Active' };
-  if (level === 3) return { dot: 'yellow', label: lang === 'fr' ? 'Stable' : 'Stable' };
+  if (level === 3) return { dot: 'yellow', label: 'Stable' };
   return { dot: 'grey', label: lang === 'fr' ? 'Inactif' : 'Inactive' };
 }
 
-const processCount = skills.length;
+// ── Environnement : Code ─────────────────────────────────────────
+const codeItems = [
+  { name: 'Windows 11',      catFr: 'Système',      catEn: 'System'      },
+  { name: 'VS Code',         catFr: 'Éditeur',      catEn: 'Editor'      },
+  { name: 'Antigravity',     catFr: 'Éditeur',      catEn: 'Editor'      },
+  { name: 'JetBrains Mono',  catFr: 'Police code',  catEn: 'Code font'   },
+  { name: 'Chrome',          catFr: 'Navigateur',   catEn: 'Browser'     },
+  { name: 'HTML5 / CSS3',    catFr: 'Frontend',     catEn: 'Frontend'    },
+  { name: 'JavaScript',      catFr: 'Frontend',     catEn: 'Frontend'    },
+  { name: 'Tailwind CSS',    catFr: 'Frontend',     catEn: 'Frontend'    },
+  { name: 'PHP / Symfony',   catFr: 'Backend',      catEn: 'Backend'     },
+  { name: 'MySQL',           catFr: 'Base de données', catEn: 'Database' },
+  { name: 'Git / GitHub',    catFr: 'Dépôts',       catEn: 'Repos'       },
+  { name: 'Vercel',          catFr: 'Déploiement',  catEn: 'Deploy'      },
+  { name: 'SEO / SEA',       catFr: 'SEO',          catEn: 'SEO'         },
+] as const;
+
+// ── WordPress ────────────────────────────────────────────────────
+const wpItems = [
+  { name: 'WordPress',      catFr: 'CMS',          catEn: 'CMS'          },
+  { name: 'Elementor',      catFr: 'Page builder', catEn: 'Page builder' },
+  { name: 'Divi',           catFr: 'Page builder', catEn: 'Page builder' },
+  { name: 'Gutenberg',      catFr: 'Éditeur WP',   catEn: 'WP Editor'    },
+  { name: 'Rank Math SEO',  catFr: 'SEO',          catEn: 'SEO'          },
+] as const;
 
 const labels = {
   fr: {
-    tabProcesses:    'Processus',
-    tabPerformances: 'Performances',
-    colProcess:      'Processus',
-    colUsage:        'Utilisation',
-    colLevel:        'Version',
-    colStatus:       'Statut',
-    footer:          `CPU Albert.exe\u00a0: Actif\u00a0| Processus\u00a0: ${processCount}\u00a0| Démarré\u00a0: 2021`,
+    tabProcesses: 'Design',
+    tabCode:      'Code',
+    tabWp:        'WordPress',
+    colProcess:   'Processus',
+    colUsage:     'Utilisation',
+    colLevel:     'Version',
+    colStatus:    'Statut',
+    footer:       `CPU Albert.exe\u00a0: Actif\u00a0| Design\u00a0: ${designSkills.length} proc.\u00a0| Démarré\u00a0: 2021`,
+    codeTitle:    'Environnement code',
+    wpTitle:      'Environnement WordPress',
   },
   en: {
-    tabProcesses:    'Processes',
-    tabPerformances: 'Performance',
-    colProcess:      'Process',
-    colUsage:        'Usage',
-    colLevel:        'Version',
-    colStatus:       'Status',
-    footer:          `CPU Albert.exe: Active | Processes: ${processCount} | Started: 2021`,
+    tabProcesses: 'Design',
+    tabCode:      'Code',
+    tabWp:        'WordPress',
+    colProcess:   'Process',
+    colUsage:     'Usage',
+    colLevel:     'Version',
+    colStatus:    'Status',
+    footer:       `CPU Albert.exe: Active | Design: ${designSkills.length} proc. | Started: 2021`,
+    codeTitle:    'Code environment',
+    wpTitle:      'WordPress environment',
   },
 } as const;
 
@@ -88,17 +101,28 @@ const l = labels[lang];
     <button
       class="taskmgr-tab"
       role="tab"
-      id="tab-perf"
+      id="tab-code"
       aria-selected="false"
-      aria-controls="panel-perf"
+      aria-controls="panel-code"
       type="button"
     >
-      <span aria-hidden="true">📈</span>
-      {l.tabPerformances}
+      <span aria-hidden="true">🖥️</span>
+      {l.tabCode}
+    </button>
+    <button
+      class="taskmgr-tab"
+      role="tab"
+      id="tab-wp"
+      aria-selected="false"
+      aria-controls="panel-wp"
+      type="button"
+    >
+      <span aria-hidden="true">🌐</span>
+      {l.tabWp}
     </button>
   </div>
 
-  <!-- Panel: Processus -->
+  <!-- Panel: Design -->
   <div
     class="taskmgr-panel"
     id="panel-processes"
@@ -106,7 +130,7 @@ const l = labels[lang];
     aria-labelledby="tab-processes"
   >
     <div class="taskmgr-table-wrap">
-      <table class="taskmgr-table" aria-label={lang === 'fr' ? 'Liste des compétences' : 'Skills list'}>
+      <table class="taskmgr-table" aria-label={lang === 'fr' ? 'Compétences Design' : 'Design Skills'}>
         <thead>
           <tr class="taskmgr-thead__row">
             <th scope="col" class="taskmgr-th taskmgr-th--name">{l.colProcess}</th>
@@ -116,40 +140,25 @@ const l = labels[lang];
           </tr>
         </thead>
         <tbody>
-          {categories.map(cat => {
-            const catSkills = skills.filter(s => s.category === cat);
-            if (catSkills.length === 0) return null;
-            const meta = catMeta[cat];
+          {designSkills.map((skill, idx) => {
+            const status = getStatus(skill.level);
+            const verLabel = versionLabels[skill.level] ?? 'v?';
             return (
-              <>
-                <tr class="taskmgr-group-header">
-                  <td colspan="4" class="taskmgr-group-header__cell">
-                    <span aria-hidden="true">{meta.icon}</span>
-                    {lang === 'fr' ? meta.labelFr : meta.labelEn}
-                  </td>
-                </tr>
-                {catSkills.map((skill, idx) => {
-                  const status = getStatus(skill.level);
-                  const verLabel = versionLabels[skill.level] ?? 'v?';
-                  return (
-                    <tr class={`taskmgr-row ${idx % 2 === 0 ? '' : 'taskmgr-row--alt'}`}>
-                      <td class="taskmgr-td taskmgr-td--name">
-                        {skill.name}
-                      </td>
-                      <td class="taskmgr-td taskmgr-td--bar">
-                        <span class={`taskmgr-state taskmgr-state--${processStates[skill.level]?.cls ?? 'grey'}`}
-                          aria-label={`${skill.name}: ${processStates[skill.level]?.text ?? ''}`}>
-                          {processStates[skill.level]?.text ?? 'UNKNOWN'}
-                        </span>
-                      </td>
-                      <td class="taskmgr-td taskmgr-td--level">{verLabel}</td>
-                      <td class="taskmgr-td taskmgr-td--status">
-                        <span class={`taskmgr-dot taskmgr-dot--${status.dot}`} aria-label={status.label}></span>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </>
+              <tr class={`taskmgr-row ${idx % 2 === 0 ? '' : 'taskmgr-row--alt'}`}>
+                <td class="taskmgr-td taskmgr-td--name">{skill.name}</td>
+                <td class="taskmgr-td taskmgr-td--bar">
+                  <span
+                    class={`taskmgr-state taskmgr-state--${processStates[skill.level]?.cls ?? 'grey'}`}
+                    aria-label={`${skill.name}: ${processStates[skill.level]?.text ?? ''}`}
+                  >
+                    {processStates[skill.level]?.text ?? 'UNKNOWN'}
+                  </span>
+                </td>
+                <td class="taskmgr-td taskmgr-td--level">{verLabel}</td>
+                <td class="taskmgr-td taskmgr-td--status">
+                  <span class={`taskmgr-dot taskmgr-dot--${status.dot}`} aria-label={status.label}></span>
+                </td>
+              </tr>
             );
           })}
         </tbody>
@@ -157,33 +166,71 @@ const l = labels[lang];
     </div>
   </div>
 
-  <!-- Panel: Performances -->
+  <!-- Panel: Code -->
   <div
     class="taskmgr-panel taskmgr-panel--hidden"
-    id="panel-perf"
+    id="panel-code"
     role="tabpanel"
-    aria-labelledby="tab-perf"
+    aria-labelledby="tab-code"
     tabindex="0"
   >
-    <div class="taskmgr-perf-list">
-      {categories.map(cat => {
-        const meta = catMeta[cat];
-        const catSkills = skills.filter(s => s.category === cat);
-        const catLabel = lang === 'fr' ? meta.labelFr : meta.labelEn;
-        return (
-          <div class="taskmgr-perf-row">
-            <div class="taskmgr-perf-row__header">
-              <span aria-hidden="true">{meta.icon}</span>
-              <span class="taskmgr-perf-row__name">{catLabel}</span>
-            </div>
-            <ul class="taskmgr-perf-tags" aria-label={catLabel}>
-              {catSkills.map(s => (
-                <li class="taskmgr-perf-tag">{s.name}</li>
-              ))}
-            </ul>
-          </div>
-        );
-      })}
+    <div class="taskmgr-cmd" aria-label={l.codeTitle}>
+      <div class="taskmgr-cmd__line taskmgr-cmd__line--prompt">
+        <span class="taskmgr-cmd__prompt">C:\albert-exe&gt;</span>
+        <span class="taskmgr-cmd__input">list-env --code</span>
+      </div>
+      <div class="taskmgr-cmd__line taskmgr-cmd__line--info">
+        {lang === 'fr' ? '// Environnement code — albert-exe v2026' : '// Code environment — albert-exe v2026'}
+      </div>
+      <div class="taskmgr-cmd__sep" aria-hidden="true"></div>
+      <ul class="taskmgr-cmd__entries" aria-label={l.codeTitle}>
+        {codeItems.map((item, i) => (
+          <li class="taskmgr-cmd__entry">
+            <span class="taskmgr-cmd__index" aria-hidden="true">[{String(i + 1).padStart(2, '0')}]</span>
+            <span class="taskmgr-cmd__name">{item.name}</span>
+            <span class="taskmgr-cmd__arrow" aria-hidden="true">→</span>
+            <span class="taskmgr-cmd__tag">{lang === 'fr' ? item.catFr : item.catEn}</span>
+          </li>
+        ))}
+      </ul>
+      <div class="taskmgr-cmd__sep" aria-hidden="true"></div>
+      <div class="taskmgr-cmd__line taskmgr-cmd__line--ok">
+        {lang === 'fr' ? `✓  ${codeItems.length} entrées chargées` : `✓  ${codeItems.length} entries loaded`}
+      </div>
+    </div>
+  </div>
+
+  <!-- Panel: WordPress -->
+  <div
+    class="taskmgr-panel taskmgr-panel--hidden"
+    id="panel-wp"
+    role="tabpanel"
+    aria-labelledby="tab-wp"
+    tabindex="0"
+  >
+    <div class="taskmgr-cmd" aria-label={l.wpTitle}>
+      <div class="taskmgr-cmd__line taskmgr-cmd__line--prompt">
+        <span class="taskmgr-cmd__prompt">C:\albert-exe&gt;</span>
+        <span class="taskmgr-cmd__input">list-env --wordpress</span>
+      </div>
+      <div class="taskmgr-cmd__line taskmgr-cmd__line--info">
+        {lang === 'fr' ? '// Environnement WordPress — albert-exe v2026' : '// WordPress environment — albert-exe v2026'}
+      </div>
+      <div class="taskmgr-cmd__sep" aria-hidden="true"></div>
+      <ul class="taskmgr-cmd__entries" aria-label={l.wpTitle}>
+        {wpItems.map((item, i) => (
+          <li class="taskmgr-cmd__entry">
+            <span class="taskmgr-cmd__index" aria-hidden="true">[{String(i + 1).padStart(2, '0')}]</span>
+            <span class="taskmgr-cmd__name">{item.name}</span>
+            <span class="taskmgr-cmd__arrow" aria-hidden="true">→</span>
+            <span class="taskmgr-cmd__tag">{lang === 'fr' ? item.catFr : item.catEn}</span>
+          </li>
+        ))}
+      </ul>
+      <div class="taskmgr-cmd__sep" aria-hidden="true"></div>
+      <div class="taskmgr-cmd__line taskmgr-cmd__line--ok">
+        {lang === 'fr' ? `✓  ${wpItems.length} entrées chargées` : `✓  ${wpItems.length} entries loaded`}
+      </div>
     </div>
   </div>
 
@@ -382,58 +429,100 @@ const l = labels[lang];
 .taskmgr-dot--yellow { background: #F59E0B; box-shadow: 0 0 4px rgba(245, 158, 11, 0.6); }
 .taskmgr-dot--grey   { background: #475569; }
 
-/* ── Perf panel ────────────────────────────────────────────────── */
-.taskmgr-perf-list {
+/* ── CMD panel ─────────────────────────────────────────────────── */
+.taskmgr-cmd {
+  padding: 0.75rem 0.875rem;
   display: flex;
   flex-direction: column;
-  gap: 0;
-  padding: 0.875rem;
+  gap: 0.2rem;
+  font-family: 'Consolas', 'Courier New', monospace;
+  font-size: 0.75rem;
+  overflow-y: auto;
 }
 
-.taskmgr-perf-row {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  padding: 0.75rem 0;
-  border-bottom: 1px solid rgba(139, 92, 246, 0.08);
-}
-
-.taskmgr-perf-row:last-child {
-  border-bottom: none;
-}
-
-.taskmgr-perf-row__header {
+.taskmgr-cmd__line {
   display: flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: 0.5rem;
+  padding: 0.1rem 0;
 }
 
-.taskmgr-perf-row__name {
-  font-size: 0.7rem;
+.taskmgr-cmd__line--prompt {
+  margin-bottom: 0.1rem;
+}
+
+.taskmgr-cmd__prompt {
+  color: #4ade80;
   font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: #8B5CF6;
+  flex-shrink: 0;
 }
 
-/* Tags */
-.taskmgr-perf-tags {
+.taskmgr-cmd__input {
+  color: #FAF5FF;
+}
+
+.taskmgr-cmd__line--info {
+  color: #475569;
+  font-size: 0.7rem;
+  padding-left: 0.25rem;
+}
+
+.taskmgr-cmd__line--ok {
+  color: #4ade80;
+  font-size: 0.7rem;
+  margin-top: 0.1rem;
+}
+
+.taskmgr-cmd__sep {
+  height: 1px;
+  background: rgba(139, 92, 246, 0.12);
+  margin: 0.35rem 0;
+}
+
+.taskmgr-cmd__entries {
   list-style: none;
   padding: 0;
   margin: 0;
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.375rem;
+  flex-direction: column;
+  gap: 0.05rem;
 }
 
-.taskmgr-perf-tag {
-  padding: 0.2rem 0.6rem;
-  border-radius: 0.25rem;
-  font-size: 0.75rem;
-  font-weight: 500;
-  background: rgba(139, 92, 246, 0.08);
-  border: 1px solid rgba(139, 92, 246, 0.22);
-  color: #C4B5FD;
+.taskmgr-cmd__entry {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.18rem 0.25rem;
+  border-radius: 0.2rem;
+  transition: background 0.1s ease;
+}
+
+.taskmgr-cmd__entry:hover {
+  background: rgba(139, 92, 246, 0.07);
+}
+
+.taskmgr-cmd__index {
+  color: #475569;
+  font-size: 0.65rem;
+  flex-shrink: 0;
+  min-width: 2rem;
+}
+
+.taskmgr-cmd__name {
+  color: #FAF5FF;
+  flex: 1;
+}
+
+.taskmgr-cmd__arrow {
+  color: #8B5CF6;
+  flex-shrink: 0;
+}
+
+.taskmgr-cmd__tag {
+  color: #A78BFA;
+  font-size: 0.65rem;
+  min-width: 7rem;
+  text-align: right;
 }
 
 /* ── Footer ────────────────────────────────────────────────────── */

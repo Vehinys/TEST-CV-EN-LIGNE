@@ -18,7 +18,7 @@ const projects = defineCollection({
 
 const skillItem = z.object({
   name: z.string(),
-  category: z.enum(['design', 'frontend', 'backend', 'tools']),
+  category: z.enum(['design']),
   level: z.number().min(1).max(5),
   icon: z.string(),
   order: z.number(),

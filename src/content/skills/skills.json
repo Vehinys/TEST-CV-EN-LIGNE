@@ -1,17 +1,8 @@
 [
-  { "name": "Figma", "category": "design", "level": 5, "icon": "figma", "order": 1 },
-  { "name": "UI / UX Design", "category": "design", "level": 5, "icon": "layers", "order": 2 },
-  { "name": "Adobe Photoshop", "category": "design", "level": 5, "icon": "image", "order": 3 },
-  { "name": "Adobe Illustrator", "category": "design", "level": 4, "icon": "pen-tool", "order": 4 },
-  { "name": "InDesign", "category": "design", "level": 4, "icon": "book-open", "order": 5 },
-  { "name": "HTML5 / CSS3", "category": "frontend", "level": 5, "icon": "code-2", "order": 6 },
-  { "name": "JavaScript (ES6+)", "category": "frontend", "level": 4, "icon": "zap", "order": 7 },
-  { "name": "Tailwind CSS", "category": "frontend", "level": 5, "icon": "wind", "order": 8 },
-  { "name": "WordPress", "category": "backend", "level": 5, "icon": "globe", "order": 9 },
-  { "name": "Elementor", "category": "backend", "level": 5, "icon": "layout", "order": 10 },
-  { "name": "PHP / Symfony", "category": "backend", "level": 4, "icon": "terminal", "order": 11 },
-  { "name": "MySQL", "category": "backend", "level": 4, "icon": "database", "order": 12 },
-  { "name": "Git / GitHub", "category": "tools", "level": 5, "icon": "git-branch", "order": 13 },
-  { "name": "Vercel", "category": "tools", "level": 4, "icon": "triangle", "order": 14 },
-  { "name": "SEO / SEA", "category": "tools", "level": 4, "icon": "search", "order": 15 }
+  { "name": "Figma",              "category": "design", "level": 5, "icon": "figma",     "order": 1 },
+  { "name": "Adobe XD",          "category": "design", "level": 5, "icon": "pen-tool",  "order": 2 },
+  { "name": "UI / UX Design",    "category": "design", "level": 5, "icon": "layers",    "order": 3 },
+  { "name": "Adobe Photoshop",   "category": "design", "level": 5, "icon": "image",     "order": 4 },
+  { "name": "Adobe Illustrator", "category": "design", "level": 5, "icon": "pen-tool",  "order": 5 },
+  { "name": "InDesign",          "category": "design", "level": 5, "icon": "book-open", "order": 6 }
 ]
