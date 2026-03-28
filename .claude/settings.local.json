@@ -21,7 +21,13 @@
       "Bash(python -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\(f''''EN keys: {len\\(d\\)}''''\\)\")",
       "Bash(node -e \"const fr=require\\(''./src/i18n/fr.json''\\); const en=require\\(''./src/i18n/en.json''\\); const fk=Object.keys\\(fr\\); const ek=Object.keys\\(en\\); console.log\\(''FR:'',fk.length,''EN:'',ek.length\\); const missing=fk.filter\\(k=>!ek.includes\\(k\\)\\); if\\(missing.length\\) console.log\\(''Clés manquantes EN:'',missing.slice\\(0,5\\)\\);\")",
       "Bash(node -e \"const {readFileSync}=require\\(''fs''\\); const fr=JSON.parse\\(readFileSync\\(''src/i18n/fr.json'',''utf8''\\)\\); const en=JSON.parse\\(readFileSync\\(''src/i18n/en.json'',''utf8''\\)\\); const fk=Object.keys\\(fr\\),ek=Object.keys\\(en\\); console.log\\(''FR:'',fk.length,''| EN:'',ek.length\\); const missingEn=fk.filter\\(k=>!ek[k]\\); const missingFr=ek.filter\\(k=>!fr[k]\\); if\\(missingEn.length\\) console.log\\(''Absentes EN:'',missingEn.join\\('', ''\\)\\); if\\(missingFr.length\\) console.log\\(''Absentes FR:'',missingFr.join\\('', ''\\)\\); if\\(!missingEn.length&&!missingFr.length\\) console.log\\(''i18n synchro OK''\\);\")",
-      "Bash(node -e \":*)"
+      "Bash(node -e \":*)",
+      "Bash(grep -rn \"\"\"image\"\"\" src/content/projects/*.json)",
+      "Bash(mv \"capture photoshop - maquette 1.png\" \"capture-photoshop-maquette-1.png\")",
+      "Bash(mv \"capture photoshop - maquette 2.png\" \"capture-photoshop-maquette-2.png\")",
+      "Bash(mv \"Capture site cv.png\" \"capture-site-cv.png\")",
+      "Bash(mv \"ETIQUETTE - LA DELICIEUSE.png\" \"etiquette-la-delicieuse.png\")",
+      "Bash(mv \"LA DELICIEUSE.png\" \"la-delicieuse.png\")"
     ]
   }
 }
