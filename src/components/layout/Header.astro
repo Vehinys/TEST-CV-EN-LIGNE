@@ -264,15 +264,6 @@ const navLinks = [
   const iconMenu = document.getElementById('icon-menu');
   const iconClose = document.getElementById('icon-close');
 
-  // Mode toggle
-  const modeBtnHeader = document.getElementById('mode-toggle-btn');
-  modeBtnHeader?.addEventListener('click', () => {
-    const html = document.documentElement;
-    const next = html.getAttribute('data-portfolio-mode') === 'os' ? 'classic' : 'os';
-    html.setAttribute('data-portfolio-mode', next);
-    localStorage.setItem('portfolio-mode', next);
-  });
-
   // Scroll header
   window.addEventListener('scroll', () => {
     if (header) {

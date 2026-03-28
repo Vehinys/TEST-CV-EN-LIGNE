@@ -58,6 +58,18 @@ const { title, description, lang, image, isLegal = false } = Astro.props;
         document.documentElement.setAttribute('data-portfolio-mode', mode);
       })();
     </script>
+
+    <!-- Portfolio mode toggle — global handler -->
+    <script is:inline>
+      document.addEventListener('click', function (e) {
+        var btn = e.target && e.target.closest && e.target.closest('#mode-toggle-btn');
+        if (!btn) return;
+        var html = document.documentElement;
+        var next = html.getAttribute('data-portfolio-mode') === 'os' ? 'classic' : 'os';
+        html.setAttribute('data-portfolio-mode', next);
+        localStorage.setItem('portfolio-mode', next);
+      });
+    </script>
   </head>
 
   <body class={isLegal ? 'legal-page' : ''}>
