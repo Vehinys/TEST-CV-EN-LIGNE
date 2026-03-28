@@ -22,9 +22,20 @@ const catMeta: Record<Category, { icon: string; labelFr: string; labelEn: string
   tools:    { icon: '🔧', labelFr: 'Outils',    labelEn: 'Tools' },
 };
 
-const levelLabels: Record<Lang, Record<number, string>> = {
-  fr: { 1: 'Notions', 2: 'Débutant', 3: 'Intermédiaire', 4: 'Avancé', 5: 'Expert' },
-  en: { 1: 'Basic', 2: 'Beginner', 3: 'Intermediate', 4: 'Advanced', 5: 'Expert' },
+const versionLabels: Record<number, string> = {
+  1: 'v0.1 alpha 🚧',
+  2: 'v1.0 beta  🧪',
+  3: 'v2.0 stable',
+  4: 'v3.0 LTS ⚡',
+  5: 'v5.0 PROD 🔥',
+};
+
+const processStates: Record<number, { text: string; cls: string }> = {
+  1: { text: 'SUSPENDED', cls: 'grey'   },
+  2: { text: 'IDLE',      cls: 'grey'   },
+  3: { text: 'SLEEPING',  cls: 'yellow' },
+  4: { text: 'RUNNING',   cls: 'green'  },
+  5: { text: 'RUNNING',   cls: 'green'  },
 };
 
 function getStatus(level: number): { dot: string; label: string } {
@@ -48,22 +59,22 @@ const labels = {
     tabPerformances: 'Performances',
     colProcess:      'Processus',
     colUsage:        'Utilisation',
-    colLevel:        'Niveau',
+    colLevel:        'Version',
     colStatus:       'Statut',
     footer:          `CPU Albert.exe\u00a0: Actif\u00a0| Processus\u00a0: ${processCount}\u00a0| Démarré\u00a0: 2021`,
     perfTitle:       (cat: string) => `Catégorie\u00a0: ${cat}`,
-    perfScore:       (n: number) => `Score\u00a0: ${n}/100`,
+    perfScore:       (n: number) => `BENCHMARK\u00a0: ${n} pts`,
   },
   en: {
     tabProcesses:    'Processes',
     tabPerformances: 'Performance',
     colProcess:      'Process',
     colUsage:        'Usage',
-    colLevel:        'Level',
+    colLevel:        'Version',
     colStatus:       'Status',
     footer:          `CPU Albert.exe: Active | Processes: ${processCount} | Started: 2021`,
     perfTitle:       (cat: string) => `Category: ${cat}`,
-    perfScore:       (n: number) => `Score: ${n}/100`,
+    perfScore:       (n: number) => `BENCHMARK: ${n} pts`,
   },
 } as const;
 
@@ -130,7 +141,7 @@ const l = labels[lang];
                 </tr>
                 {catSkills.map((skill, idx) => {
                   const status = getStatus(skill.level);
-                  const levelLabel = levelLabels[lang][skill.level] ?? '';
+                  const verLabel = versionLabels[skill.level] ?? 'v?';
                   return (
                     <tr class={`taskmgr-row ${idx % 2 === 0 ? '' : 'taskmgr-row--alt'}`}>
                       <td class="taskmgr-td taskmgr-td--name">
@@ -138,18 +149,12 @@ const l = labels[lang];
                         {skill.name}
                       </td>
                       <td class="taskmgr-td taskmgr-td--bar">
-                        <div
-                          class="taskmgr-bar"
-                          role="progressbar"
-                          aria-valuenow={skill.level * 20}
-                          aria-valuemin={0}
-                          aria-valuemax={100}
-                          aria-label={`${skill.name}: ${levelLabel}`}
-                        >
-                          <div class="taskmgr-bar__fill" style={`width: ${skill.level * 20}%`}></div>
-                        </div>
+                        <span class={`taskmgr-state taskmgr-state--${processStates[skill.level]?.cls ?? 'grey'}`}
+                          aria-label={`${skill.name}: ${processStates[skill.level]?.text ?? ''}`}>
+                          {processStates[skill.level]?.text ?? 'UNKNOWN'}
+                        </span>
                       </td>
-                      <td class="taskmgr-td taskmgr-td--level">{levelLabel}</td>
+                      <td class="taskmgr-td taskmgr-td--level">{verLabel}</td>
                       <td class="taskmgr-td taskmgr-td--status">
                         <span class={`taskmgr-dot taskmgr-dot--${status.dot}`} aria-label={status.label}></span>
                       </td>
@@ -371,40 +376,23 @@ const l = labels[lang];
   font-size: 0.875rem;
 }
 
-/* Bar */
+/* Process state */
 .taskmgr-td--bar {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
 }
 
-.taskmgr-bar {
-  flex: 1;
-  height: 8px;
-  background: rgba(245, 158, 11, 0.1);
-  border-radius: 999px;
-  overflow: hidden;
-  border: 1px solid rgba(245, 158, 11, 0.12);
-}
-
-.taskmgr-bar__fill {
-  height: 100%;
-  background: linear-gradient(90deg, #F59E0B, #FCD34D);
-  border-radius: 999px;
-  transition: width 0.9s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .taskmgr-bar__fill { transition: none; }
-}
-
-.taskmgr-bar__pct {
+.taskmgr-state {
+  font-family: 'Consolas', 'Courier New', monospace;
   font-size: 0.65rem;
-  color: #94A3B8;
+  font-weight: 700;
+  letter-spacing: 0.08em;
   white-space: nowrap;
-  min-width: 2.5rem;
-  text-align: right;
 }
+
+.taskmgr-state--green  { color: #4ade80; }
+.taskmgr-state--yellow { color: #F59E0B; }
+.taskmgr-state--grey   { color: #475569; }
 
 .taskmgr-td--level {
   font-size: 0.7rem;

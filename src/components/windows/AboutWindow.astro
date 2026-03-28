@@ -18,9 +18,9 @@ const labels = {
     rqth: 'Certification RQTH',
     languages: 'Langues',
     hwSpecs: 'Spécifications matérielles',
-    cpu: 'CPU : WordPress & UI',
+    cpu: 'CPU : WordPress, UI & SEO',
     ram: 'RAM : Formations diplômantes',
-    gpu: 'GPU : Projets réalisés',
+    gpu: 'GPU : Stage Businet',
     perf: 'PERF : Expérience',
     downloadCv: 'Télécharger CV',
     contact: 'Contact',
@@ -28,10 +28,10 @@ const labels = {
     available: 'Disponible',
     versionValue: 'En recherche active (CDI)',
     langValue: 'Français (natif)',
-    specCpu: 'Niveau avancé',
-    specRam: '4 diplômes',
-    specGpu: '40+',
-    specPerf: '5+ ans',
+    specCpu: 'OVERCLOCKED 🔥',
+    specRam: '4 modules ✨',
+    specGpu: 'WordPress — bientôt 🔧',
+    specPerf: 'NO LAG ⚡',
   },
   en: {
     windowTitle: 'System Properties — Albert Lecomte',
@@ -43,9 +43,9 @@ const labels = {
     rqth: 'RQTH Certification',
     languages: 'Languages',
     hwSpecs: 'Hardware Specifications',
-    cpu: 'CPU: WordPress & UI',
+    cpu: 'CPU: WordPress, UI & SEO',
     ram: 'RAM: Degrees obtained',
-    gpu: 'GPU: Projects done',
+    gpu: 'GPU: Businet Internship',
     perf: 'PERF: Experience',
     downloadCv: 'Download CV',
     contact: 'Contact',
@@ -53,10 +53,10 @@ const labels = {
     available: 'Available',
     versionValue: 'Actively seeking (CDI)',
     langValue: 'French (native)',
-    specCpu: 'Advanced level',
-    specRam: '4 degrees',
-    specGpu: '40+',
-    specPerf: '5+ yrs',
+    specCpu: 'OVERCLOCKED 🔥',
+    specRam: '4 modules ✨',
+    specGpu: 'WordPress — coming soon 🔧',
+    specPerf: 'NO LAG ⚡',
   },
 } as const;
 
@@ -66,16 +66,16 @@ const tableRows = [
   { key: l.fullName,       value: 'Albert Lecomte' },
   { key: l.jobTitle,       value: lang === 'fr' ? 'Concepteur Designer UI' : 'UI Designer Conceptor' },
   { key: l.version,        value: l.versionValue },
-  { key: l.specialization, value: lang === 'fr' ? 'WordPress & UI/UX Design' : 'WordPress & UI/UX Design' },
+  { key: l.specialization, value: lang === 'fr' ? 'WordPress · UI/UX Design · SEO' : 'WordPress · UI/UX Design · SEO' },
   { key: l.rqth,           value: lang === 'fr' ? 'Reconnu' : 'Recognized' },
   { key: l.languages,      value: l.langValue },
 ];
 
 const specs = [
-  { label: l.cpu,  value: l.specCpu,  pct: 80 },
-  { label: l.ram,  value: l.specRam,  pct: 100 },
-  { label: l.gpu,  value: l.specGpu,  pct: 100 },
-  { label: l.perf, value: l.specPerf, pct: 100 },
+  { label: l.cpu,  value: l.specCpu  },
+  { label: l.ram,  value: l.specRam  },
+  { label: l.gpu,  value: l.specGpu  },
+  { label: l.perf, value: l.specPerf },
 ];
 ---
 
@@ -139,20 +139,8 @@ const specs = [
         <div class="sysinfo-specs">
           {specs.map(spec => (
             <div class="sysinfo-spec">
-              <div class="sysinfo-spec__header">
-                <span class="sysinfo-spec__label">{spec.label}</span>
-                <span class="sysinfo-spec__value">{spec.value}</span>
-              </div>
-              <div
-                class="sysinfo-spec__bar"
-                role="progressbar"
-                aria-valuenow={spec.pct}
-                aria-valuemin={0}
-                aria-valuemax={100}
-                aria-label={`${spec.label}: ${spec.value}`}
-              >
-                <div class="sysinfo-spec__fill" style={`width: ${spec.pct}%`}></div>
-              </div>
+              <span class="sysinfo-spec__label">{spec.label}</span>
+              <span class="sysinfo-spec__value">{spec.value}</span>
             </div>
           ))}
         </div>
@@ -376,12 +364,6 @@ const specs = [
   padding: 0.875rem;
 }
 
-.sysinfo-spec__header {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  margin-bottom: 0.25rem;
-}
 
 .sysinfo-spec__label {
   font-size: 0.7rem;
@@ -395,25 +377,10 @@ const specs = [
   font-weight: 700;
 }
 
-.sysinfo-spec__bar {
-  height: 6px;
-  background: rgba(245, 158, 11, 0.1);
-  border-radius: 999px;
-  overflow: hidden;
-  border: 1px solid rgba(245, 158, 11, 0.15);
-}
-
-.sysinfo-spec__fill {
-  height: 100%;
-  background: linear-gradient(90deg, #F59E0B, #FCD34D);
-  border-radius: 999px;
-  transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .sysinfo-spec__fill {
-    transition: none;
-  }
+.sysinfo-spec {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 /* ── Action buttons ────────────────────────────────────────────── */
@@ -466,3 +433,13 @@ const specs = [
   outline-offset: 2px;
 }
 </style>
+
+<script>
+(function () {
+  const btn = document.querySelector<HTMLButtonElement>('[data-open-window="contact"]');
+  btn?.addEventListener('click', async () => {
+    const { open } = await import('../../utils/window-manager');
+    open('contact');
+  });
+})();
+</script>

@@ -39,7 +39,7 @@ const icons: DesktopIcon[] = [
 <div class="desktop" role="main" id="main-content" tabindex="-1" aria-label={lang === 'fr' ? 'Bureau Albert.exe' : 'Albert.exe Desktop'}>
   <ul class="desktop__icons" role="list" aria-label={lang === 'fr' ? 'Icônes du bureau' : 'Desktop icons'}>
     {icons.map((icon) => (
-      <li role="listitem">
+      <li role="listitem" data-icon-id={icon.id}>
         {icon.isDownload ? (
           <a
             href="/cv/albert-lecomte-cv.pdf"
@@ -137,6 +137,26 @@ const icons: DesktopIcon[] = [
   word-break: break-word;
   max-width: 4.5rem;
   text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+}
+
+/* ── Draggable icons — desktop & large tablet only ─────────────────────── */
+@media (min-width: 1024px) {
+  .desktop__icons {
+    display: block;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .desktop__icons li {
+    position: absolute;
+    width: 5rem;
+  }
+
+  .desktop-icon {
+    cursor: grab;
+  }
 }
 </style>
 
@@ -288,6 +308,7 @@ const icons: DesktopIcon[] = [
   // ── Desktop icon interaction ─────────────────────────────────────────────────
   const lastClickTime: Record<string, number> = {};
   const isMobile = window.matchMedia('(pointer: coarse)').matches;
+  const recentlyDragged = new Set<string>();
 
   async function openWindow(id: string): Promise<void> {
     const { open } = await import('../../utils/window-manager');
@@ -310,11 +331,11 @@ const icons: DesktopIcon[] = [
     } else {
       // Double-click on desktop
       btn.addEventListener('click', () => {
+        if (recentlyDragged.has(id)) return;
         const now = Date.now();
         const last = lastClickTime[id] ?? 0;
 
         if (now - last < 300) {
-          // Double click
           btn.classList.add('desktop-icon--active');
           setTimeout(() => btn.classList.remove('desktop-icon--active'), 150);
           void openWindow(id);
@@ -323,5 +344,125 @@ const icons: DesktopIcon[] = [
       });
     }
   });
+
+  // ── Draggable icons (desktop & large tablet ≥ 1024px, non-touch) ──────────
+  const isLargeScreen = window.matchMedia('(min-width: 1024px)').matches;
+
+  if (isLargeScreen && !isMobile) {
+    const DRAG_THRESHOLD = 5;
+    const ICON_STORAGE_KEY = 'albert-icon-positions-v1';
+    const ICON_W = 80;
+    const ICON_H = 100;
+    const TASKBAR_H = 48;
+
+    interface IconPos { x: number; y: number; }
+
+    const DEFAULT_POSITIONS: Record<string, IconPos> = {
+      about:      { x: 16,  y: 16 },
+      projects:   { x: 108, y: 16 },
+      skills:     { x: 16,  y: 128 },
+      experience: { x: 108, y: 128 },
+      volunteer:  { x: 16,  y: 240 },
+      hobbies:    { x: 108, y: 240 },
+      contact:    { x: 16,  y: 352 },
+      cv:         { x: 108, y: 352 },
+    };
+
+    let iconPositions: Record<string, IconPos> = { ...DEFAULT_POSITIONS };
+    try {
+      const saved = localStorage.getItem(ICON_STORAGE_KEY);
+      if (saved) {
+        const parsed = JSON.parse(saved) as Record<string, IconPos>;
+        iconPositions = { ...DEFAULT_POSITIONS, ...parsed };
+      }
+    } catch { /* ignore */ }
+
+    function saveIconPositions(): void {
+      try { localStorage.setItem(ICON_STORAGE_KEY, JSON.stringify(iconPositions)); }
+      catch { /* ignore */ }
+    }
+
+    function clampX(x: number): number {
+      return Math.max(0, Math.min(x, window.innerWidth - ICON_W));
+    }
+    function clampY(y: number): number {
+      return Math.max(0, Math.min(y, window.innerHeight - TASKBAR_H - ICON_H));
+    }
+
+    // Apply saved positions
+    const iconItems = document.querySelectorAll<HTMLElement>('.desktop__icons li[data-icon-id]');
+    iconItems.forEach((li) => {
+      const iconId = li.dataset['iconId'];
+      if (!iconId) return;
+      const pos = iconPositions[iconId] ?? DEFAULT_POSITIONS[iconId] ?? { x: 16, y: 16 };
+      li.style.left = `${pos.x}px`;
+      li.style.top  = `${pos.y}px`;
+    });
+
+    // Drag state
+    let drag = {
+      active: false,
+      li: null as HTMLElement | null,
+      iconId: '',
+      startMouseX: 0, startMouseY: 0,
+      startIconX: 0,  startIconY: 0,
+      didDrag: false,
+    };
+
+    iconItems.forEach((li) => {
+      li.addEventListener('mousedown', (e: MouseEvent) => {
+        if (e.button !== 0) return;
+        const iconId = li.dataset['iconId'] ?? '';
+        const pos = iconPositions[iconId] ?? { x: 0, y: 0 };
+        drag = {
+          active: true, li, iconId,
+          startMouseX: e.clientX, startMouseY: e.clientY,
+          startIconX: pos.x,      startIconY: pos.y,
+          didDrag: false,
+        };
+        e.preventDefault(); // prevent text selection
+      });
+    });
+
+    window.addEventListener('mousemove', (e: MouseEvent) => {
+      if (!drag.active || !drag.li) return;
+      const dx = e.clientX - drag.startMouseX;
+      const dy = e.clientY - drag.startMouseY;
+
+      if (!drag.didDrag && (Math.abs(dx) > DRAG_THRESHOLD || Math.abs(dy) > DRAG_THRESHOLD)) {
+        drag.didDrag = true;
+        document.body.style.cursor    = 'grabbing';
+        document.body.style.userSelect = 'none';
+      }
+
+      if (drag.didDrag) {
+        const nx = clampX(drag.startIconX + dx);
+        const ny = clampY(drag.startIconY + dy);
+        drag.li.style.left = `${nx}px`;
+        drag.li.style.top  = `${ny}px`;
+        iconPositions[drag.iconId] = { x: nx, y: ny };
+      }
+    });
+
+    window.addEventListener('mouseup', () => {
+      if (!drag.active) return;
+      if (drag.didDrag) {
+        saveIconPositions();
+        recentlyDragged.add(drag.iconId);
+        requestAnimationFrame(() => recentlyDragged.delete(drag.iconId));
+        document.body.style.cursor    = '';
+        document.body.style.userSelect = '';
+      }
+      drag.active = false;
+      drag.li     = null;
+    });
+
+    // Suppress CV download link click after drag
+    const cvLi = document.querySelector<HTMLElement>('.desktop__icons li[data-icon-id="cv"]');
+    const cvLink = cvLi?.querySelector<HTMLAnchorElement>('a.desktop-icon');
+    cvLink?.addEventListener('click', (e) => {
+      if (recentlyDragged.has('cv')) e.preventDefault();
+    });
+  }
 })();
 </script>
