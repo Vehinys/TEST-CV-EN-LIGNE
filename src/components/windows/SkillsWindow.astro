@@ -67,11 +67,29 @@ const wpItems = [
   { name: 'Yoast SEO',           catFr: 'SEO',            catEn: 'SEO'           },
 ] as const;
 
+// ── Vente ─────────────────────────────────────────────────────────
+const venteItems = [
+  { name: 'Conseil client',           catFr: 'Relation client',   catEn: 'Customer care'   },
+  { name: 'Accueil & Écoute active',  catFr: 'Relation client',   catEn: 'Customer care'   },
+  { name: 'Argumentation commerciale',catFr: 'Persuasion',        catEn: 'Persuasion'      },
+  { name: 'Gestion des objections',   catFr: 'Négociation',       catEn: 'Negotiation'     },
+  { name: 'Upselling',                catFr: 'Montée en gamme',  catEn: 'Upselling'       },
+  { name: 'Vente additionnelle',      catFr: 'Vente additionnelle',   catEn: 'Cross-selling'   },
+  { name: 'Fidélisation client',      catFr: 'Fidélisation',      catEn: 'Loyalty'         },
+  { name: 'Analyse des besoins',      catFr: 'Diagnostic',        catEn: 'Diagnosis'       },
+  { name: 'Atteinte des objectifs',   catFr: 'Performance',       catEn: 'Performance'     },
+  { name: 'Merchandising',            catFr: 'Mise en scène',     catEn: 'Display'         },
+  { name: 'Gestion de caisse',        catFr: 'Encaissements',     catEn: 'Cash desk'       },
+  { name: 'Gestion des stocks',       catFr: 'Logistique',        catEn: 'Logistics'       },
+  { name: 'Responsabilité magasin',   catFr: 'Management',        catEn: 'Management'      },
+] as const;
+
 const labels = {
   fr: {
     tabProcesses: 'Processus',
     tabCode:      'Environnement',
     tabWp:        'CMS',
+    tabVente:     'Vente',
     colProcess:   'Processus',
     colUsage:     'Utilisation',
     colLevel:     'Version',
@@ -79,11 +97,13 @@ const labels = {
     footer:       `CPU Albert.exe\u00a0: Actif\u00a0| Design\u00a0: ${designSkills.length} proc.\u00a0| Démarré\u00a0: 2021`,
     codeTitle:    'Environnement code',
     wpTitle:      'Environnement WordPress',
+    venteTitle:   'Compétences commerciales',
   },
   en: {
     tabProcesses: 'Processes',
     tabCode:      'Environment',
     tabWp:        'CMS',
+    tabVente:     'Sales',
     colProcess:   'Process',
     colUsage:     'Usage',
     colLevel:     'Version',
@@ -91,6 +111,7 @@ const labels = {
     footer:       `CPU Albert.exe: Active | Design: ${designSkills.length} proc. | Started: 2021`,
     codeTitle:    'Code environment',
     wpTitle:      'WordPress environment',
+    venteTitle:   'Sales skills',
   },
 } as const;
 
@@ -130,6 +151,16 @@ const l = labels[lang];
       type="button"
     >
       {l.tabWp}
+    </button>
+    <button
+      class="taskmgr-tab"
+      role="tab"
+      id="tab-vente"
+      aria-selected="false"
+      aria-controls="panel-vente"
+      type="button"
+    >
+      {l.tabVente}
     </button>
   </div>
 
@@ -256,6 +287,43 @@ const l = labels[lang];
       <div class="taskmgr-cmd__sep" aria-hidden="true"></div>
       <div class="taskmgr-cmd__line taskmgr-cmd__line--ok">
         {lang === 'fr' ? `✓  ${wpItems.length} entrées chargées` : `✓  ${wpItems.length} entries loaded`}
+      </div>
+    </div>
+  </div>
+
+  <!-- Panel: Vente -->
+  <div
+    class="taskmgr-panel taskmgr-panel--hidden"
+    id="panel-vente"
+    role="tabpanel"
+    aria-labelledby="tab-vente"
+    tabindex="0"
+  >
+    <div class="taskmgr-cmd" aria-label={l.venteTitle}>
+      <div class="taskmgr-cmd__line taskmgr-cmd__line--prompt">
+        <span class="taskmgr-cmd__prompt">C:\albert-exe&gt;</span>
+        <span class="taskmgr-cmd__input">list-env --vente</span>
+      </div>
+      <div class="taskmgr-cmd__line taskmgr-cmd__line--info">
+        {lang === 'fr' ? '// Compétences commerciales — albert-exe v2026' : '// Sales skills — albert-exe v2026'}
+      </div>
+      <div class="taskmgr-cmd__sep" aria-hidden="true"></div>
+      <ul class="taskmgr-cmd__entries" aria-label={l.venteTitle}>
+        {venteItems.map((item, i) => (
+          <li class="taskmgr-cmd__entry">
+            <span class="taskmgr-cmd__index" aria-hidden="true">[{String(i + 1).padStart(2, '0')}]</span>
+            <span class="taskmgr-cmd__name">{item.name}</span>
+            <span class="taskmgr-cmd__running" aria-hidden="true">
+              RUNNING<span class="taskmgr-running"><span>.</span><span>.</span><span>.</span></span>
+            </span>
+            <span class="taskmgr-cmd__arrow" aria-hidden="true">→</span>
+            <span class="taskmgr-cmd__tag">{lang === 'fr' ? item.catFr : item.catEn}</span>
+          </li>
+        ))}
+      </ul>
+      <div class="taskmgr-cmd__sep" aria-hidden="true"></div>
+      <div class="taskmgr-cmd__line taskmgr-cmd__line--ok">
+        {lang === 'fr' ? `✓  ${venteItems.length} entrées chargées` : `✓  ${venteItems.length} entries loaded`}
       </div>
     </div>
   </div>
