@@ -14,39 +14,114 @@ const allVolunteer = await getCollection('volunteer');
 const volunteerItems = allVolunteer
   .map(v => ({ ...v.data, id: v.id }))
   .sort((a, b) => a.order - b.order);
+
+// Fake commit hashes for visual authenticity
+const HASHES = ['f28a91c', '2e9b174', '8c3a5d0'];
+
+const panelTitle = lang === 'fr' ? 'Contributions & Associations' : 'Contributions & Associations';
+const gitCmd     = lang === 'fr'
+  ? '$ git log community/ --author="Albert Lecomte"'
+  : '$ git log community/ --author="Albert Lecomte"';
+const headLabel  = lang === 'fr' ? 'ACTIF' : 'ACTIVE';
+const orgKey     = lang === 'fr' ? 'Organisation' : 'Organization';
+const roleKey    = lang === 'fr' ? 'Rôle' : 'Role';
 ---
 
 <section id="volunteer" class="volunteer section-padding" aria-labelledby="volunteer-title">
-  <div class="volunteer__container">
-    <div class="volunteer__header">
-      <p class="section-label">{t('volunteer.title')}</p>
-      <h2 id="volunteer-title" class="section-title">{t('volunteer.subtitle')}</h2>
+  <div class="vol__container">
+
+    <!-- Section header -->
+    <div class="vol__header">
+      <p class="vol__label"><span aria-hidden="true">// </span>{t('volunteer.title')}</p>
+      <h2 id="volunteer-title" class="vol__title">{panelTitle}</h2>
     </div>
 
-    <div class="volunteer__grid" role="list">
-      {volunteerItems.map((item) => (
-        <article class="volunteer-card glass-card" role="listitem">
-          <div class="volunteer-card__icon" aria-hidden="true">
-            {item.icon}
-          </div>
-          <div class="volunteer-card__content">
-            <div class="volunteer-card__header">
-              <h3 class="volunteer-card__title">{item.organization}</h3>
-              <span class="volunteer-card__period">{item.period}</span>
-            </div>
-            <p class="volunteer-card__role">{lang === 'en' ? item.titleEn : item.title}</p>
-            <p class="volunteer-card__desc">
-              {lang === 'en' ? item.descriptionEn : item.description}
-            </p>
-          </div>
-        </article>
-      ))}
-    </div>
+    <!-- Terminal panel -->
+    <div class="vol-panel" role="region" aria-label={lang === 'fr' ? 'Bénévolat et associations' : 'Volunteer work'}>
+
+      <!-- Window bar -->
+      <div class="vol-panel__bar" aria-hidden="true">
+        <div class="vol-panel__dots">
+          <span class="vol-panel__dot" style="background:#FF5F57"></span>
+          <span class="vol-panel__dot" style="background:#FEBC2E"></span>
+          <span class="vol-panel__dot" style="background:#28C840"></span>
+        </div>
+        <span class="vol-panel__barlabel">bash — git log community/</span>
+      </div>
+
+      <!-- Log body -->
+      <div class="vol-log">
+
+        <!-- Shell prompt -->
+        <p class="vol-prompt" aria-hidden="true">
+          <span class="vol-prompt__caret">❯</span>
+          <span class="vol-prompt__cmd">{gitCmd}</span>
+        </p>
+
+        <!-- Entries -->
+        <div role="list" aria-label={lang === 'fr' ? 'Bénévolat' : 'Volunteer'}>
+          {volunteerItems.map((item, i) => (
+            <article class="vol-entry" role="listitem">
+
+              <!-- Left: dot + line -->
+              <div class="vol-entry__marker" aria-hidden="true">
+                <span class="vol-entry__dot"></span>
+                {i < volunteerItems.length - 1 && <span class="vol-entry__line"></span>}
+              </div>
+
+              <!-- Right: commit info -->
+              <div class="vol-entry__body">
+
+                <!-- Hash + HEAD badge -->
+                <div class="vol-entry__hashrow">
+                  <span class="vol-hash">{HASHES[i]}</span>
+                  {i === 0 && (
+                    <span class="vol-head-badge">
+                      {'(HEAD → community/assos, '}
+                      <span class="vol-head-badge__active">◆ {headLabel}</span>
+                      {')'}
+                    </span>
+                  )}
+                </div>
+
+                <!-- Conventional commit title -->
+                <p class="vol-entry__title">
+                  <span class="vol-prefix">feat(asso):</span>
+                  <span class="vol-title-text"> {lang === 'en' ? item.titleEn : item.title}</span>
+                </p>
+
+                <!-- Meta -->
+                <p class="vol-entry__meta">
+                  <span class="vol-meta-key">{orgKey}:</span>
+                  <span class="vol-meta-val"> {item.organization}</span>
+                  <span class="vol-meta-sep"> · </span>
+                  <time class="vol-meta-date">{item.period}</time>
+                </p>
+
+                <!-- Description -->
+                <p class="vol-entry__desc">
+                  {lang === 'en' ? item.descriptionEn : item.description}
+                </p>
+
+              </div>
+            </article>
+          ))}
+        </div>
+
+      </div><!-- /.vol-log -->
+    </div><!-- /.vol-panel -->
+
   </div>
 </section>
 
 <style>
-.volunteer__container {
+/* ── Section ────────────────────────────────────────────────────── */
+.volunteer {
+  padding-top: var(--section-padding);
+}
+
+/* ── Container ─────────────────────────────────────────────────── */
+.vol__container {
   max-width: 900px;
   margin: 0 auto;
   padding: 0 1.5rem;
@@ -55,97 +130,225 @@ const volunteerItems = allVolunteer
   gap: 2.5rem;
 }
 
-.volunteer__header {
+/* ── Header ────────────────────────────────────────────────────── */
+.vol__header {
   text-align: center;
 }
 
-.section-label {
-  font-size: 0.875rem;
-  font-weight: 600;
+.vol__label {
+  font-size: 0.8125rem;
+  font-weight: 700;
   color: var(--color-acid-green);
   text-transform: uppercase;
-  letter-spacing: 0.1em;
-  margin-bottom: 0.75rem;
+  letter-spacing: 0.12em;
+  font-family: var(--font-family-mono);
+  margin-bottom: 0.625rem;
 }
 
-.section-title {
-  font-size: clamp(1.75rem, 4vw, 2.75rem);
+.vol__title {
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
   font-weight: 700;
   letter-spacing: -0.02em;
   color: var(--color-text);
 }
 
-.volunteer__grid {
-  display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
+/* ── Terminal panel ────────────────────────────────────────────── */
+.vol-panel {
+  background: #0D0D1A;
+  border: 1px solid rgba(255, 0, 153, 0.25);
+  border-radius: 0.75rem;
+  overflow: hidden;
 }
 
-.volunteer-card {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 1.5rem;
-  padding: 1.5rem;
-  align-items: start;
-}
-
-.volunteer-card__icon {
-  font-size: 2rem;
-  width: 3.5rem;
-  height: 3.5rem;
+/* ── Window bar ────────────────────────────────────────────────── */
+.vol-panel__bar {
   display: flex;
   align-items: center;
-  justify-content: center;
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
-  border-radius: 12px;
+  gap: 0.75rem;
+  padding: 0.625rem 1rem;
+  background: rgba(255, 0, 153, 0.06);
+  border-bottom: 1px solid rgba(255, 0, 153, 0.12);
 }
 
-.volunteer-card__content {
+.vol-panel__dots {
+  display: flex;
+  gap: 0.375rem;
+}
+
+.vol-panel__dot {
+  width: 0.6875rem;
+  height: 0.6875rem;
+  border-radius: 50%;
+  display: block;
+}
+
+.vol-panel__barlabel {
+  font-size: 0.6875rem;
+  color: #94A3B8;
+  font-family: var(--font-family-mono);
+  flex: 1;
+  text-align: center;
+}
+
+/* ── Log body ──────────────────────────────────────────────────── */
+.vol-log {
+  padding: 1.5rem;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
 }
 
-.volunteer-card__header {
+/* ── Shell prompt ──────────────────────────────────────────────── */
+.vol-prompt {
+  font-family: var(--font-family-mono);
+  font-size: 0.8125rem;
+  margin: 0 0 1.75rem;
   display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  flex-wrap: wrap;
+  align-items: flex-start;
   gap: 0.5rem;
+  flex-wrap: wrap;
+  overflow-wrap: break-word;
+  word-break: break-all;
 }
 
-.volunteer-card__title {
-  font-size: 1.15rem;
+.vol-prompt__caret {
+  color: var(--color-neon-pink);
+  flex-shrink: 0;
+}
+
+.vol-prompt__cmd {
+  color: #C4B5FD;
+}
+
+/* ── Entry ─────────────────────────────────────────────────────── */
+.vol-entry {
+  display: grid;
+  grid-template-columns: 1.25rem 1fr;
+  gap: 0.875rem;
+}
+
+.vol-entry + .vol-entry {
+  padding-top: 1.25rem;
+}
+
+/* ── Marker ────────────────────────────────────────────────────── */
+.vol-entry__marker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 0.125rem;
+}
+
+.vol-entry__dot {
+  width: 0.625rem;
+  height: 0.625rem;
+  border-radius: 50%;
+  background: var(--color-neon-pink);
+  box-shadow: 0 0 6px rgba(255, 0, 153, 0.55);
+  flex-shrink: 0;
+}
+
+.vol-entry__line {
+  width: 1px;
+  flex: 1;
+  margin-top: 0.3rem;
+  background: linear-gradient(to bottom, rgba(255, 0, 153, 0.25), rgba(255, 0, 153, 0.04));
+}
+
+/* ── Entry body ────────────────────────────────────────────────── */
+.vol-entry__body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  padding-bottom: 1.25rem;
+}
+
+.vol-entry:last-child .vol-entry__body {
+  padding-bottom: 0;
+}
+
+/* ── Hash row ──────────────────────────────────────────────────── */
+.vol-entry__hashrow {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.2rem;
+}
+
+.vol-hash {
+  font-family: var(--font-family-mono);
+  font-size: 0.6875rem;
   font-weight: 700;
-  color: var(--color-text);
+  color: var(--color-neon-pink);
+  letter-spacing: 0.05em;
+  background: rgba(255, 0, 153, 0.06);
+  padding: 0.1rem 0.35rem;
+  border-radius: 0.2rem;
+  border: 1px solid rgba(255, 0, 153, 0.15);
+}
+
+.vol-head-badge {
+  font-family: var(--font-family-mono);
+  font-size: 0.6875rem;
+  color: #94A3B8;
+}
+
+.vol-head-badge__active {
+  color: #F59E0B;
+  font-weight: 700;
+}
+
+/* ── Title ─────────────────────────────────────────────────────── */
+.vol-entry__title {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  font-family: var(--font-family-mono);
+  line-height: 1.4;
   margin: 0;
+  overflow-wrap: break-word;
 }
 
-.volunteer-card__period {
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: var(--color-acid-green);
+.vol-prefix {
+  color: var(--color-neon-pink);
 }
 
-.volunteer-card__role {
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: var(--color-text);
+.vol-title-text {
+  color: #FAF5FF;
+}
+
+/* ── Meta ──────────────────────────────────────────────────────── */
+.vol-entry__meta {
+  font-size: 0.75rem;
+  font-family: var(--font-family-mono);
   margin: 0;
-}
-
-.volunteer-card__desc {
-  font-size: 0.9rem;
-  color: var(--color-text-subtle);
+  color: #94A3B8;
   line-height: 1.6;
-  margin: 0;
 }
 
-@media (max-width: 640px) {
-  .volunteer-card {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
+.vol-meta-key {
+  color: #64748B;
+}
+
+.vol-meta-val {
+  color: #C4B5FD;
+  font-weight: 600;
+}
+
+.vol-meta-sep {
+  color: #2D3748;
+  padding: 0 0.1rem;
+}
+
+.vol-meta-date {
+  color: #F59E0B;
+  font-weight: 600;
+}
+
+/* ── Description ───────────────────────────────────────────────── */
+.vol-entry__desc {
+  font-size: 0.875rem;
+  color: rgba(196, 181, 253, 0.75);
+  line-height: 1.7;
+  margin: 0.25rem 0 0;
 }
 </style>
