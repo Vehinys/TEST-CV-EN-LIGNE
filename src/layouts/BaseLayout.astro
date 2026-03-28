@@ -79,5 +79,82 @@ const { title, description, lang, image, isLegal = false } = Astro.props;
     </a>
 
     <slot />
+
+    <!-- Back to top -->
+    <button
+      id="back-to-top"
+      class="back-to-top"
+      type="button"
+      aria-label={lang === 'fr' ? 'Retour en haut de page' : 'Back to top'}
+    >
+      ↑
+    </button>
   </body>
 </html>
+
+<style>
+.back-to-top {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 40;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(13, 13, 26, 0.9);
+  border: 1px solid rgba(204, 255, 0, 0.35);
+  border-radius: 0.375rem;
+  color: #CCFF00;
+  font-size: 1rem;
+  font-family: monospace;
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(8px);
+  transition: opacity 0.2s ease, transform 0.2s ease, background 0.15s ease, box-shadow 0.15s ease;
+}
+
+.back-to-top.visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.back-to-top:hover {
+  background: rgba(204, 255, 0, 0.1);
+  box-shadow: 0 0 12px rgba(204, 255, 0, 0.2);
+}
+
+.back-to-top:focus-visible {
+  outline: 2px solid #CCFF00;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .back-to-top {
+    transition: opacity 0.2s ease;
+    transform: none;
+  }
+}
+</style>
+
+<script>
+(function () {
+  const btn = document.getElementById('back-to-top');
+  if (!btn) return;
+
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 300) {
+      btn.classList.add('visible');
+    } else {
+      btn.classList.remove('visible');
+    }
+  }, { passive: true });
+
+  btn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+})();
+</script>

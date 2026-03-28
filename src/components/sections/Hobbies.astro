@@ -14,111 +14,274 @@ const allHobbies = await getCollection('hobbies');
 const hobbiesItems = allHobbies
   .map(h => ({ ...h.data, id: h.id }))
   .sort((a, b) => a.order - b.order);
+
+// Accent color per hobby (by order)
+const ACCENTS = [
+  { color: '#F59E0B', bg: 'rgba(245, 158, 11, 0.08)', border: 'rgba(245, 158, 11, 0.25)' }, // gold — photo
+  { color: '#8B5CF6', bg: 'rgba(139, 92, 246, 0.08)', border: 'rgba(139, 92, 246, 0.25)' }, // violet — JDR
+  { color: '#CCFF00', bg: 'rgba(204, 255, 0, 0.06)',  border: 'rgba(204, 255, 0, 0.22)'  }, // acid-green — gaming
+  { color: '#FF0099', bg: 'rgba(255, 0, 153, 0.07)',  border: 'rgba(255, 0, 153, 0.22)'  }, // pink — anime
+] as const;
+
+const panelTitle = lang === 'fr' ? 'Config: Passions actives' : 'Config: Active interests';
+const catCmd     = `$ cat ~/.config/albert/passions.cfg`;
 ---
 
 <section id="hobbies" class="hobbies section-padding" aria-labelledby="hobbies-title">
-  <div class="hobbies__container">
-    <div class="hobbies__header">
-      <p class="section-label">{t('hobbies.title')}</p>
-      <h2 id="hobbies-title" class="section-title">{t('hobbies.subtitle')}</h2>
+  <div class="hob__container">
+
+    <!-- Section header -->
+    <div class="hob__header">
+      <p class="hob__label"><span aria-hidden="true">// </span>{t('hobbies.title')}</p>
+      <h2 id="hobbies-title" class="hob__title">{panelTitle}</h2>
     </div>
 
-    <div class="hobbies__grid" role="list">
-      {hobbiesItems.map((hobby) => (
-        <article class="hobby-card glass-card" role="listitem">
-          <div class="hobby-card__icon" aria-hidden="true">
-            {hobby.icon}
-          </div>
-          <div class="hobby-card__content">
-            <h3 class="hobby-card__name">{lang === 'en' ? hobby.nameEn : hobby.name}</h3>
-            <p class="hobby-card__desc">
-              {lang === 'en' ? hobby.descriptionEn : hobby.description}
-            </p>
-          </div>
-        </article>
-      ))}
-    </div>
+    <!-- Terminal panel -->
+    <div class="hob-panel" role="region" aria-label={lang === 'fr' ? 'Passions et hobbies' : 'Passions and hobbies'}>
+
+      <!-- Window bar -->
+      <div class="hob-panel__bar" aria-hidden="true">
+        <div class="hob-panel__dots">
+          <span class="hob-panel__dot" style="background:#FF5F57"></span>
+          <span class="hob-panel__dot" style="background:#FEBC2E"></span>
+          <span class="hob-panel__dot" style="background:#28C840"></span>
+        </div>
+        <span class="hob-panel__barlabel">bash — passions.cfg</span>
+      </div>
+
+      <!-- Panel body -->
+      <div class="hob-panel__body">
+
+        <!-- Prompt -->
+        <p class="hob-prompt" aria-hidden="true">
+          <span class="hob-prompt__caret">❯</span>
+          <span class="hob-prompt__cmd">{catCmd}</span>
+        </p>
+
+        <!-- Grid -->
+        <div class="hob-grid" role="list" aria-label={lang === 'fr' ? 'Passions' : 'Passions'}>
+          {hobbiesItems.map((hobby, i) => {
+            const accent = ACCENTS[i] ?? ACCENTS[0];
+            return (
+              <article
+                class="hob-card"
+                role="listitem"
+                style={`--accent:${accent.color};--accent-bg:${accent.bg};--accent-border:${accent.border}`}
+              >
+                <!-- Icon badge -->
+                <div class="hob-card__icon" aria-hidden="true">
+                  {hobby.icon}
+                </div>
+
+                <!-- Key -->
+                <p class="hob-card__key" aria-hidden="true">
+                  [{hobby.id.replace(/-/g, '_')}]
+                </p>
+
+                <!-- Content -->
+                <div class="hob-card__content">
+                  <h3 class="hob-card__name">
+                    {lang === 'en' ? hobby.nameEn : hobby.name}
+                  </h3>
+                  <p class="hob-card__desc">
+                    {lang === 'en' ? hobby.descriptionEn : hobby.description}
+                  </p>
+                </div>
+              </article>
+            );
+          })}
+        </div>
+
+      </div><!-- /.hob-panel__body -->
+    </div><!-- /.hob-panel -->
+
   </div>
 </section>
 
 <style>
-.hobbies__container {
-  max-width: 1200px;
+/* ── Section ────────────────────────────────────────────────────── */
+.hobbies {
+  padding-top: var(--section-padding);
+}
+
+/* ── Container ─────────────────────────────────────────────────── */
+.hob__container {
+  max-width: 1100px;
   margin: 0 auto;
   padding: 0 1.5rem;
   display: flex;
   flex-direction: column;
-  gap: 3rem;
+  gap: 2.5rem;
 }
 
-.hobbies__header {
+/* ── Header ────────────────────────────────────────────────────── */
+.hob__header {
   text-align: center;
 }
 
-.section-label {
-  font-size: 0.875rem;
-  font-weight: 600;
+.hob__label {
+  font-size: 0.8125rem;
+  font-weight: 700;
   color: var(--color-acid-green);
   text-transform: uppercase;
-  letter-spacing: 0.1em;
-  margin-bottom: 0.75rem;
+  letter-spacing: 0.12em;
+  font-family: var(--font-family-mono);
+  margin-bottom: 0.625rem;
 }
 
-.section-title {
-  font-size: clamp(1.75rem, 4vw, 2.75rem);
+.hob__title {
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
   font-weight: 700;
   letter-spacing: -0.02em;
   color: var(--color-text);
 }
 
-.hobbies__grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+/* ── Terminal panel ────────────────────────────────────────────── */
+.hob-panel {
+  background: #0D0D1A;
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  border-radius: 0.75rem;
+  overflow: hidden;
+}
+
+/* ── Window bar ────────────────────────────────────────────────── */
+.hob-panel__bar {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.625rem 1rem;
+  background: rgba(139, 92, 246, 0.08);
+  border-bottom: 1px solid rgba(139, 92, 246, 0.15);
+}
+
+.hob-panel__dots {
+  display: flex;
+  gap: 0.375rem;
+}
+
+.hob-panel__dot {
+  width: 0.6875rem;
+  height: 0.6875rem;
+  border-radius: 50%;
+  display: block;
+}
+
+.hob-panel__barlabel {
+  font-size: 0.6875rem;
+  color: #94A3B8;
+  font-family: var(--font-family-mono);
+  flex: 1;
+  text-align: center;
+}
+
+/* ── Panel body ────────────────────────────────────────────────── */
+.hob-panel__body {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
   gap: 1.5rem;
 }
 
-.hobby-card {
-  padding: 1.75rem;
+/* ── Prompt ────────────────────────────────────────────────────── */
+.hob-prompt {
+  font-family: var(--font-family-mono);
+  font-size: 0.8125rem;
+  margin: 0;
   display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
-  transition: transform 0.3s ease, border-color 0.3s ease;
+  align-items: flex-start;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  overflow-wrap: break-word;
+  word-break: break-all;
 }
 
-.hobby-card:hover {
-  transform: translateY(-5px);
-  border-color: var(--color-acid-green);
+.hob-prompt__caret {
+  color: var(--color-acid-green);
+  flex-shrink: 0;
 }
 
-.hobby-card__icon {
-  font-size: 2.25rem;
-  width: 4rem;
-  height: 4rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(204, 255, 0, 0.1);
-  border-radius: 16px;
-  border: 1px solid rgba(204, 255, 0, 0.2);
+.hob-prompt__cmd {
+  color: #C4B5FD;
 }
 
-.hobby-card__content {
+/* ── Grid ──────────────────────────────────────────────────────── */
+.hob-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 480px) {
+  .hob-grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (min-width: 900px) {
+  .hob-grid { grid-template-columns: repeat(4, 1fr); }
+}
+
+/* ── Card ──────────────────────────────────────────────────────── */
+.hob-card {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
+  padding: 1.25rem;
+  background: rgba(9, 9, 20, 0.7);
+  border: 1px solid var(--accent-border);
+  border-radius: 0.5rem;
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
 }
 
-.hobby-card__name {
-  font-size: 1.25rem;
+.hob-card:hover {
+  box-shadow: 0 0 20px color-mix(in srgb, var(--accent) 15%, transparent);
+  border-color: var(--accent);
+}
+
+/* ── Icon badge ────────────────────────────────────────────────── */
+.hob-card__icon {
+  width: 2.75rem;
+  height: 2.75rem;
+  font-size: 1.375rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent-bg);
+  border: 1px solid var(--accent-border);
+  border-radius: 0.5rem;
+  flex-shrink: 0;
+}
+
+/* ── Config key ────────────────────────────────────────────────── */
+.hob-card__key {
+  font-family: var(--font-family-mono);
+  font-size: 0.5625rem;
   font-weight: 700;
-  color: var(--color-text);
+  color: var(--accent);
+  text-transform: lowercase;
+  letter-spacing: 0.05em;
   margin: 0;
+  opacity: 0.8;
 }
 
-.hobby-card__desc {
-  font-size: 0.95rem;
-  color: var(--color-text-subtle);
-  line-height: 1.6;
+/* ── Content ───────────────────────────────────────────────────── */
+.hob-card__content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+.hob-card__name {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #FAF5FF;
+  margin: 0;
+  font-family: var(--font-family-mono);
+  line-height: 1.3;
+}
+
+.hob-card__desc {
+  font-size: 0.8125rem;
+  color: rgba(196, 181, 253, 0.7);
+  line-height: 1.65;
   margin: 0;
 }
 </style>

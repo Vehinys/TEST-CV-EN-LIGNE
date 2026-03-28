@@ -8,374 +8,634 @@ interface Props {
 
 const { lang } = Astro.props;
 const t = useTranslations(lang);
+
+const panelTitle  = lang === 'fr' ? 'Nouveau message' : 'New message';
+const locLabel    = lang === 'fr' ? 'Localisation' : 'Location';
+const availLabel  = lang === 'fr' ? 'Disponibilité' : 'Availability';
+const whoisCmd    = lang === 'fr' ? '$ whois albert-lecomte.fr' : '$ whois albert-lecomte.fr';
+const composeCmd  = lang === 'fr' ? '$ mail compose → contact@albert-lecomte.fr' : '$ mail compose → contact@albert-lecomte.fr';
 ---
 
 <section id="contact" class="contact section-padding" aria-labelledby="contact-title">
-  <div class="contact__container">
-    <div class="contact__header">
-      <p class="section-label">{t('contact.title')}</p>
-      <h2 id="contact-title" class="section-title">{t('contact.subtitle')}</h2>
-      <p class="contact__intro">{t('contact.intro')}</p>
+  <div class="ct__container">
+
+    <!-- Section header -->
+    <div class="ct__header">
+      <p class="ct__label"><span aria-hidden="true">// </span>{t('contact.title')}</p>
+      <h2 id="contact-title" class="ct__title">{panelTitle}</h2>
+      <p class="ct__intro">{t('contact.intro')}</p>
     </div>
 
-    <div class="contact__grid">
-      <!-- Infos -->
-      <div class="contact__info">
-        <div class="contact__info-item glass-card">
-          <div class="contact__info-icon" aria-hidden="true">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-acid-green)" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+    <!-- Grid: info + form -->
+    <div class="ct__grid">
+
+      <!-- ── Left: whois panel ── -->
+      <aside class="ct-info" aria-label={lang === 'fr' ? 'Informations de contact' : 'Contact information'}>
+        <div class="ct-info__panel">
+          <div class="ct-info__bar" aria-hidden="true">
+            <div class="ct-info__dots">
+              <span class="ct-info__dot" style="background:#FF5F57"></span>
+              <span class="ct-info__dot" style="background:#FEBC2E"></span>
+              <span class="ct-info__dot" style="background:#28C840"></span>
+            </div>
+            <span class="ct-info__barlabel">bash — whois</span>
           </div>
-          <div>
-            <p class="contact__info-label">{lang === 'fr' ? 'Localisation' : 'Location'}</p>
-            <p class="contact__info-value">{t('contact.location')}</p>
+          <div class="ct-info__body">
+            <p class="ct-info__prompt" aria-hidden="true">
+              <span class="ct-info__caret">❯</span>
+              <span class="ct-info__cmd">{whoisCmd}</span>
+            </p>
+
+            <!-- Location -->
+            <div class="ct-info__row">
+              <span class="ct-info__key">{locLabel}</span>
+              <span class="ct-info__val">{t('contact.location')}</span>
+            </div>
+
+            <!-- Email -->
+            <div class="ct-info__row">
+              <span class="ct-info__key">Email</span>
+              <a
+                href="mailto:contact@albert-lecomte.fr"
+                class="ct-info__val ct-info__link"
+                aria-label="Envoyer un email à contact@albert-lecomte.fr"
+              >
+                contact@albert-lecomte.fr
+              </a>
+            </div>
+
+            <!-- Availability -->
+            <div class="ct-info__row">
+              <span class="ct-info__key">{availLabel}</span>
+              <span class="ct-info__val">{t('contact.availability')}</span>
+            </div>
+
+            <!-- Response time -->
+            <div class="ct-info__row ct-info__row--last">
+              <span class="ct-info__key">Response</span>
+              <span class="ct-info__val ct-info__val--green">{t('contact.response.time')}</span>
+            </div>
+
+            <!-- Status -->
+            <div class="ct-info__status" aria-label={lang === 'fr' ? 'Statut de disponibilité' : 'Availability status'}>
+              <span class="ct-info__status-dot" aria-hidden="true"></span>
+              <span class="ct-info__status-text">
+                {lang === 'fr' ? 'En recherche active — CDI' : 'Actively seeking — CDI'}
+              </span>
+            </div>
           </div>
         </div>
+      </aside>
 
-        <div class="contact__info-item glass-card">
-          <div class="contact__info-icon" aria-hidden="true">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-acid-green)" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+      <!-- ── Right: compose panel ── -->
+      <div class="ct-compose">
+        <div class="ct-compose__panel">
+          <div class="ct-compose__bar" aria-hidden="true">
+            <div class="ct-compose__bardots">
+              <span class="ct-compose__dot" style="background:#FF5F57"></span>
+              <span class="ct-compose__dot" style="background:#FEBC2E"></span>
+              <span class="ct-compose__dot" style="background:#28C840"></span>
+            </div>
+            <span class="ct-compose__barlabel">bash — compose mail</span>
           </div>
-          <div>
-            <p class="contact__info-label">Email</p>
-            <a href="mailto:contact@albert-lecomte.fr" class="contact__info-value contact__info-link">
-              contact@albert-lecomte.fr
-            </a>
-          </div>
-        </div>
+          <div class="ct-compose__body">
+            <p class="ct-compose__prompt" aria-hidden="true">
+              <span class="ct-compose__caret">❯</span>
+              <span class="ct-compose__cmd">{composeCmd}</span>
+            </p>
 
-        <div class="contact__info-item glass-card">
-          <div class="contact__info-icon" aria-hidden="true">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-acid-green)" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-          </div>
-          <div>
-            <p class="contact__info-label">{lang === 'fr' ? 'Disponibilité' : 'Availability'}</p>
-            <p class="contact__info-value">{t('contact.availability')}</p>
-            <p class="contact__info-subvalue">{t('contact.response.time')}</p>
+            <!-- Accessible status region -->
+            <div id="contact-status" role="status" aria-live="polite" class="sr-only"></div>
+
+            <form
+              id="contact-form"
+              class="ct-form"
+              novalidate
+              aria-label={lang === 'fr' ? 'Formulaire de contact' : 'Contact form'}
+            >
+
+              <!-- Name -->
+              <div class="ct-field">
+                <label for="contact-name" class="ct-field__label">
+                  <span class="ct-field__key">{t('contact.name')}</span>
+                  <span class="ct-field__required" aria-hidden="true">*</span>
+                </label>
+                <input
+                  type="text"
+                  id="contact-name"
+                  name="name"
+                  class="ct-input"
+                  required
+                  aria-required="true"
+                  autocomplete="name"
+                  aria-describedby="contact-name-error"
+                />
+                <p id="contact-name-error" class="ct-error" role="alert" aria-live="polite"></p>
+              </div>
+
+              <!-- Email -->
+              <div class="ct-field">
+                <label for="contact-email" class="ct-field__label">
+                  <span class="ct-field__key">{t('contact.email')}</span>
+                  <span class="ct-field__required" aria-hidden="true">*</span>
+                </label>
+                <input
+                  type="email"
+                  id="contact-email"
+                  name="email"
+                  class="ct-input"
+                  required
+                  aria-required="true"
+                  autocomplete="email"
+                  aria-describedby="contact-email-error"
+                />
+                <p id="contact-email-error" class="ct-error" role="alert" aria-live="polite"></p>
+              </div>
+
+              <!-- Subject -->
+              <div class="ct-field">
+                <label for="contact-subject" class="ct-field__label">
+                  <span class="ct-field__key">{t('contact.subject')}</span>
+                </label>
+                <input
+                  type="text"
+                  id="contact-subject"
+                  name="subject"
+                  class="ct-input"
+                  placeholder={t('contact.subject.placeholder')}
+                  autocomplete="off"
+                />
+              </div>
+
+              <!-- Separator -->
+              <div class="ct-form__sep" aria-hidden="true"></div>
+
+              <!-- Message -->
+              <div class="ct-field">
+                <label for="contact-message" class="ct-field__label">
+                  <span class="ct-field__key">{t('contact.message')}</span>
+                  <span class="ct-field__required" aria-hidden="true">*</span>
+                </label>
+                <textarea
+                  id="contact-message"
+                  name="message"
+                  class="ct-input ct-textarea"
+                  rows={5}
+                  required
+                  aria-required="true"
+                  placeholder={t('contact.message.placeholder')}
+                  aria-describedby="contact-message-error"
+                ></textarea>
+                <p id="contact-message-error" class="ct-error" role="alert" aria-live="polite"></p>
+              </div>
+
+              <!-- Submit -->
+              <button type="submit" id="contact-submit" class="ct-submit">
+                <span id="btn-text">
+                  <span aria-hidden="true">→</span>
+                  {t('contact.send')}
+                </span>
+                <span id="btn-loading" style="display:none" aria-hidden="true">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="spin" aria-hidden="true"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
+                  {t('contact.sending')}
+                </span>
+              </button>
+
+              <!-- Success -->
+              <div
+                id="contact-success"
+                class="ct-success"
+                style="display:none"
+                role="alert"
+                aria-live="polite"
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                {t('contact.success')}
+              </div>
+
+            </form>
           </div>
         </div>
       </div>
 
-      <!-- Formulaire -->
-      <form id="contact-form" class="contact__form glass-card" novalidate aria-label={lang === 'fr' ? 'Formulaire de contact' : 'Contact form'}>
-        <div id="contact-status" role="status" aria-live="polite" class="sr-only"></div>
-
-        <div class="form-group">
-          <label for="contact-name" class="form-label">
-            {t('contact.name')}
-            <span class="form-required" aria-hidden="true">*</span>
-          </label>
-          <input
-            type="text"
-            id="contact-name"
-            name="name"
-            class="form-input"
-            required
-            aria-required="true"
-            autocomplete="name"
-            aria-describedby="contact-name-error"
-          />
-          <p id="contact-name-error" class="form-error" role="alert" aria-live="polite"></p>
-        </div>
-
-        <div class="form-group">
-          <label for="contact-email" class="form-label">
-            {t('contact.email')}
-            <span class="form-required" aria-hidden="true">*</span>
-          </label>
-          <input
-            type="email"
-            id="contact-email"
-            name="email"
-            class="form-input"
-            required
-            aria-required="true"
-            autocomplete="email"
-            aria-describedby="contact-email-error"
-          />
-          <p id="contact-email-error" class="form-error" role="alert" aria-live="polite"></p>
-        </div>
-
-        <div class="form-group">
-          <label for="contact-subject" class="form-label">{t('contact.subject')}</label>
-          <input
-            type="text"
-            id="contact-subject"
-            name="subject"
-            class="form-input"
-            placeholder={t('contact.subject.placeholder')}
-            autocomplete="off"
-          />
-        </div>
-
-        <div class="form-group">
-          <label for="contact-message" class="form-label">
-            {t('contact.message')}
-            <span class="form-required" aria-hidden="true">*</span>
-          </label>
-          <textarea
-            id="contact-message"
-            name="message"
-            class="form-input form-textarea"
-            rows={5}
-            required
-            aria-required="true"
-            placeholder={t('contact.message.placeholder')}
-            aria-describedby="contact-message-error"
-          ></textarea>
-          <p id="contact-message-error" class="form-error" role="alert" aria-live="polite"></p>
-        </div>
-
-        <button type="submit" id="contact-submit" class="btn btn--primary btn--full">
-          <span id="btn-text">{t('contact.send')}</span>
-          <span id="btn-loading" style="display:none" aria-hidden="true">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="spin"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
-            {t('contact.sending')}
-          </span>
-        </button>
-
-        <div id="contact-success" class="contact__success" style="display:none" role="alert" aria-live="polite">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-          {t('contact.success')}
-        </div>
-      </form>
-    </div>
-  </div>
+    </div><!-- /.ct__grid -->
+  </div><!-- /.ct__container -->
 </section>
 
 <style>
-.contact__container {
+/* ── Section ────────────────────────────────────────────────────── */
+.contact {
+  padding-top: var(--section-padding);
+}
+
+/* ── Container ─────────────────────────────────────────────────── */
+.ct__container {
   max-width: 1100px;
   margin: 0 auto;
   padding: 0 1.5rem;
   display: flex;
   flex-direction: column;
-  gap: 3rem;
+  gap: 2.5rem;
 }
 
-.contact__header {
+/* ── Header ────────────────────────────────────────────────────── */
+.ct__header {
   text-align: center;
 }
 
-.section-label {
-  font-size: 0.875rem;
-  font-weight: 600;
+.ct__label {
+  font-size: 0.8125rem;
+  font-weight: 700;
   color: var(--color-acid-green);
   text-transform: uppercase;
-  letter-spacing: 0.1em;
-  margin-bottom: 0.75rem;
+  letter-spacing: 0.12em;
+  font-family: var(--font-family-mono);
+  margin-bottom: 0.625rem;
 }
 
-.section-title {
-  font-size: clamp(1.75rem, 4vw, 2.75rem);
+.ct__title {
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
   font-weight: 700;
   letter-spacing: -0.02em;
   color: var(--color-text);
 }
 
-.contact__intro {
-  margin-top: 1rem;
-  font-size: 1rem;
-  color: var(--color-text-subtle);
+.ct__intro {
+  margin-top: 0.75rem;
+  font-size: 0.9375rem;
+  color: rgba(196, 181, 253, 0.7);
   max-width: 50ch;
   margin-inline: auto;
+  line-height: 1.65;
 }
 
-.contact__grid {
+/* ── Grid ──────────────────────────────────────────────────────── */
+.ct__grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 2rem;
+  gap: 1.5rem;
 }
 
 @media (min-width: 768px) {
-  .contact__grid { grid-template-columns: 1fr 2fr; }
+  .ct__grid { grid-template-columns: 1fr 2fr; }
 }
 
-.contact__info {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+/* ═══════════════════════════════════════════════════════════════ */
+/* ── Whois panel (left) ────────────────────────────────────────── */
+/* ═══════════════════════════════════════════════════════════════ */
+.ct-info__panel {
+  background: #0D0D1A;
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  border-radius: 0.75rem;
+  overflow: hidden;
+  height: 100%;
 }
 
-.contact__info-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 1rem;
-  padding: 1.25rem;
-}
-
-.contact__info-icon {
-  width: 2.5rem;
-  height: 2.5rem;
-  border-radius: 0.625rem;
-  background: rgba(204, 255, 0, 0.1);
+.ct-info__bar {
   display: flex;
   align-items: center;
-  justify-content: center;
+  gap: 0.75rem;
+  padding: 0.625rem 1rem;
+  background: rgba(139, 92, 246, 0.08);
+  border-bottom: 1px solid rgba(139, 92, 246, 0.15);
+}
+
+.ct-info__dots {
+  display: flex;
+  gap: 0.375rem;
+}
+
+.ct-info__dot {
+  width: 0.6875rem;
+  height: 0.6875rem;
+  border-radius: 50%;
+  display: block;
+}
+
+.ct-info__barlabel {
+  font-size: 0.6875rem;
+  color: #94A3B8;
+  font-family: var(--font-family-mono);
+  flex: 1;
+  text-align: center;
+}
+
+.ct-info__body {
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.ct-info__prompt {
+  font-family: var(--font-family-mono);
+  font-size: 0.75rem;
+  margin: 0 0 1.25rem;
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  word-break: break-all;
+  overflow-wrap: break-word;
+}
+
+.ct-info__caret {
+  color: var(--color-acid-green);
   flex-shrink: 0;
 }
 
-.contact__info-label {
+.ct-info__cmd {
+  color: #C4B5FD;
+}
+
+/* Whois row */
+.ct-info__row {
+  display: grid;
+  grid-template-columns: 5rem 1fr;
+  gap: 0.5rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid rgba(139, 92, 246, 0.08);
   font-size: 0.75rem;
+  font-family: var(--font-family-mono);
+  align-items: start;
+}
+
+.ct-info__row--last {
+  border-bottom: none;
+}
+
+.ct-info__key {
+  color: #64748B;
   font-weight: 600;
-  color: var(--color-text-subtle);
   text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin: 0 0 0.2rem;
+  font-size: 0.625rem;
+  letter-spacing: 0.06em;
+  padding-top: 0.1rem;
 }
 
-.contact__info-value {
-  font-size: 0.9rem;
-  color: var(--color-text);
+.ct-info__val {
+  color: #C4B5FD;
   font-weight: 500;
-  margin: 0;
+  line-height: 1.5;
 }
 
-.contact__info-subvalue {
-  font-size: 0.8rem;
-  color: var(--color-text-subtle);
-  margin: 0.15rem 0 0;
-}
-
-.contact__info-link {
-  text-decoration: none;
+.ct-info__val--green {
   color: var(--color-acid-green);
-  transition: color 0.2s ease;
 }
 
-.contact__info-link:hover { color: #ffffff; }
+.ct-info__link {
+  color: var(--color-acid-green);
+  text-decoration: none;
+  word-break: break-all;
+  transition: color 0.15s ease;
+}
 
-.contact__info-link:focus-visible {
-  outline: 3px solid var(--color-focus);
+.ct-info__link:hover {
+  color: #FAF5FF;
+}
+
+.ct-info__link:focus-visible {
+  outline: 2px solid var(--color-acid-green);
   outline-offset: 2px;
   border-radius: 2px;
 }
 
-/* Form */
-.contact__form {
-  padding: 2rem;
+/* Status indicator */
+.ct-info__status {
   display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1.25rem;
+  padding: 0.5rem 0.75rem;
+  background: rgba(204, 255, 0, 0.05);
+  border: 1px solid rgba(204, 255, 0, 0.18);
+  border-radius: 0.375rem;
 }
 
-.form-group {
+.ct-info__status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-acid-green);
+  flex-shrink: 0;
+  animation: pulse-dot 2s infinite alternate;
+}
+
+@keyframes pulse-dot {
+  from { box-shadow: 0 0 0 rgba(204, 255, 0, 0.4); }
+  to   { box-shadow: 0 0 8px rgba(204, 255, 0, 0.7); }
+}
+
+.ct-info__status-text {
+  font-family: var(--font-family-mono);
+  font-size: 0.625rem;
+  font-weight: 700;
+  color: var(--color-acid-green);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/* ═══════════════════════════════════════════════════════════════ */
+/* ── Compose panel (right) ─────────────────────────────────────── */
+/* ═══════════════════════════════════════════════════════════════ */
+.ct-compose__panel {
+  background: #0D0D1A;
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  border-radius: 0.75rem;
+  overflow: hidden;
+}
+
+.ct-compose__bar {
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.625rem 1rem;
+  background: rgba(139, 92, 246, 0.08);
+  border-bottom: 1px solid rgba(139, 92, 246, 0.15);
+}
+
+.ct-compose__bardots {
+  display: flex;
   gap: 0.375rem;
 }
 
-.form-label {
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: var(--color-text);
-  display: flex;
-  align-items: center;
-  gap: 0.2rem;
+.ct-compose__dot {
+  width: 0.6875rem;
+  height: 0.6875rem;
+  border-radius: 50%;
+  display: block;
 }
 
-.form-required {
+.ct-compose__barlabel {
+  font-size: 0.6875rem;
+  color: #94A3B8;
+  font-family: var(--font-family-mono);
+  flex: 1;
+  text-align: center;
+}
+
+.ct-compose__body {
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.ct-compose__prompt {
+  font-family: var(--font-family-mono);
+  font-size: 0.75rem;
+  margin: 0 0 1.25rem;
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  word-break: break-all;
+  overflow-wrap: break-word;
+}
+
+.ct-compose__caret {
+  color: var(--color-acid-green);
+  flex-shrink: 0;
+}
+
+.ct-compose__cmd {
+  color: #C4B5FD;
+}
+
+/* ── Form ──────────────────────────────────────────────────────── */
+.ct-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+}
+
+.ct-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.ct-field__label {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-family: var(--font-family-mono);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  color: #64748B;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.ct-field__required {
   color: #ef4444;
 }
 
-.form-input {
-  padding: 0.75rem 1rem;
-  border-radius: 0.5rem;
-  border: 1px solid var(--glass-border);
-  background: var(--glass-bg);
-  color: var(--color-text);
-  font-size: 0.95rem;
-  font-family: inherit;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+/* ── Inputs ────────────────────────────────────────────────────── */
+.ct-input {
   width: 100%;
+  padding: 0.625rem 0.875rem;
+  background: rgba(139, 92, 246, 0.04);
+  border: 1px solid rgba(139, 92, 246, 0.2);
+  border-radius: 0.375rem;
+  color: #FAF5FF;
+  font-size: 0.875rem;
+  font-family: var(--font-family-mono);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
-.form-input::placeholder {
-  color: var(--color-text-muted);
+.ct-input::placeholder {
+  color: #475569;
 }
 
-.form-input:focus {
+.ct-input:focus {
   outline: none;
-  border-color: var(--color-acid-green);
-  box-shadow: 0 0 0 3px rgba(204, 255, 0, 0.15);
+  border-color: rgba(139, 92, 246, 0.6);
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
 }
 
-.form-input:focus-visible {
-  outline: 3px solid var(--color-focus);
+.ct-input:focus-visible {
+  outline: 2px solid #8B5CF6;
   outline-offset: 2px;
 }
 
-.form-input[aria-invalid="true"] {
-  border-color: #ef4444;
-  box-shadow: 0 0 0 3px rgba(239,68,68,0.15);
+.ct-input[aria-invalid="true"] {
+  border-color: rgba(239, 68, 68, 0.6);
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
 }
 
-.form-textarea {
+.ct-textarea {
   resize: vertical;
-  min-height: 120px;
+  min-height: 110px;
 }
 
-.form-error {
-  font-size: 0.8rem;
+/* ── Separator ─────────────────────────────────────────────────── */
+.ct-form__sep {
+  height: 1px;
+  background: rgba(139, 92, 246, 0.12);
+  margin: 0.25rem 0;
+}
+
+/* ── Error ─────────────────────────────────────────────────────── */
+.ct-error {
+  font-family: var(--font-family-mono);
+  font-size: 0.6875rem;
   color: #ef4444;
   margin: 0;
-  min-height: 1.2em;
+  min-height: 1em;
 }
 
-.btn {
+/* ── Submit button ─────────────────────────────────────────────── */
+.ct-submit {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  padding: 0.875rem 1.5rem;
-  border-radius: 0.625rem;
-  font-size: 0.95rem;
-  font-weight: 600;
-  text-decoration: none;
-  transition: all 0.25s ease;
-  cursor: pointer;
-  border: none;
-}
-
-.btn--primary {
-  background: white;
-  color: black;
-  border-radius: 999px;
+  padding: 0.75rem 1.5rem;
+  background: rgba(204, 255, 0, 0.08);
+  border: 1px solid rgba(204, 255, 0, 0.35);
+  border-radius: 0.375rem;
+  color: var(--color-acid-green);
+  font-family: var(--font-family-mono);
+  font-size: 0.8125rem;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
-  padding: 0.9rem 2rem;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 0.25rem;
+  transition: background 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
-.btn--primary:hover:not(:disabled) {
-  background: var(--color-acid-green);
-  transform: translateY(-3px) scale(1.02);
-  box-shadow: 0 10px 30px rgba(204, 255, 0, 0.3);
+.ct-submit:hover:not(:disabled) {
+  background: rgba(204, 255, 0, 0.15);
+  border-color: rgba(204, 255, 0, 0.6);
+  box-shadow: 0 0 16px rgba(204, 255, 0, 0.15);
 }
 
-.btn--primary:disabled {
-  opacity: 0.7;
+.ct-submit:disabled {
+  opacity: 0.5;
   cursor: not-allowed;
 }
 
-.btn--full { width: 100%; }
-
-.btn:focus-visible {
-  outline: 3px solid var(--color-focus);
-  outline-offset: 3px;
+.ct-submit:focus-visible {
+  outline: 2px solid var(--color-acid-green);
+  outline-offset: 2px;
 }
 
-.contact__success {
+/* ── Success message ───────────────────────────────────────────── */
+.ct-success {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.75rem 1rem;
-  border-radius: 0.5rem;
-  background: rgba(34,197,94,0.1);
-  border: 1px solid rgba(34,197,94,0.25);
+  padding: 0.625rem 0.875rem;
+  background: rgba(34, 197, 94, 0.08);
+  border: 1px solid rgba(34, 197, 94, 0.25);
+  border-radius: 0.375rem;
   color: #4ade80;
-  font-size: 0.875rem;
-  font-weight: 500;
+  font-family: var(--font-family-mono);
+  font-size: 0.8125rem;
 }
 
+/* ── Spin animation ────────────────────────────────────────────── */
 @keyframes spin {
   to { transform: rotate(360deg); }
 }
@@ -392,15 +652,15 @@ import { sendContactEmail } from '../../utils/emailjs';
   const form = document.getElementById('contact-form') as HTMLFormElement | null;
   if (!form) return;
 
-  const nameInput = document.getElementById('contact-name') as HTMLInputElement | null;
-  const emailInput = document.getElementById('contact-email') as HTMLInputElement | null;
+  const nameInput    = document.getElementById('contact-name')    as HTMLInputElement   | null;
+  const emailInput   = document.getElementById('contact-email')   as HTMLInputElement   | null;
   const messageInput = document.getElementById('contact-message') as HTMLTextAreaElement | null;
-  const subjectInput = document.getElementById('contact-subject') as HTMLInputElement | null;
-  const submitBtn = document.getElementById('contact-submit') as HTMLButtonElement | null;
-  const btnText = document.getElementById('btn-text');
-  const btnLoading = document.getElementById('btn-loading');
-  const successMsg = document.getElementById('contact-success');
-  const statusEl = document.getElementById('contact-status');
+  const subjectInput = document.getElementById('contact-subject') as HTMLInputElement   | null;
+  const submitBtn    = document.getElementById('contact-submit')  as HTMLButtonElement  | null;
+  const btnText      = document.getElementById('btn-text');
+  const btnLoading   = document.getElementById('btn-loading');
+  const successMsg   = document.getElementById('contact-success');
+  const statusEl     = document.getElementById('contact-status');
 
   function showError(inputId: string, message: string) {
     const input = document.getElementById(inputId);
@@ -423,8 +683,8 @@ import { sendContactEmail } from '../../utils/emailjs';
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    const name = nameInput?.value.trim() ?? '';
-    const email = emailInput?.value.trim() ?? '';
+    const name    = nameInput?.value.trim()    ?? '';
+    const email   = emailInput?.value.trim()   ?? '';
     const message = messageInput?.value.trim() ?? '';
     const subject = subjectInput?.value.trim() ?? '';
 
@@ -462,13 +722,12 @@ import { sendContactEmail } from '../../utils/emailjs';
 
     try {
       await sendContactEmail({ name, email, subject, message });
-
       if (successMsg) successMsg.style.display = 'flex';
-      if (statusEl) statusEl.textContent = 'Message envoyé avec succès';
+      if (statusEl)   statusEl.textContent = 'Message envoyé avec succès';
       form.reset();
     } catch {
-      if (statusEl) statusEl.textContent = 'Erreur lors de l\'envoi. Veuillez réessayer.';
-      alert('Erreur lors de l\'envoi. Veuillez réessayer ou me contacter directement.');
+      if (statusEl) statusEl.textContent = "Erreur lors de l'envoi. Veuillez réessayer.";
+      alert("Erreur lors de l'envoi. Veuillez réessayer ou me contacter directement.");
     } finally {
       if (submitBtn && btnText && btnLoading) {
         submitBtn.disabled = false;
