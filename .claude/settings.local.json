@@ -36,7 +36,9 @@
       "Bash(sed -i 's|/images/kucra-hero\\\\.png|/images/kucra-hero.webp|g' src/content/projects/kucra-agency.json)",
       "Bash(sed -i 's|/images/capture-photoshop-maquette-1\\\\.png|/images/capture-photoshop-maquette-1.webp|g' src/content/projects/maquettes-photoshop.json)",
       "Bash(sed -i 's|/images/cactus\\\\.png|/images/cactus.webp|g' src/content/projects/neon-cactus.json)",
-      "Bash(sed -i 's|/images/Albert\\\\.png|/images/Albert.webp|g' src/content/projects/portfolio-interactif.json)"
+      "Bash(sed -i 's|/images/Albert\\\\.png|/images/Albert.webp|g' src/content/projects/portfolio-interactif.json)",
+      "Bash(rm *.png *.jpg)",
+      "Bash(ls *.webp)"
     ]
   }
 }
