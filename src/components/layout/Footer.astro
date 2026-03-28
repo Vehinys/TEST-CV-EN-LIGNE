@@ -30,11 +30,6 @@ const prefix = lang === 'en' ? '/en' : '';
       <p class="footer-copy">
         &copy; {year} Albert Lecomte — {t('footer.rights')}
       </p>
-      <p class="footer-made">
-        {t('footer.made.with')}
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="#ef4444" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-        {t('footer.and')} Astro {t('footer.in')}
-      </p>
     </div>
   </div>
 </footer>
@@ -110,8 +105,7 @@ const prefix = lang === 'en' ? '/en' : '';
   border-top: 1px solid var(--glass-border);
 }
 
-.footer-copy,
-.footer-made {
+.footer-copy {
   font-size: 0.8rem;
   color: var(--color-text-muted);
   display: flex;
