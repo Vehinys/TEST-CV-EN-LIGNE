@@ -29,29 +29,42 @@ function getStatus(level: number) {
 
 // ── Environnement : Code ─────────────────────────────────────────
 const codeItems = [
-  { name: 'Windows 11',      catFr: 'Système',      catEn: 'System'      },
-  { name: 'VS Code',         catFr: 'Éditeur',      catEn: 'Editor'      },
-  { name: 'Antigravity',     catFr: 'Éditeur',      catEn: 'Editor'      },
-  { name: 'Chrome',          catFr: 'Navigateur',   catEn: 'Browser'     },
-  { name: 'HTML5 / CSS3',    catFr: 'Frontend',     catEn: 'Frontend'    },
-  { name: 'JavaScript',      catFr: 'Frontend',     catEn: 'Frontend'    },
-  { name: 'Tailwind CSS',    catFr: 'Frontend',     catEn: 'Frontend'    },
-  { name: 'PHP / Symfony',   catFr: 'Backend',      catEn: 'Backend'     },
-  { name: 'MySQL',           catFr: 'Base de données', catEn: 'Database' },
-  { name: 'Git / GitHub',    catFr: 'Dépôts',       catEn: 'Repos'       },
-  { name: 'Vercel',          catFr: 'Déploiement',  catEn: 'Deploy'      },
-  { name: 'SEO Naturel',     catFr: 'SEO',          catEn: 'SEO'         },
-  { name: 'Accessibilité',   catFr: 'Standards web', catEn: 'Web standards' },
+  { name: 'Windows 11',      catFr: 'Système',         catEn: 'System'       },
+  { name: 'VS Code',         catFr: 'Éditeur',         catEn: 'Editor'       },
+  { name: 'Antigravity',     catFr: 'Éditeur',         catEn: 'Editor'       },
+  { name: 'Claude Code',     catFr: 'IA / Coding',     catEn: 'AI / Coding'  },
+  { name: 'Chrome',          catFr: 'Navigateur',      catEn: 'Browser'      },
+  { name: 'Laragon',         catFr: 'Serveur local',   catEn: 'Local server' },
+  { name: 'HTML5',           catFr: 'Structure',       catEn: 'Markup'       },
+  { name: 'CSS3',            catFr: 'Frontend',        catEn: 'Frontend'     },
+  { name: 'JavaScript',      catFr: 'Langage',         catEn: 'Language'     },
+  { name: 'Tailwind CSS',    catFr: 'CSS Framework',   catEn: 'CSS Framework'},
+  { name: 'PHP / Symfony',   catFr: 'Backend',         catEn: 'Backend'      },
+  { name: 'MySQL',           catFr: 'Base de données', catEn: 'Database'     },
+  { name: 'npm / Node.js',   catFr: 'Paquets',         catEn: 'Packages'     },
+  { name: 'Git / GitHub',    catFr: 'Dépôts',          catEn: 'Repos'        },
+  { name: 'Vercel',          catFr: 'Déploiement',     catEn: 'Deploy'       },
+  { name: 'FileZilla',       catFr: 'FTP',             catEn: 'FTP'          },
+  { name: 'SEO Naturel',     catFr: 'SEO',             catEn: 'SEO'          },
+  { name: 'Accessibilité',   catFr: 'Standards web',   catEn: 'Web standards'},
 ] as const;
 
 // ── WordPress ────────────────────────────────────────────────────
 const wpItems = [
-  { name: 'WordPress',      catFr: 'CMS',          catEn: 'CMS'          },
-  { name: 'Elementor',      catFr: 'Page builder', catEn: 'Page builder' },
-  { name: 'Divi',           catFr: 'Page builder', catEn: 'Page builder' },
-  { name: 'Gutenberg',      catFr: 'Éditeur WP',   catEn: 'WP Editor'    },
-  { name: 'Rank Math SEO',  catFr: 'SEO',          catEn: 'SEO'          },
-  { name: 'Yoast SEO',      catFr: 'SEO',          catEn: 'SEO'          },
+  { name: 'WordPress',           catFr: 'CMS',            catEn: 'CMS'           },
+  { name: 'Elementor',           catFr: 'Page builder',   catEn: 'Page builder'  },
+  { name: 'Divi',                catFr: 'Page builder',   catEn: 'Page builder'  },
+  { name: 'Gutenberg',           catFr: 'Éditeur WP',     catEn: 'WP Editor'     },
+  { name: 'WooCommerce',         catFr: 'E-commerce',     catEn: 'E-commerce'    },
+  { name: 'ACF',                 catFr: 'Champs custom',  catEn: 'Custom fields' },
+  { name: 'WPForms',             catFr: 'Formulaires',    catEn: 'Forms'         },
+  { name: 'WP Rocket',           catFr: 'Performance',    catEn: 'Performance'   },
+  { name: 'Wordfence',           catFr: 'Sécurité',       catEn: 'Security'      },
+  { name: 'UpdraftPlus',         catFr: 'Sauvegarde',     catEn: 'Backup'        },
+  { name: 'Polylang',            catFr: 'Multilingue',    catEn: 'Multilingual'  },
+  { name: 'Astra',               catFr: 'Thème',          catEn: 'Theme'         },
+  { name: 'Rank Math SEO',       catFr: 'SEO',            catEn: 'SEO'           },
+  { name: 'Yoast SEO',           catFr: 'SEO',            catEn: 'SEO'           },
 ] as const;
 
 const labels = {
@@ -89,10 +102,10 @@ const l = labels[lang];
   <!-- Tab bar -->
   <div class="taskmgr-tabs" role="tablist" aria-label={lang === 'fr' ? 'Onglets' : 'Tabs'}>
     <button
-      class="taskmgr-tab taskmgr-tab--active"
+      class="taskmgr-tab"
       role="tab"
       id="tab-processes"
-      aria-selected="true"
+      aria-selected="false"
       aria-controls="panel-processes"
       type="button"
     >
@@ -109,10 +122,10 @@ const l = labels[lang];
       {l.tabCode}
     </button>
     <button
-      class="taskmgr-tab"
+      class="taskmgr-tab taskmgr-tab--active"
       role="tab"
       id="tab-wp"
-      aria-selected="false"
+      aria-selected="true"
       aria-controls="panel-wp"
       type="button"
     >
@@ -122,7 +135,7 @@ const l = labels[lang];
 
   <!-- Panel: Design -->
   <div
-    class="taskmgr-panel"
+    class="taskmgr-panel taskmgr-panel--hidden"
     id="panel-processes"
     role="tabpanel"
     aria-labelledby="tab-processes"
@@ -212,7 +225,7 @@ const l = labels[lang];
 
   <!-- Panel: WordPress -->
   <div
-    class="taskmgr-panel taskmgr-panel--hidden"
+    class="taskmgr-panel"
     id="panel-wp"
     role="tabpanel"
     aria-labelledby="tab-wp"
@@ -559,7 +572,6 @@ const l = labels[lang];
 }
 
 .taskmgr-cmd__running {
-  margin-left: auto;
   color: #4ade80;
   font-size: 0.6rem;
   font-weight: 700;
