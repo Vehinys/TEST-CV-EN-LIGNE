@@ -37,6 +37,19 @@ const navLinks = [
     </ul>
 
     <div class="nav-actions">
+      <!-- Mode OS toggle -->
+      <button
+        id="mode-toggle-btn"
+        class="nav-btn nav-btn--mode"
+        type="button"
+        aria-label={lang === 'fr' ? 'Passer en mode bureau interactif' : 'Switch to interactive desktop mode'}
+        title={lang === 'fr' ? 'Mode bureau' : 'Desktop mode'}
+      >
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/>
+        </svg>
+      </button>
+
       <!-- Language toggle -->
       <a href={alternatePath} class="nav-btn" aria-label={t('nav.lang.switch')} lang={lang === 'fr' ? 'en' : 'fr'}>
         {lang === 'fr' ? 'EN' : 'FR'}
@@ -250,6 +263,13 @@ const navLinks = [
   const iconSun = document.getElementById('icon-sun');
   const iconMenu = document.getElementById('icon-menu');
   const iconClose = document.getElementById('icon-close');
+
+  // Mode toggle
+  const modeBtnHeader = document.getElementById('mode-toggle-btn');
+  modeBtnHeader?.addEventListener('click', async () => {
+    const { toggleMode } = await import('../../utils/mode-switcher');
+    toggleMode();
+  });
 
   // Scroll header
   window.addEventListener('scroll', () => {

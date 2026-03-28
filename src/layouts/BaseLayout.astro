@@ -48,6 +48,16 @@ const { title, description, lang, image, isLegal = false } = Astro.props;
         document.documentElement.setAttribute('data-theme', saved ?? pref ?? 'dark');
       })();
     </script>
+
+    <!-- Portfolio mode init (prevents flash) -->
+    <script is:inline>
+      (function () {
+        const saved = localStorage.getItem('portfolio-mode');
+        const isMobile = window.innerWidth < 1024;
+        const mode = saved ?? (isMobile ? 'classic' : 'os');
+        document.documentElement.setAttribute('data-portfolio-mode', mode);
+      })();
+    </script>
   </head>
 
   <body class={isLegal ? 'legal-page' : ''}>

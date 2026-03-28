@@ -13,6 +13,16 @@ import HobbiesWindow from '../../components/windows/HobbiesWindow.astro';
 import ContactWindow from '../../components/windows/ContactWindow.astro';
 import MentionsLegalesWindow from '../../components/windows/MentionsLegalesWindow.astro';
 import PolitiqueWindow from '../../components/windows/PolitiqueWindow.astro';
+import Header from '../../components/layout/Header.astro';
+import Footer from '../../components/layout/Footer.astro';
+import Hero from '../../components/sections/Hero.astro';
+import About from '../../components/sections/About.astro';
+import Skills from '../../components/sections/Skills.astro';
+import Projects from '../../components/sections/Projects.astro';
+import Experience from '../../components/sections/Experience.astro';
+import Volunteer from '../../components/sections/Volunteer.astro';
+import Hobbies from '../../components/sections/Hobbies.astro';
+import Contact from '../../components/sections/Contact.astro';
 import { getAlternateLangPath } from '../../i18n/utils';
 
 const lang = 'en' as const;
@@ -24,51 +34,70 @@ const alternateLangPath = getAlternateLangPath(Astro.url);
   description="UI Designer based in Mulhouse, France. I create modern, accessible and high-performance websites for craftsmen, retailers and businesses in Alsace."
   lang={lang}
 >
-  <!-- Boot animation -->
-  <BootScreen lang={lang} />
+  <!-- ═══ MODE OS ═══════════════════════════════════════════════════════════ -->
+  <div id="os-ui">
+    <!-- Boot animation -->
+    <BootScreen lang={lang} />
 
-  <!-- Desktop background with particles + icons -->
-  <Desktop lang={lang} />
+    <!-- Desktop background with particles + icons -->
+    <Desktop lang={lang} />
 
-  <!-- Taskbar at bottom -->
-  <Taskbar lang={lang} alternateLangPath={alternateLangPath} />
+    <!-- Taskbar at bottom -->
+    <Taskbar lang={lang} alternateLangPath={alternateLangPath} />
 
-  <!-- All windows in DOM, hidden by default -->
-  <Window id="about" title="About" icon="👤" defaultX={120} defaultY={80} defaultWidth={680} defaultHeight={520}>
-    <AboutWindow lang={lang} />
-  </Window>
+    <!-- All windows in DOM, hidden by default -->
+    <Window id="about" title="About" icon="👤" defaultX={120} defaultY={80} defaultWidth={680} defaultHeight={520}>
+      <AboutWindow lang={lang} />
+    </Window>
 
-  <Window id="projects" title="Projects" icon="📁" defaultX={160} defaultY={60} defaultWidth={900} defaultHeight={620}>
-    <ProjectsWindow lang={lang} />
-  </Window>
+    <Window id="projects" title="Projects" icon="📁" defaultX={160} defaultY={60} defaultWidth={900} defaultHeight={620}>
+      <ProjectsWindow lang={lang} />
+    </Window>
 
-  <Window id="skills" title="Skills" icon="🛠️" defaultX={200} defaultY={90} defaultWidth={720} defaultHeight={560}>
-    <SkillsWindow lang={lang} />
-  </Window>
+    <Window id="skills" title="Skills" icon="🛠️" defaultX={200} defaultY={90} defaultWidth={720} defaultHeight={560}>
+      <SkillsWindow lang={lang} />
+    </Window>
 
-  <Window id="experience" title="Experience" icon="💼" defaultX={140} defaultY={70} defaultWidth={780} defaultHeight={600}>
-    <ExperienceWindow lang={lang} />
-  </Window>
+    <Window id="experience" title="Experience" icon="💼" defaultX={140} defaultY={70} defaultWidth={780} defaultHeight={600}>
+      <ExperienceWindow lang={lang} />
+    </Window>
 
-  <Window id="volunteer" title="Volunteer" icon="🤝" defaultX={180} defaultY={65} defaultWidth={680} defaultHeight={500}>
-    <VolunteerWindow lang={lang} />
-  </Window>
+    <Window id="volunteer" title="Volunteer" icon="🤝" defaultX={180} defaultY={65} defaultWidth={680} defaultHeight={500}>
+      <VolunteerWindow lang={lang} />
+    </Window>
 
-  <Window id="hobbies" title="Hobbies" icon="🎮" defaultX={220} defaultY={75} defaultWidth={640} defaultHeight={480}>
-    <HobbiesWindow lang={lang} />
-  </Window>
+    <Window id="hobbies" title="Hobbies" icon="🎮" defaultX={220} defaultY={75} defaultWidth={640} defaultHeight={480}>
+      <HobbiesWindow lang={lang} />
+    </Window>
 
-  <Window id="contact" title="Contact" icon="📧" defaultX={160} defaultY={85} defaultWidth={660} defaultHeight={540}>
-    <ContactWindow lang={lang} />
-  </Window>
+    <Window id="contact" title="Contact" icon="📧" defaultX={160} defaultY={85} defaultWidth={660} defaultHeight={540}>
+      <ContactWindow lang={lang} />
+    </Window>
 
-  <Window id="mentions-legales" title="Legal notice" icon="⚖️" defaultX={200} defaultY={100} defaultWidth={580} defaultHeight={480}>
-    <MentionsLegalesWindow lang={lang} />
-  </Window>
+    <Window id="mentions-legales" title="Legal notice" icon="⚖️" defaultX={200} defaultY={100} defaultWidth={580} defaultHeight={480}>
+      <MentionsLegalesWindow lang={lang} />
+    </Window>
 
-  <Window id="politique" title="Privacy policy" icon="🔒" defaultX={240} defaultY={110} defaultWidth={580} defaultHeight={520}>
-    <PolitiqueWindow lang={lang} />
-  </Window>
+    <Window id="politique" title="Privacy policy" icon="🔒" defaultX={240} defaultY={110} defaultWidth={580} defaultHeight={520}>
+      <PolitiqueWindow lang={lang} />
+    </Window>
+  </div>
+
+  <!-- ═══ MODE CLASSIQUE ════════════════════════════════════════════════════ -->
+  <div id="classic-portfolio">
+    <Header lang={lang} />
+    <main id="main-content">
+      <Hero lang={lang} />
+      <About lang={lang} />
+      <Skills lang={lang} />
+      <Projects lang={lang} />
+      <Experience lang={lang} />
+      <Volunteer lang={lang} />
+      <Hobbies lang={lang} />
+      <Contact lang={lang} />
+    </main>
+    <Footer lang={lang} />
+  </div>
 </BaseLayout>
 
 <script>
