@@ -23,11 +23,11 @@ const catMeta: Record<Category, { icon: string; labelFr: string; labelEn: string
 };
 
 const versionLabels: Record<number, string> = {
-  1: 'v0.1 alpha 🚧',
-  2: 'v1.0 beta  🧪',
+  1: 'v0.1 alpha',
+  2: 'v1.0 beta',
   3: 'v2.0 stable',
-  4: 'v3.0 LTS ⚡',
-  5: 'v5.0 PROD 🔥',
+  4: 'v3.0 LTS',
+  5: 'v5.0 PROD',
 };
 
 const processStates: Record<number, { text: string; cls: string }> = {
@@ -145,7 +145,6 @@ const l = labels[lang];
                   return (
                     <tr class={`taskmgr-row ${idx % 2 === 0 ? '' : 'taskmgr-row--alt'}`}>
                       <td class="taskmgr-td taskmgr-td--name">
-                        <span class="taskmgr-td__icon" aria-hidden="true">{skill.icon}</span>
                         {skill.name}
                       </td>
                       <td class="taskmgr-td taskmgr-td--bar">
