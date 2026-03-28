@@ -27,7 +27,10 @@
       "Bash(mv \"capture photoshop - maquette 2.png\" \"capture-photoshop-maquette-2.png\")",
       "Bash(mv \"Capture site cv.png\" \"capture-site-cv.png\")",
       "Bash(mv \"ETIQUETTE - LA DELICIEUSE.png\" \"etiquette-la-delicieuse.png\")",
-      "Bash(mv \"LA DELICIEUSE.png\" \"la-delicieuse.png\")"
+      "Bash(mv \"LA DELICIEUSE.png\" \"la-delicieuse.png\")",
+      "Bash(cwebp -version)",
+      "Bash(magick -version)",
+      "Bash(ffmpeg -version)"
     ]
   }
 }
