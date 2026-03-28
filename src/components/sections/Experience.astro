@@ -103,6 +103,7 @@ const education: LogEntry[] = [
     period: '2025 — 2026',
     title: { fr: 'Concepteur Designer UI — Niveau 6', en: 'UI Designer Conceptor — Level 6' },
     company: 'GRETA Alsace Sud',
+    url: 'https://www.greta-cfa-alsace.fr/reseau/greta-alsace-sud/',
     location: 'Mulhouse',
     description: {
       fr: 'En cours. Conception pour WordPress & UI/UX Design. Suite Adobe (Photoshop, Illustrator, XD). Intégration HTML5/CSS3 et Framework Symfony.',
@@ -117,6 +118,7 @@ const education: LogEntry[] = [
     period: '2024',
     title: { fr: 'Développeur Web & Mobile — Niveau 5', en: 'Web & Mobile Developer — Level 5' },
     company: 'Elan Formation',
+    url: 'https://elan-formation.fr/accueil',
     location: 'Mulhouse',
     description: {
       fr: 'Diplôme acquis. Maquettage Figma, JS, PHP, Symfony, SQL/NoSQL. Gestion de projet Agile, GitHub, Sécurité Web.',
@@ -130,6 +132,7 @@ const education: LogEntry[] = [
     period: '2022 — 2023',
     title: { fr: 'Infographiste Metteur en Page — Niveau 4', en: 'Graphic Designer Page Setter — Level 4' },
     company: 'GRETA Sud Alsace',
+    url: 'https://www.greta-cfa-alsace.fr/reseau/greta-alsace-sud/',
     location: 'Mulhouse',
     description: {
       fr: 'Diplôme acquis. Analyse des besoins, propositions graphiques, InDesign, Photoshop, Illustrator.',
@@ -143,6 +146,7 @@ const education: LogEntry[] = [
     period: '2021 — 2022',
     title: { fr: 'Découverte Métiers du Numérique', en: 'Introduction to Digital Professions' },
     company: 'Elan Formation',
+    url: 'https://elan-formation.fr/accueil',
     location: 'Mulhouse',
     description: {
       fr: 'Non diplômant. Initiation HTML/CSS/JS/PHP. Photoshop, Illustrator et Figma.',
@@ -227,7 +231,10 @@ const schoolKey   = lang === 'fr' ? 'École' : 'School';
                 <!-- meta: company · location · date -->
                 <p class="exp-entry__meta">
                   <span class="exp-meta-key">{companyKey}:</span>
-                  <span class="exp-meta-val"> {item.company}</span>
+                  {item.url
+                    ? <a href={item.url} class="exp-meta-val exp-meta-link" target="_blank" rel="noopener noreferrer"> {item.company}</a>
+                    : <span class="exp-meta-val"> {item.company}</span>
+                  }
                   <span class="exp-meta-sep"> · </span>
                   <span class="exp-meta-loc">{item.location}</span>
                   <span class="exp-meta-sep"> · </span>
@@ -284,7 +291,10 @@ const schoolKey   = lang === 'fr' ? 'École' : 'School';
 
                 <p class="exp-entry__meta">
                   <span class="exp-meta-key">{schoolKey}:</span>
-                  <span class="exp-meta-val"> {item.company}</span>
+                  {item.url
+                    ? <a href={item.url} class="exp-meta-val exp-meta-link exp-meta-link--edu" target="_blank" rel="noopener noreferrer"> {item.company}</a>
+                    : <span class="exp-meta-val"> {item.company}</span>
+                  }
                   <span class="exp-meta-sep"> · </span>
                   <time class="exp-meta-date">{item.period}</time>
                 </p>
@@ -632,5 +642,30 @@ const schoolKey   = lang === 'fr' ? 'École' : 'School';
   padding: 0.25rem 0.625rem;
   border-radius: 0.25rem;
   border: 1px solid rgba(255, 0, 153, 0.2);
+}
+
+/* ── Company / School link ─────────────────────────────────────── */
+.exp-meta-link {
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.exp-meta-link:hover {
+  color: var(--color-acid-green);
+  text-decoration: underline;
+}
+
+.exp-meta-link--edu:hover {
+  color: var(--color-neon-pink);
+}
+
+.exp-meta-link:focus-visible {
+  outline: 2px solid var(--color-acid-green);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+.exp-meta-link--edu:focus-visible {
+  outline-color: var(--color-neon-pink);
 }
 </style>
