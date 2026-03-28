@@ -40,7 +40,8 @@
       "Bash(rm *.png *.jpg)",
       "Bash(ls *.webp)",
       "Bash(ls public/images/*.jpg)",
-      "Bash(cd:*)"
+      "Bash(cd:*)",
+      "Bash(node:*)"
     ]
   }
 }

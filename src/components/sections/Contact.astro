@@ -71,9 +71,35 @@ const composeCmd  = lang === 'fr' ? '$ mail compose → albert.lecomte1989@gmail
             </div>
 
             <!-- Response time -->
-            <div class="ct-info__row ct-info__row--last">
+            <div class="ct-info__row">
               <span class="ct-info__key">Response</span>
               <span class="ct-info__val ct-info__val--green">{t('contact.response.time')}</span>
+            </div>
+
+            <!-- Networks -->
+            <div class="ct-info__row">
+              <span class="ct-info__key">LinkedIn</span>
+              <a
+                href="https://www.linkedin.com/in/albert-lecomte"
+                class="ct-info__val ct-info__link"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Profil LinkedIn d'Albert Lecomte"
+              >
+                /in/albert-lecomte
+              </a>
+            </div>
+            <div class="ct-info__row ct-info__row--last">
+              <span class="ct-info__key">GitHub</span>
+              <a
+                href="https://github.com/Vehinys"
+                class="ct-info__val ct-info__link"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Profil GitHub de Vehinys"
+              >
+                github.com/Vehinys
+              </a>
             </div>
 
             <!-- Status -->
@@ -157,14 +183,24 @@ const composeCmd  = lang === 'fr' ? '$ mail compose → albert.lecomte1989@gmail
                 <label for="contact-subject" class="ct-field__label">
                   <span class="ct-field__key">{t('contact.subject')}</span>
                 </label>
-                <input
-                  type="text"
+                <select
                   id="contact-subject"
                   name="subject"
-                  class="ct-input"
-                  placeholder={t('contact.subject.placeholder')}
-                  autocomplete="off"
-                />
+                  class="ct-input ct-select"
+                >
+                  <option value="" disabled selected>
+                    {lang === 'fr' ? '— Sélectionner un objet —' : '— Select a subject —'}
+                  </option>
+                  <option value={lang === 'fr' ? 'Recrutement' : 'Hiring'}>
+                    {lang === 'fr' ? 'Recrutement' : 'Hiring'}
+                  </option>
+                  <option value={lang === 'fr' ? 'Proposition de poste' : 'Job offer'}>
+                    {lang === 'fr' ? 'Proposition de poste' : 'Job offer'}
+                  </option>
+                  <option value={lang === 'fr' ? 'Autres' : 'Other'}>
+                    {lang === 'fr' ? 'Autres' : 'Other'}
+                  </option>
+                </select>
               </div>
 
               <!-- Separator -->
@@ -226,6 +262,7 @@ const composeCmd  = lang === 'fr' ? '$ mail compose → albert.lecomte1989@gmail
 /* ── Section ────────────────────────────────────────────────────── */
 .contact {
   padding-top: var(--section-padding);
+  padding-bottom: var(--section-padding);
 }
 
 /* ── Container ─────────────────────────────────────────────────── */
@@ -565,6 +602,22 @@ const composeCmd  = lang === 'fr' ? '$ mail compose → albert.lecomte1989@gmail
 .ct-textarea {
   resize: vertical;
   min-height: 110px;
+}
+
+/* ── Select ────────────────────────────────────────────────────── */
+.ct-select {
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238B5CF6' stroke-width='2.5'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.875rem center;
+  padding-right: 2.5rem;
+  cursor: pointer;
+}
+
+.ct-select option {
+  background: #0D0D1A;
+  color: #FAF5FF;
 }
 
 /* ── Separator ─────────────────────────────────────────────────── */
