@@ -4,5 +4,6 @@
   { "name": "UI / UX Design",    "category": "design", "level": 5, "icon": "layers",    "order": 3 },
   { "name": "Adobe Photoshop",   "category": "design", "level": 5, "icon": "image",     "order": 4 },
   { "name": "Adobe Illustrator", "category": "design", "level": 5, "icon": "pen-tool",  "order": 5 },
-  { "name": "InDesign",          "category": "design", "level": 5, "icon": "book-open", "order": 6 }
+  { "name": "InDesign",          "category": "design", "level": 5, "icon": "book-open", "order": 6 },
+  { "name": "Adobe Color",       "category": "design", "level": 5, "icon": "palette",   "order": 7 }
 ]

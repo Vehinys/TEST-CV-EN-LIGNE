@@ -32,7 +32,6 @@ const codeItems = [
   { name: 'Windows 11',      catFr: 'Système',      catEn: 'System'      },
   { name: 'VS Code',         catFr: 'Éditeur',      catEn: 'Editor'      },
   { name: 'Antigravity',     catFr: 'Éditeur',      catEn: 'Editor'      },
-  { name: 'JetBrains Mono',  catFr: 'Police code',  catEn: 'Code font'   },
   { name: 'Chrome',          catFr: 'Navigateur',   catEn: 'Browser'     },
   { name: 'HTML5 / CSS3',    catFr: 'Frontend',     catEn: 'Frontend'    },
   { name: 'JavaScript',      catFr: 'Frontend',     catEn: 'Frontend'    },
@@ -41,7 +40,8 @@ const codeItems = [
   { name: 'MySQL',           catFr: 'Base de données', catEn: 'Database' },
   { name: 'Git / GitHub',    catFr: 'Dépôts',       catEn: 'Repos'       },
   { name: 'Vercel',          catFr: 'Déploiement',  catEn: 'Deploy'      },
-  { name: 'SEO / SEA',       catFr: 'SEO',          catEn: 'SEO'         },
+  { name: 'SEO Naturel',     catFr: 'SEO',          catEn: 'SEO'         },
+  { name: 'Accessibilité',   catFr: 'Standards web', catEn: 'Web standards' },
 ] as const;
 
 // ── WordPress ────────────────────────────────────────────────────
@@ -51,6 +51,7 @@ const wpItems = [
   { name: 'Divi',           catFr: 'Page builder', catEn: 'Page builder' },
   { name: 'Gutenberg',      catFr: 'Éditeur WP',   catEn: 'WP Editor'    },
   { name: 'Rank Math SEO',  catFr: 'SEO',          catEn: 'SEO'          },
+  { name: 'Yoast SEO',      catFr: 'SEO',          catEn: 'SEO'          },
 ] as const;
 
 const labels = {
@@ -156,7 +157,7 @@ const l = labels[lang];
                 </td>
                 <td class="taskmgr-td taskmgr-td--level">{verLabel}</td>
                 <td class="taskmgr-td taskmgr-td--status">
-                  <span class={`taskmgr-dot taskmgr-dot--${status.dot}`} aria-label={status.label}></span>
+                  <span class={`taskmgr-dot taskmgr-dot--${status.dot}`} aria-label={status.label}>●</span>
                 </td>
               </tr>
             );
@@ -376,9 +377,6 @@ const l = labels[lang];
 }
 
 .taskmgr-td--name {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
   color: #FAF5FF;
   font-size: 0.8rem;
   white-space: nowrap;
@@ -390,8 +388,7 @@ const l = labels[lang];
 
 /* Process state */
 .taskmgr-td--bar {
-  display: flex;
-  align-items: center;
+  vertical-align: middle;
 }
 
 .taskmgr-state {
@@ -418,16 +415,13 @@ const l = labels[lang];
 
 /* Status dots */
 .taskmgr-dot {
-  display: inline-block;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  flex-shrink: 0;
+  font-size: 0.875rem;
+  line-height: 1;
 }
 
-.taskmgr-dot--green  { background: #4ade80; box-shadow: 0 0 4px #4ade80; }
-.taskmgr-dot--yellow { background: #F59E0B; box-shadow: 0 0 4px rgba(245, 158, 11, 0.6); }
-.taskmgr-dot--grey   { background: #475569; }
+.taskmgr-dot--green  { color: #4ade80; text-shadow: 0 0 6px #4ade80; }
+.taskmgr-dot--yellow { color: #F59E0B; text-shadow: 0 0 4px rgba(245, 158, 11, 0.6); }
+.taskmgr-dot--grey   { color: #475569; }
 
 /* ── CMD panel ─────────────────────────────────────────────────── */
 .taskmgr-cmd {
