@@ -66,7 +66,9 @@
   /* === TEXTE === */
   --color-text:         #FAF5FF;
   --color-text-subtle:  #C4B5FD;
+  --color-text-dim:     #94A3B8;
   --color-text-muted:   #6D28D9;
+  --color-placeholder:  rgba(196, 181, 253, 0.35);
 
   /* === ACCENTS === */
   --color-violet:       #8B5CF6;
@@ -101,6 +103,50 @@
   --animate-fade-up:  fade-up 0.6s ease both;
   --animate-fade-in:  fade-in 0.6s ease both;
   --animate-marquee:  marquee-scroll 20s linear infinite;
+}
+
+/* ================================================
+   LIGHT THEME OVERRIDES
+   ================================================ */
+[data-theme="light"] {
+  /* === FOND CLAIR === */
+  --color-bg:           #F4F0FF;
+  --color-surface:      rgba(109, 40, 217, 0.05);
+  --color-surface-2:    rgba(109, 40, 217, 0.10);
+
+  /* === TEXTE SOMBRE — RGAA AAA === */
+  /* #120B2E sur #F4F0FF → ~18:1 ✅  */
+  /* #3B1078 sur #F4F0FF → ~12:1 ✅  */
+  /* #5B21B6 sur #F4F0FF →  ~8:1 ✅  */
+  --color-text:         #120B2E;
+  --color-text-subtle:  #1E0847;
+  --color-text-dim:     #334155;
+  --color-text-muted:   #39068a;
+  --color-placeholder:  rgba(30, 8, 71, 0.4);
+
+  /* === ACCENTS ADAPTÉS AU FOND CLAIR === */
+  --color-violet:       #5B21B6;
+  --color-violet-light: #4C1D95;
+  --color-violet-dark:  #2E1065;
+  --color-gold:         #92400E;
+  --color-gold-light:   #B45309;
+  --color-gold-dark:    #78350F;
+
+  /* === UTILITAIRES === */
+  --color-border:       rgba(91, 33, 182, 0.2);
+  --color-focus:        #92400E;
+
+  /* === GLASSMORPHISM CLAIR === */
+  --glass-bg:           rgba(255, 255, 255, 0.72);
+  --glass-bg-hover:     rgba(255, 255, 255, 0.88);
+  --glass-border:       rgba(91, 33, 182, 0.18);
+  --glass-border-hover: #5B21B6;
+  --glass-shadow:       0 8px 32px rgba(46, 16, 101, 0.12);
+
+  /* === NEON ADAPTÉ — lisibles sur fond clair === */
+  --color-acid-green:    #3D7A00;
+  --color-neon-pink:     #9D0060;
+  --color-electric-cyan: #006B7A;
 }
 
 /* ================================================
@@ -337,6 +383,228 @@ textarea:focus-visible,
    ================================================ */
 body.legal-page {
   overflow: auto;
+}
+
+/* ================================================
+   LIGHT THEME — OVERRIDES COMPOSANTS HARDCODÉS
+   ================================================ */
+
+/* Skip link */
+html[data-theme="light"] .skip-link { color: #FFFFFF; }
+html[data-theme="light"] .skip-link:focus { outline-color: #FFFFFF; }
+
+/* Scrollbar */
+html[data-theme="light"] ::-webkit-scrollbar-thumb { background: rgba(91,33,182,0.3); }
+html[data-theme="light"] ::-webkit-scrollbar-thumb:hover { background: #5B21B6; }
+
+/* Sélection */
+html[data-theme="light"] ::selection { background: #5B21B6; color: #FFFFFF; }
+
+/* Body */
+html[data-theme="light"] body { background-color: var(--color-bg); color: var(--color-text); }
+
+/* ── Navbar dark mode hover ── */
+html[data-theme="dark"] .nav-link:hover,
+html[data-theme="dark"] .nav-link:focus-visible {
+  background: rgba(139, 92, 246, 0.18);
+  color: #FAF5FF;
+}
+html[data-theme="dark"] .nav-btn:hover,
+html[data-theme="dark"] .nav-btn:focus-visible {
+  background: rgba(139, 92, 246, 0.2);
+  border-color: rgba(139, 92, 246, 0.6);
+  color: #FAF5FF;
+}
+html[data-theme="dark"] .mobile-nav-link:hover,
+html[data-theme="dark"] .mobile-nav-link:focus-visible {
+  background: rgba(139, 92, 246, 0.18);
+  color: #FAF5FF;
+}
+
+/* ── Navbar light mode ── */
+/* Texte des liens par défaut : couleur principale (pas subtle) */
+html[data-theme="light"] .nav-link,
+html[data-theme="light"] .nav-btn,
+html[data-theme="light"] .mobile-nav-link {
+  color: var(--color-text);
+}
+
+/* Hover : fond violet teinté clairement visible + texte sombre */
+html[data-theme="light"] .nav-link:hover,
+html[data-theme="light"] .nav-link:focus-visible {
+  color: var(--color-text);
+  background: rgba(91, 33, 182, 0.12);
+}
+
+html[data-theme="light"] .nav-btn:hover,
+html[data-theme="light"] .nav-btn:focus-visible {
+  color: var(--color-text);
+  background: rgba(91, 33, 182, 0.14);
+  border-color: #5B21B6;
+}
+
+html[data-theme="light"] .mobile-nav-link:hover,
+html[data-theme="light"] .mobile-nav-link:focus-visible {
+  color: var(--color-text);
+  background: rgba(91, 33, 182, 0.12);
+}
+
+/* ── Panels (terminaux / fenêtres) ── */
+/* Préfixe html → spécificité (0,2,1) > scoped Astro (0,2,0) */
+html[data-theme="light"] .about-panel,
+html[data-theme="light"] .taskmgr,
+html[data-theme="light"] .proj-panel,
+html[data-theme="light"] .exp-panel,
+html[data-theme="light"] .edu-panel,
+html[data-theme="light"] .vol-panel,
+html[data-theme="light"] .hob-panel,
+html[data-theme="light"] .ct-info__panel,
+html[data-theme="light"] .ct-compose__panel {
+  background: rgba(255, 255, 255, 0.88);
+  border-color: rgba(91, 33, 182, 0.2);
+}
+
+/* ── Cards ── */
+html[data-theme="light"] .hob-card,
+html[data-theme="light"] .proj-card {
+  background: rgba(255, 255, 255, 0.72);
+  border-color: rgba(91, 33, 182, 0.18);
+}
+
+/* ── Divers fonds sombres ── */
+html[data-theme="light"] .about-ram-popup {
+  background: rgba(255, 255, 255, 0.97);
+  border-color: rgba(91, 33, 182, 0.25);
+}
+html[data-theme="light"] .ct-select option { background: #F4F0FF; color: #120B2E; }
+html[data-theme="light"] .ct-input {
+  background: rgba(255, 255, 255, 0.6);
+  border-color: rgba(91, 33, 182, 0.25);
+  color: var(--color-text);
+}
+html[data-theme="light"] .ct-input::placeholder { color: var(--color-text-muted); }
+
+/* ── Texte #FAF5FF → var(--color-text) ── */
+html[data-theme="light"] .about-identity__name,
+html[data-theme="light"] .about-table__val,
+html[data-theme="light"] .about-ram-item__title,
+html[data-theme="light"] .about-btn:hover,
+html[data-theme="light"] .taskmgr__td--name,
+html[data-theme="light"] .taskmgr__entry-name,
+html[data-theme="light"] .taskmgr__input,
+html[data-theme="light"] .proj-card__title,
+html[data-theme="light"] .exp-title-text,
+html[data-theme="light"] .edu-title-text,
+html[data-theme="light"] .vol-title-text,
+html[data-theme="light"] .hob-card__name,
+html[data-theme="light"] .ct-info__link:hover {
+  color: var(--color-text);
+}
+
+
+/* ── Texte rgba(196,181,253) → var(--color-text-muted) ── */
+html[data-theme="light"] .proj-card__desc,
+html[data-theme="light"] .exp-entry__desc,
+html[data-theme="light"] .edu-entry__desc,
+html[data-theme="light"] .vol-entry__desc,
+html[data-theme="light"] .hob-card__desc,
+html[data-theme="light"] .ct__intro {
+  color: var(--color-text-muted);
+}
+
+/* ── Violets pâles #8B5CF6 / #A78BFA → sombres (#4C1D95) ── */
+html[data-theme="light"] .about-section-hd__text,
+html[data-theme="light"] .exp-head-badge,
+html[data-theme="light"] .exp-prefix,
+html[data-theme="light"] .taskmgr__arrow,
+html[data-theme="light"] .taskmgr__tab--active,
+html[data-theme="light"] .taskmgr__tag,
+html[data-theme="light"] .proj-card__cat--design,
+html[data-theme="light"] .proj-card__cat--wordpress {
+  color: #4C1D95;
+}
+
+html[data-theme="light"] .taskmgr__tab--active {
+  border-bottom-color: #4C1D95;
+}
+
+html[data-theme="light"] .proj-card__cat--design,
+html[data-theme="light"] .proj-card__cat--wordpress {
+  background: rgba(91, 33, 182, 0.08);
+  border-color: rgba(91, 33, 182, 0.3);
+}
+
+
+/* ── Lignes intercalées (zebra stripes) ── */
+html[data-theme="light"] .about-table__row--even {
+  background: rgba(91, 33, 182, 0.10);
+}
+html[data-theme="light"] .about-table__row {
+  border-bottom-color: rgba(91, 33, 182, 0.12);
+}
+html[data-theme="light"] .taskmgr__tabs {
+  background: rgba(91, 33, 182, 0.10);
+  border-bottom-color: rgba(91, 33, 182, 0.2);
+}
+html[data-theme="light"] .taskmgr__row--alt {
+  background: rgba(91, 33, 182, 0.06);
+}
+html[data-theme="light"] .taskmgr__row:hover,
+html[data-theme="light"] .taskmgr__row--alt:hover {
+  background: rgba(91, 33, 182, 0.15);
+}
+html[data-theme="light"] .taskmgr__entry:hover {
+  background: rgba(91, 33, 182, 0.13);
+}
+html[data-theme="light"] .taskmgr__footer {
+  background: rgba(91, 33, 182, 0.10);
+  border-top-color: rgba(91, 33, 182, 0.18);
+}
+html[data-theme="light"] .exp-panel__bar {
+  background: rgba(91, 33, 182, 0.12);
+  border-bottom-color: rgba(91, 33, 182, 0.2);
+}
+
+/* ── About : badges & RAM items ── */
+html[data-theme="light"] .about-badge--available {
+  background: rgba(22, 101, 52, 0.1);
+  border-color: rgba(22, 101, 52, 0.3);
+  color: #166534;
+}
+html[data-theme="light"] .about-badge-dot {
+  background: #166534;
+}
+html[data-theme="light"] .about-badge--rqth {
+  background: rgba(157, 0, 96, 0.08);
+  border-color: rgba(157, 0, 96, 0.25);
+  color: #9D0060;
+}
+html[data-theme="light"] .about-badge--location {
+  background: rgba(91, 33, 182, 0.08);
+  border-color: rgba(91, 33, 182, 0.2);
+  color: #3B1078;
+}
+/* RAM meta (CPU/GPU/RAM label) — #94A3B8 invisible sur clair */
+html[data-theme="light"] .about-ram-item__meta {
+  color: #475569;
+}
+/* Badge "ACQUIS ✓" vert */
+html[data-theme="light"] .about-ram-item__badge--done {
+  color: #166534;
+  background: rgba(22, 101, 52, 0.1);
+  border-color: rgba(22, 101, 52, 0.3);
+}
+/* Badge "EN COURS" doré — #F59E0B trop pale sur clair */
+html[data-theme="light"] .about-ram-item__badge--wip {
+  color: #92400E;
+  background: rgba(146, 64, 14, 0.08);
+  border-color: rgba(146, 64, 14, 0.25);
+}
+/* Bouton RAM hover */
+html[data-theme="light"] .about-btn {
+  color: var(--color-text-subtle);
+  border-color: rgba(91, 33, 182, 0.25);
+  background: rgba(91, 33, 182, 0.05);
 }
 
 /* ================================================

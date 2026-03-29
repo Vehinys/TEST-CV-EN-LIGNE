@@ -15,7 +15,7 @@ const t = useTranslations(lang);
 
   <div class="a11y-panel__group">
     <span class="a11y-panel__label">Police</span>
-    <div class="a11y-panel__controls" role="group" aria-label="Taille du texte">
+    <div class="a11y-panel__controls" role="group" aria-label={t('a11y.font.size.label')}>
       <button id="a11y-font-sm" class="a11y-btn" aria-label={t('a11y.font.decrease')} title={t('a11y.font.decrease')}>A-</button>
       <button id="a11y-font-md" class="a11y-btn a11y-btn--active" aria-label={t('a11y.font.reset')} title={t('a11y.font.reset')} aria-pressed="true">A</button>
       <button id="a11y-font-lg" class="a11y-btn" aria-label={t('a11y.font.increase')} title={t('a11y.font.increase')}>A+</button>

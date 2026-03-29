@@ -41,7 +41,10 @@
       "Bash(ls *.webp)",
       "Bash(ls public/images/*.jpg)",
       "Bash(cd:*)",
-      "Bash(node:*)"
+      "Bash(node:*)",
+      "Bash(for file:*)",
+      "Bash(do echo:*)",
+      "Bash(awk:*)"
     ]
   }
 }

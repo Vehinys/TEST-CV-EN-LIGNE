@@ -73,6 +73,13 @@ const { title, description, lang, image, isLegal = false } = Astro.props;
   </head>
 
   <body class={isLegal ? 'legal-page' : ''}>
+    <!-- Particle canvas — fullscreen background, both modes -->
+    <canvas
+      id="particles-canvas"
+      aria-hidden="true"
+      style="position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;"
+    ></canvas>
+
     <!-- Skip link RGAA -->
     <a href="#main-content" class="skip-link">
       {lang === 'fr' ? 'Aller au contenu principal' : 'Skip to main content'}
